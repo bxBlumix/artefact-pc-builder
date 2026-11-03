@@ -382,7 +382,7 @@ let cat="CPU",build={};const $=id=>document.getElementById(id),money=n=>n.toLoca
 const stageDescriptions={CPU:"Alege procesorul care va sta la baza configurației.",MB:"Alege placa de bază compatibilă cu procesorul.",RAM:"Alege memoria RAM acceptată de placă și procesor.",GPU:"Alege placa video potrivită carcasei și sursei.",SSD:"Alege unitatea de stocare și interfața potrivită.",PSU:"Alege sursa cu puterea și cablurile necesare.",COOL:"Alege coolerul compatibil cu socketul și carcasa.",CASE:"Alege carcasa în care încap toate componentele.",FAN:"Alege ventilatoarele suplimentare, dacă sunt necesare."};
 function renderStages(){
  const nav=$("stageNav"); if(!nav) throw new Error("Lipsește zona de navigare a etapelor.");
- nav.innerHTML=Object.keys(names).map((k,i)=>'<button type="button" class="stage-step '+(k===cat?"active":"")+'" data-stage="'+k+'" aria-current="'+(k===cat?"step":"false")+'"><span>'+(i+1)+'</span>'+names[k]+'</button>').join("");
+ nav.innerHTML=Object.keys(names).map((k,i)=>'<button type="button" class="stage-link '+(k===cat?"active":"")+(build[k]?" done":"")+'" data-stage="'+k+'" aria-current="'+(k===cat?"step":"false")+'"><span class="stage-index">'+(i+1)+'</span><span class="stage-name">'+names[k]+'</span><span class="stage-state">'+(build[k]?"Selectată":"De ales")+'</span></button>').join("");
  $("stageTitle").textContent=(Object.keys(names).indexOf(cat)+1)+". "+names[cat];
  $("stageDescription").textContent=stageDescriptions[cat]||"Alege componenta pentru această etapă.";
  $("stageBadge").textContent="Pasul "+(Object.keys(names).indexOf(cat)+1)+" din 9";
