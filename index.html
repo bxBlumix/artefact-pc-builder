@@ -233,7 +233,31 @@ Object.assign(HW_SPECS,{
   source:"https://www.arctic.de/en/Liquid-Freezer-III-240/ACFRE00134A",verifiedOn:"2026-11-04"
  }
 });
+
+Object.assign(HW_SPECS,{
+ "Kingston FURY Beast Black EXPO 32GB (2x16GB) DDR5-6000 CL30 (KF560C30BBEK2-32)":{
+  kind:"ram",sku:"KF560C30BBEK2-32",capacityGB:32,moduleCount:2,perModuleGB:16,memoryType:"DDR5",speedMTs:6000,
+  timings:"CL30-36-36",voltageV:1.4,profiles:["AMD EXPO","Intel XMP 3.0"],heightMm:35,nonEcc:true,unbuffered:true,
+  source:"https://www.kingston.com/en/memory/gaming/kingston-fury-beast-ddr5-memory",detailStatus:"family page; verify exact SKU datasheet/QVL",verifiedOn:"2026-11-04"
+ },
+ "Corsair Vengeance 32GB (2x16GB) DDR5-6000 CL30 (CMK32GX5M2B6000Z30)":{
+  kind:"ram",sku:"CMK32GX5M2B6000Z30",capacityGB:32,moduleCount:2,perModuleGB:16,memoryType:"DDR5",speedMTs:6000,
+  timings:"CL30",voltageV:1.4,profiles:["AMD EXPO"],heightMm:35,nonEcc:true,unbuffered:true,
+  source:"https://www.corsair.com/us/en/p/memory/cmk32gx5m2b6000z30/vengeance-32gb-2x16gb-ddr5-dram-6000mt-s-cl30-memory-kit-black-cmk32gx5m2b6000z30",detailStatus:"SKU page; validate board QVL for EXPO",verifiedOn:"2026-11-04"
+ },
+ "G.Skill Trident Z5 Neo 32GB (2x16GB) DDR5-6000 CL30 (F5-6000J3038F16GX2-TZ5N)":{
+  kind:"ram",sku:"F5-6000J3038F16GX2-TZ5N",capacityGB:32,moduleCount:2,perModuleGB:16,memoryType:"DDR5",speedMTs:6000,
+  timings:"CL30-38-38-96",voltageV:1.35,profiles:["AMD EXPO"],heightMm:null,nonEcc:true,unbuffered:true,
+  source:"https://www.gskill.com/product/165/390/1662622664/F5-6000J3038F16GX2-TZ5N",detailStatus:"exact kit SKU; module height not added without verified datasheet",verifiedOn:"2026-11-04"
+ },
+ "PowerColor Hellhound Radeon RX 9070 XT 16GB (RX9070XT 16G-L/OC)":{
+  kind:"gpu",sku:"RX9070XT 16G-L/OC",gpuChip:"Navi 48",vramGB:16,vramType:"GDDR6",boardPowerW:304,systemPsuRecommendedW:800,
+  lengthMm:340,widthMm:142,heightMm:49,thicknessSlots:2.5,powerConnectors:["2x PCIe 8-pin"],requiredPcie8pin:2,variantExact:true,
+  source:"https://www.powercolor.com/product-detail44.htm",verifiedOn:"2026-11-04"
+ }
+});
 D.forEach(p=>{if(HW_SPECS[p.name])p.hw=HW_SPECS[p.name]});
+
 
 const PRODUCT_PHOTOS={
  "AMD Ryzen 5 5600":{url:"https://estore.ua/media/catalog/product/cache/8/image/650x650/9df78eab33525d08d6e5fb8d27136e95/a/m/amd-ryzen-5-5600-100-100000927box_2_.jpg",source:"https://estore.ua/processor-amd-ryzen-5-5600-100-100000927box/",label:"eStore · Ryzen 5 5600"},
