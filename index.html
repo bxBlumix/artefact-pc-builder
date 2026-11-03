@@ -43,7 +43,7 @@ D.push(
 );
 const HW_SPECS={
  "AMD Ryzen 5 5600":{kind:"cpu",socket:"AM4",tdpW:65,cores:6,threads:12,memoryType:"DDR4",memoryMaxGB:128,memorySpeedMTs:3200,pcie:"4.0",igpu:false,maxTempC:90,source:"https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-5-5600.html",verifiedOn:"2026-11-04"},
- "MSI B550M PRO-VDH WIFI":{kind:"motherboard",socket:"AM4",chipset:"B550",formFactor:"mATX",widthMm:244,heightMm:244,memoryType:"DDR4",dimmSlots:4,memoryMaxGB:128,memoryOcMaxMTs:4400,m2Slots:[{count:1,interface:"PCIe 4.0 x4 / SATA",sizes:["2242","2260","2280"],note:"M2_1; depinde de CPU"},{count:1,interface:"PCIe 3.0 x4",sizes:["2242","2260","2280"]}],sataPorts:4,pcieX16:"PCIe 4.0 / 3.0 în funcție de CPU",powerConnectors:["24-pin ATX","8-pin ATX 12V"],fanHeaders:{cpu:1,pump:1,system:3},cpuSupport:"Ryzen 5000/3000 desktop și Ryzen 4000G, cu excepțiile MSI",biosLatest:{version:"7C95v2P2",date:"2026-08-31"},biosMinimumForSelectedCpu:null,cpuBiosSupport:{"AMD Ryzen 5 5600":{minimum:"7C95v2A",evidence:"CPU support list entry",source:"https://www.msi.com/Motherboard/B550M-PRO-VDH-WIFI/support#cpu"}},biosNote:"Pentru Ryzen 5 5600: BIOS minim 7C95v2A. Compară cu versiunea instalată în BIOS/UEFI.",cpuSupportUrl:"https://www.msi.com/Motherboard/B550M-PRO-VDH-WIFI/support",source:"https://www.msi.com/Motherboard/B550M-PRO-VDH-WIFI/Specification",verifiedOn:"2026-11-04"},
+ "MSI B550M PRO-VDH WIFI":{kind:"motherboard",socket:"AM4",chipset:"B550",formFactor:"mATX",widthMm:244,heightMm:244,memoryType:"DDR4",dimmSlots:4,memoryMaxGB:128,memoryOcMaxMTs:4400,m2Slots:[{count:1,interface:"PCIe 4.0 x4 / SATA",sizes:["2242","2260","2280"],note:"M2_1; depinde de CPU"},{count:1,interface:"PCIe 3.0 x4",sizes:["2242","2260","2280"]}],sataPorts:4,pcieX16:"PCIe 4.0 / 3.0 în funcție de CPU",powerConnectors:["24-pin ATX","8-pin ATX 12V"],fanHeaders:{cpu:1,pump:1,system:3},cpuSupport:"Ryzen 5000/3000 desktop și Ryzen 4000G, cu excepțiile MSI",biosLatest:{version:"7C95v2P2",date:"2026-08-31"},biosMinimumForSelectedCpu:null,cpuBiosSupport:{"AMD Ryzen 5 5600":{minimum:"7C95v2A",evidence:"catalog entry retained; confirm directly against MSI CPU support list for exact PCB/BIOS release",source:"https://www.msi.com/Motherboard/B550M-PRO-VDH-WIFI/support#cpu"}},biosNote:"Pentru Ryzen 5 5600: BIOS minim 7C95v2A. Compară cu versiunea instalată în BIOS/UEFI.",cpuSupportUrl:"https://www.msi.com/Motherboard/B550M-PRO-VDH-WIFI/support",source:"https://www.msi.com/Motherboard/B550M-PRO-VDH-WIFI/Specification",verifiedOn:"2026-11-04"},
  "Corsair 4000D Airflow":{kind:"case",formFactors:["Mini-ITX","mATX","ATX","E-ATX up to 305 x 277 mm"],widthMm:230,heightMm:466,lengthMm:453,gpuMaxLengthMm:360,cpuCoolerMaxHeightMm:170,psuMaxLengthMm:220,radiatorSupport:{front:[240,280,360],top:[240,280],rear:[120]},fanSupport:{front:["3x120","2x140"],top:["2x120","2x140"],rear:["1x120"]},source:"https://www.corsair.com/us/en/p/pc-cases/cc-9011200-ww/4000d-airflow-tempered-glass-mid-tower-atx-case-black-cc-9011200-ww",verifiedOn:"2026-11-04"}
 };
 
@@ -60,7 +60,7 @@ Object.assign(HW_SPECS,{
 }
 });
 Object.assign(HW_SPECS,{
- "ASUS PRIME B550M-A WIFI II":{kind:"motherboard",socket:"AM4",chipset:"B550",formFactor:"mATX",widthMm:244,heightMm:244,memoryType:"DDR4",dimmSlots:4,memoryMaxGB:128,memoryOcMaxMTs:4866,m2Slots:[{interface:"PCIe 4.0 x4 / SATA",sizes:["2242","2260","2280","22110"],cpuDependent:true},{interface:"PCIe 3.0 x4 / SATA",sizes:["2242","2260","2280"]}],sataPorts:4,powerConnectors:["24-pin ATX","8-pin CPU"],cpuSupportUrl:"https://www.asus.com/motherboards-components/motherboards/prime/prime-b550m-a-wifi-ii/techspec/",biosSupportUrl:"https://www.asus.com/motherboards-components/motherboards/prime/prime-b550m-a-wifi-ii/helpdesk_bios/",biosMinimumForSelectedCpu:null,revisionRequired:false,source:"https://www.asus.com/motherboards-components/motherboards/prime/prime-b550m-a-wifi-ii/techspec/",verifiedOn:"2026-11-04"},
+ "ASUS PRIME B550M-A WIFI II":{kind:"motherboard",socket:"AM4",chipset:"B550",formFactor:"mATX",widthMm:244,heightMm:244,memoryType:"DDR4",dimmSlots:4,memoryMaxGB:128,memoryOcMaxMTs:4866,m2Slots:[{interface:"PCIe 4.0 x4 / SATA",sizes:["2242","2260","2280","22110"],cpuDependent:true},{interface:"PCIe 3.0 x4 / SATA",sizes:["2242","2260","2280"]}],sataPorts:4,powerConnectors:["24-pin ATX","8-pin CPU"],cpuPowerRequiredEPS8:1,cpuPowerOptionalEPS4:0,cpuSupportUrl:"https://www.asus.com/motherboards-components/motherboards/prime/prime-b550m-a-wifi-ii/techspec/",biosSupportUrl:"https://www.asus.com/supportonly/prime%20b550m-a%20wifi%20ii/helpdesk_cpu/",biosLatest:{version:"3645",date:"2026-09-14"},cpuBiosSupport:{"AMD Ryzen 5 5600":{minimum:"0303",pcb:"ALL",source:"https://www.asus.com/supportonly/prime%20b550m-a%20wifi%20ii/helpdesk_cpu/"}},biosMinimumForSelectedCpu:null,revisionRequired:false,source:"https://www.asus.com/motherboards-components/motherboards/prime/prime-b550m-a-wifi-ii/techspec/",verifiedOn:"2026-11-04"},
  "Gigabyte B550 AORUS ELITE V2":{kind:"motherboard",socket:"AM4",chipset:"B550",formFactor:"ATX",widthMm:305,heightMm:244,memoryType:"DDR4",dimmSlots:4,memoryMaxGB:128,m2Slots:[{interface:"PCIe 4.0 x4 / SATA",sizes:["2242","2260","2280","22110"],cpuDependent:true},{interface:"PCIe 3.0 x4 / SATA",sizes:["2242","2260","2280","22110"]}],sataPorts:4,powerConnectors:["24-pin ATX","8-pin CPU","4-pin CPU"],cpuSupportUrl:"https://www.gigabyte.com/Motherboard/B550-AORUS-ELITE-V2-rev-10-11/sp",biosSupportUrl:"https://www.gigabyte.com/Motherboard/B550-AORUS-ELITE-V2-rev-10-11/support",biosMinimumForSelectedCpu:null,revisionRequired:true,revisionNote:"Trebuie confirmată revizia PCB (1.0/1.1/1.2 etc.); BIOS-ul diferă între revizii.",source:"https://www.gigabyte.com/Motherboard/B550-AORUS-ELITE-V2-rev-10-11/sp",verifiedOn:"2026-11-04"},
  "MSI MAG B550 TOMAHAWK":{kind:"motherboard",socket:"AM4",chipset:"B550",formFactor:"ATX",widthMm:305,heightMm:244,memoryType:"DDR4",dimmSlots:4,memoryMaxGB:128,m2Slots:[{interface:"PCIe 4.0 x4 / SATA",sizes:["2242","2260","2280","22110"],cpuDependent:true},{interface:"PCIe 3.0 x4",sizes:["2242","2260","2280"]}],sataPorts:6,powerConnectors:["24-pin ATX","8-pin CPU","4-pin CPU"],cpuSupportUrl:"https://www.msi.com/Motherboard/MAG-B550-TOMAHAWK/Specification",biosSupportUrl:"https://www.msi.com/Motherboard/MAG-B550-TOMAHAWK/support",biosMinimumForSelectedCpu:null,source:"https://www.msi.com/Motherboard/MAG-B550-TOMAHAWK/Specification",verifiedOn:"2026-11-04"},
  "ASUS ROG STRIX B550-F GAMING WIFI II":{kind:"motherboard",socket:"AM4",chipset:"B550",formFactor:"ATX",widthMm:305,heightMm:244,memoryType:"DDR4",dimmSlots:4,memoryMaxGB:128,m2Slots:[{interface:"PCIe 4.0 x4 / SATA",sizes:["2242","2260","2280","22110"],cpuDependent:true},{interface:"PCIe 3.0 x4 / SATA",sizes:["2242","2260","2280","22110"],note:"ocuparea slotului dezactivează SATA6G_5/6"}],sataPorts:6,powerConnectors:["24-pin ATX","8-pin CPU"],cpuSupportUrl:"https://rog.asus.com/motherboards/rog-strix/rog-strix-b550-f-gaming-wifi-ii-model/spec/",biosSupportUrl:"https://rog.asus.com/motherboards/rog-strix/rog-strix-b550-f-gaming-wifi-ii-model/helpdesk_bios/",biosMinimumForSelectedCpu:null,source:"https://rog.asus.com/motherboards/rog-strix/rog-strix-b550-f-gaming-wifi-ii-model/spec/",verifiedOn:"2026-11-04"},
@@ -195,10 +195,10 @@ Object.assign(HW_SPECS,{
   source:"https://www.corsair.com/eu/en/p/psu/cp-9020210-eu/cv-series-cv550-550-watt-80-plus-bronze-certified-psu-cp-9020210-eu",verifiedOn:"2026-11-04"
  },
  "Seasonic Focus GX-650 Gold":{
-  kind:"psu",sku:null,wattageW:650,lengthMm:140,widthMm:150,heightMm:86,modular:true,
-  connectors:{atx24:null,eps4plus4:null,pcie6plus2:null,pcie12plus4:null,sata:null,molex:null},
-  detailStatus:"INCOMPLETE: Focus GX-650 has multiple model/revision variants; connector map withheld until exact SSR part number / revision is identified.",
-  source:"https://seasonic.com/focus-gx/",verifiedOn:"2026-11-04"
+  kind:"psu",sku:"SSR-650FX (legacy variant; verify product label)",wattageW:650,lengthMm:140,widthMm:150,heightMm:86,modular:true,atxVersion:"ATX12V/EPS12V",
+  connectors:{atx24:1,eps4plus4:1,eps8:0,pcie6plus2:4,pcie12plus4:0,sata:8,molex:3,fdd:1},
+  detailStatus:"LEGACY SKU SSR-650FX: connector counts from the SSR-650FX-specific legacy wiring table (1 EPS, 4 PCIe 6+2, 8 SATA, 3 peripheral, 1 FDD). Do not apply to later FOCUS GX revisions; confirm the label on the physical PSU.",
+  source:"https://gzhls.at/blob/ldb/d/8/8/7/05eac826cc1887cf4475cbc761d293c43b5a.pdf",manufacturerSource:"https://seasonic.com/cable-compatibility/",verifiedOn:"2026-11-04"
  },
  "be quiet! Pure Power 12 M 750W":{
   kind:"psu",sku:"BN343",ean:"4260052189481",wattageW:750,lengthMm:160,widthMm:150,heightMm:86,modular:true,atxVersion:"3.1",
@@ -223,10 +223,11 @@ Object.assign(HW_SPECS,{
   source:"https://www.coolermaster.com/en-us/products/hyper-212-black-edition-with-lga1700.html",note:"Suportul AM5 poate depinde de kitul inclus în pachet; verifică SKU-ul/revizia pachetului.",verifiedOn:"2026-11-04"
  },
  "Thermalright Peerless Assassin 120 SE":{
-  kind:"cooler",sku:"PA120 SE (finish-specific SKU not resolved)",heightMm:155,widthMm:125,depthMm:110,weightG:730,fanClearanceRamMm:null,detailStatus:"Exact SE model dimensions and socket support verified; color/retail SKU must be confirmed before treating the finish variant as exact.",
-  sockets:["AM5","AM4","LGA1700","LGA1851","LGA1200","LGA115x"],
-  fan:{sizeMm:120,thicknessMm:25,connector:"4-pin PWM",count:2},
-  source:"https://www.thermalright.com/product/peerless-assassin-120-se-black/",detailStatus:"model dimensions from official SE Black listing; exact finish/part number in catalog not resolved",verifiedOn:"2026-11-04"
+  kind:"cooler",sku:"PA120-SE",ean:"814256003759",manufacturerModel:"Peerless Assassin 120 SE",heightMm:155,widthMm:125,depthMm:110,weightG:730,fanClearanceRamMm:null,heatsinkDimensionMm:{length:125,width:110,height:155},
+  sockets:["AM5","AM4","LGA1851","LGA1700","LGA1200","LGA115x"],
+  fan:{model:"TL-C12C",sizeMm:120,thicknessMm:25,connector:"4-pin PWM",count:2,speedRPM:1550,airflowCFM:66.17,noiseDBA:25.6},heatPipes:{count:6,diameterMm:6},
+  detailStatus:"Exact model PA120-SE; EAN 814256003759. Official manufacturer dimensions and socket support; installed fan position/RAM clearance still requires physical measurement.",
+  source:"https://www.thermalright.com/product/peerless-assassin-120-se/",eanSource:"https://www.microcenter.com/product/704460/thermalright-peerless-assassin-120-se-cpu-air-cooler",verifiedOn:"2026-11-04"
  },
  "Arctic Liquid Freezer III 240":{
   kind:"cooler",sku:"ACFRE00134A",radiatorMm:240,radiator:{lengthMm:277,widthMm:120,thicknessMm:38,overallThicknessWithFansMm:66},radiatorEnvelope:{lengthMm:277,widthMm:120,thicknessMm:66},
@@ -367,6 +368,13 @@ function check(){
    const estimate=(gpuW!==null&&gpuW!==undefined)?Math.ceil((cpuW+gpuW+100)*1.35/50)*50:0;
    const required=Math.max(estimate,recommended);add(psuW>=required?"ok":"warn","Putere sursă estimată",(gpuW!==null&&gpuW!==undefined?("CPU "+cpuW+" W + GPU "+gpuW+" W; estimare cu rezervă "+estimate+" W. "):"Consum exact GPU neconfirmat. ")+"Recomandarea producătorului GPU "+(recommended||"necunoscută")+" W; reper folosit "+required+" W; sursă "+psuW+" W. Verificare orientativă, nu certifică răspunsul la tranzienți sau calitatea sursei.");
   }else add("warn","Putere sursă","Lipsește consumul GPU și/sau recomandarea producătorului, ori puterea verificată a sursei.");
+  if(m){
+   const mh=hw(m),con=ph.connectors;
+   if(mh.cpuPowerRequiredEPS8&&con){
+    const available=Number(con.eps4plus4||0)+Number(con.eps8||0);
+    add(available>=mh.cpuPowerRequiredEPS8?"ok":"bad","Conector alimentare CPU", "Placa cere cel puțin "+mh.cpuPowerRequiredEPS8+" conector EPS 8-pin; sursa declară "+available+" cablu/cabluri EPS 8-pin (4+4 sau 8-pin). Conectorii suplimentari de 4-pin, dacă există, sunt verificați separat în manualul plăcii.");
+   }else add("warn","Conector alimentare CPU","Numărul conectorilor EPS necesari sau disponibili nu este documentat complet.");
+  }
   if(gh.variantExact&&gh.required12VHPWR&&ph.connectors){
    const native=Number(ph.connectors.pcie12plus4||0),eight=Number(ph.connectors.pcie6plus2||0),need=Number(gh.adapterPcie8pin||2);
    const ok=native>=1||eight>=need;
