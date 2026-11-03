@@ -257,6 +257,13 @@ Object.assign(HW_SPECS,{
  }
 });
 D.forEach(p=>{if(HW_SPECS[p.name])p.hw=HW_SPECS[p.name]});
+D.forEach(p=>{
+ if(p.cat==="RAM"){
+  const speed=String(p.desc||"").match(/(\d{4})\s*MT\/s/i);
+  p.hw={...(p.hw||{}),kind:"ram",capacityGB:Number(p.spec)||null,memoryType:p.socket||null,speedMTs:p.hw?.speedMTs||(speed?Number(speed[1]):null),detailStatus:p.hw?.sku?"exact kit SKU":"catalog-level only; exact kit SKU not recorded"};
+ }
+});
+
 
 
 const PRODUCT_PHOTOS={
@@ -292,9 +299,18 @@ function check(){
  if(ram&&m){
   const rh=hw(ram),mh=hw(m),gen=ram.socket;
   add(gen&&m.spec&&gen===m.spec?"ok":gen&&m.spec?"bad":"warn","Generație RAM",gen&&m.spec?(gen===m.spec?"RAM "+gen+" corespunde.":"RAM "+gen+" nu corespunde plăcii "+m.spec+"."):"Lipsește tipul memoriei.");
-  if(rh.capacityGB&&mh.memoryMaxGB)add(rh.capacityGB<=mh.memoryMaxGB?"ok":"bad","Capacitate RAM",rh.capacityGB+" GB / limită "+mh.memoryMaxGB+" GB.");
+  const capacity=rh.capacityGB??Number(ram.spec)||null;
+  if(capacity&&mh.memoryMaxGB)add(capacity<=mh.memoryMaxGB?"ok":"bad","Capacitate RAM",capacity+" GB / limită placă "+mh.memoryMaxGB+" GB.");
   else add("warn","Capacitate RAM","Capacitatea kitului sau limita plăcii nu este verificată.");
-  add("warn","Frecvență / XMP / EXPO","Verifică frecvența în funcție de numărul de module, rank, profilul XMP/EXPO și QVL-ul exact.");
+  if(rh.moduleCount&&mh.dimmSlots)add(rh.moduleCount<=mh.dimmSlots?"ok":"bad","Număr module RAM",rh.moduleCount+" module / "+mh.dimmSlots+" sloturi DIMM.");
+  else add("warn","Număr module RAM","Numărul modulelor sau sloturilor DIMM nu este cunoscut.");
+  const speed=rh.speedMTs,boardMax=mh.memoryOcMaxMTs,cpuMax=ch.memorySpeedMTs;
+  if(speed&&boardMax)add(speed<=boardMax?"ok":"warn","Frecvență RAM / placă",speed+" MT/s; limita OC publicată a plăcii este "+boardMax+" MT/s. Frecvența efectivă depinde de CPU, BIOS și configurația DIMM.");
+  else add("warn","Frecvență RAM / placă","Nu este disponibilă limita de memorie a plăcii pentru a valida frecvența kitului.");
+  if(speed&&cpuMax)add(speed<=cpuMax?"ok":"warn","Frecvență RAM / controler CPU",speed+" MT/s kit; viteza oficială de memorie a CPU este "+cpuMax+" MT/s. Profilul XMP/EXPO peste specificația CPU este overclocking și nu este garantat.");
+  else add("warn","Frecvență RAM / CPU","Viteza oficială de memorie a procesorului nu este înregistrată.");
+  if(rh.profiles?.length)add("warn","XMP / EXPO / QVL","Kitul declară profil(uri): "+rh.profiles.join(", ")+". Activarea este overclocking; verifică QVL-ul exact al plăcii, versiunea BIOS și configurația de 2/4 DIMM.");
+  else add("warn","XMP / EXPO / QVL","Profilul kitului nu este identificat după SKU. Verifică QVL-ul producătorului.");
  }else add("warn","Memorie RAM","Selectează RAM și placă de bază.");
  if(m&&cs){
   const mh=hw(m),sh=hw(cs),form=mh.formFactor;
