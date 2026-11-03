@@ -49,6 +49,84 @@ Object.assign(HW_SPECS,{
  "Radeon RX 7800 XT":{kind:"gpu",gpuChip:"Navi 32",vramGB:16,vramType:"GDDR6",boardPowerW:263,systemPsuRecommendedW:700,referencePowerConnectors:["2x PCIe 8-pin"],lengthMm:267,thicknessSlots:2.5,variantExact:false,variantNote:"TBP și conectori de referință AMD; dimensiunea de 267 mm este placa AMD de referință, nu confirmă varianta PowerColor din catalog.",source:"https://www.amd.com/en/products/graphics/desktops/radeon/7000-series/amd-radeon-rx-7800-xt.html",verifiedOn:"2026-11-04"},
  "Radeon RX 9070 XT":{kind:"gpu",gpuChip:"Navi 48",vramGB:16,vramType:"GDDR6",boardPowerW:304,systemPsuRecommendedW:750,referencePowerConnectors:["2x PCIe 8-pin"],lengthMm:null,widthMm:null,thicknessSlots:null,variantExact:false,variantNote:"Specificații de referință AMD; dimensiunile și grosimea modelului PowerColor exact nu sunt confirmate.",source:"https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070XT.html",verifiedOn:"2026-11-04"}
 });
+
+const CPU_DETAIL={
+ "Ryzen 3 4100":[4,8,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 5 4500":[6,12,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 5 5500":[6,12,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 5 5600G":[6,12,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 5 5600X":[6,12,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 7 5800X":[8,16,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 7 5800X3D":[8,16,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 9 5900X":[12,24,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 9 5950X":[16,32,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 5 7500F":[6,12,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 7 7700":[8,16,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 7 7700X":[8,16,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 9 7900":[12,24,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 9 7900X":[12,24,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 9 7950X":[16,32,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 5 8500G":[6,12,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 7 8700G":[8,16,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 5 9600":[6,12,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 7 9700X":[8,16,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 7 9800X3D":[8,16,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 9 9900X":[12,24,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Ryzen 9 9950X":[16,32,"https://www.amd.com/en/products/processors/desktops/ryzen.html"],
+ "Core i3-10100F":[4,8,"https://ark.intel.com/"],
+ "Core i5-10400F":[6,12,"https://ark.intel.com/"],
+ "Core i7-10700K":[8,16,"https://ark.intel.com/"],
+ "Core i5-11400F":[6,12,"https://ark.intel.com/"],
+ "Core i7-11700K":[8,16,"https://ark.intel.com/"],
+ "Core i5-12600KF":[10,16,"https://www.intel.com/content/www/us/en/products/sku/134589/intel-core-i5-12600kf-processor-20m-cache-up-to-4-90-ghz/specifications.html"],
+ "Core i7-12700KF":[12,20,"https://www.intel.com/content/www/us/en/products/sku/134594/intel-core-i7-12700kf-processor-25m-cache-up-to-5-00-ghz/specifications.html"],
+ "Core i9-12900K":[16,24,"https://www.intel.com/content/www/us/en/products/sku/134599/intel-core-i9-12900k-processor-30m-cache-up-to-5-20-ghz/specifications.html"],
+ "Core i5-13500":[14,20,"https://ark.intel.com/"],
+ "Core i7-13700KF":[16,24,"https://ark.intel.com/"],
+ "Core i9-13900K":[24,32,"https://ark.intel.com/"],
+ "Core i7-14700KF":[20,28,"https://ark.intel.com/"],
+ "Core i9-14900K":[24,32,"https://ark.intel.com/"],
+ "Core Ultra 5 225":[10,10,"https://www.intel.com/content/www/us/en/products/sku/241070/intel-core-ultra-5-processor-225-20m-cache-up-to-4-90-ghz/specifications.html"],
+ "Core Ultra 7 265K":[20,20,"https://www.intel.com/content/www/us/en/products/sku/241063/intel-core-ultra-7-processor-265k-30m-cache-up-to-5-50-ghz/specifications.html"],
+ "Core Ultra 9 285K":[24,24,"https://www.intel.com/content/www/us/en/products/docs/processors/core-ultra/core-ultra-desktop-processors-series-2-brief.html"]
+};
+const PSU_DETAIL={
+ "Corsair CX650":{wattageW:650,lengthMm:140,widthMm:150,heightMm:86,modular:false,atxVersion:"2.4",connectors:{atx24:1,eps4plus4:1,pcie6plus2:2,sata:6,molex:null},sku:"CP-9020122-EU",source:"https://www.corsair.com/ww/en/p/psu/cp-9020122-eu/cx-series-cx650-650-watt-80-plus-bronze-certified-atx-psu-eu-cp-9020122-eu"},
+ "Corsair RM750x":{wattageW:750,lengthMm:160,widthMm:150,heightMm:86,modular:true,atxVersion:"2.4",connectors:{atx24:1,eps4plus4:2,pcie6plus2:4,sata:10,molex:null},sku:"CP-9020199-EU",source:"https://www.corsair.com/ww/en/p/psu/cp-9020199-eu/rmx-series-rm750x-750-watt-80-plus-gold-fully-modular-atx-psu-cp-9020199-eu"},
+ "Corsair RM1000x":{wattageW:1000,lengthMm:180,widthMm:150,heightMm:86,modular:true,atxVersion:"2.4",connectors:{atx24:1,eps4plus4:3,pcie6plus2:6,sata:14,molex:null},sku:"CP-9020201-EU",source:"https://www.corsair.com/eu/en/p/psu/cp-9020201-eu/rmx-series-rm1000x-1000-watt-80-plus-gold-fully-modular-atx-psu-eu-cp-9020201-eu"},
+ "Seasonic Focus GX-750":{wattageW:750,lengthMm:140,widthMm:150,heightMm:86,modular:true,connectors:{atx24:1,eps4plus4:2,pcie6plus2:4,sata:10,molex:3},source:"https://seasonic.com/focus-gx/"},
+ "Seasonic Focus GX-850":{wattageW:850,lengthMm:140,widthMm:150,heightMm:86,modular:true,connectors:{atx24:1,eps4plus4:2,pcie6plus2:6,sata:10,molex:5},source:"https://seasonic.com/focus-gx/"},
+ "Thermaltake Toughpower GF A3 750W":{wattageW:750,lengthMm:null,widthMm:null,heightMm:null,modular:true,atxVersion:"3.0",connectors:{atx24:1,eps4plus4:2,pcie6plus2:4,pcie12plus4:1,sata:8,molex:4},source:"https://file.thermaltake.com/file/qig/TOUGHPOWER_GF_A3_750_850_1050_1200W_Manual_H.pdf"},
+ "MSI MAG A750GL PCIE5":{wattageW:750,lengthMm:null,widthMm:null,heightMm:null,modular:true,atxVersion:"3.1",connectors:{atx24:1,eps4plus4:2,pcie6plus2:3,pcie12plus4:1,sata:8,molex:4},sku:"MAG A750GL PCIE5",source:"https://www.msi.com/Power-Supply/MAG-A750GL-PCIE5/Overview"},
+ "MSI MPG A850G PCIE5":{wattageW:850,lengthMm:null,widthMm:null,heightMm:null,modular:true,atxVersion:"3.0",connectors:null,source:"https://www.msi.com/Power-Supply/MPG-A850G-PCIE5"},
+ "Seasonic Vertex GX-1000":{wattageW:1000,lengthMm:null,widthMm:null,heightMm:null,modular:true,atxVersion:"3.0",connectors:null,source:"https://seasonic.com/vertex-gx/"},
+ "be quiet! Pure Power 12 M 850W":{wattageW:850,lengthMm:null,widthMm:null,heightMm:null,modular:true,atxVersion:"3.0",connectors:null,source:"https://www.bequiet.com/en/powersupply"},
+ "be quiet! System Power 10 550W":{wattageW:550,lengthMm:null,widthMm:null,heightMm:null,modular:false,connectors:null,source:"https://www.bequiet.com/en/powersupply"},
+ "Cooler Master MWE 650 Bronze V2":{wattageW:650,lengthMm:140,widthMm:150,heightMm:86,modular:false,connectors:{atx24:1,eps4plus4:1,pcie6plus2:2,sata:null,molex:null},source:"https://www.coolermaster.com/en-global/products/mwe-750-bronze-v2-full-range.html",note:"Pagina oficială găsită este pentru varianta 750 W; nu transfera conectorii către SKU-ul 650 W."},
+ "DeepCool PK750D":{wattageW:750,lengthMm:null,widthMm:null,heightMm:null,modular:false,connectors:null,source:"https://www.deepcool.com/"},
+ "MSI MAG A650BN":{wattageW:650,lengthMm:null,widthMm:null,heightMm:null,modular:false,connectors:null,source:"https://www.msi.com/Power-Supply/MAG-A650BN/Specification"},
+ "Seasonic B12 BC-650":{wattageW:650,lengthMm:null,widthMm:null,heightMm:null,modular:false,connectors:null,source:"https://seasonic.com/b12-bc/"}
+};
+const COOL_DETAIL={
+ "Noctua NH-U12S redux":{heightMm:158,widthMm:125,depthMm:71,weightG:710,sockets:["AM5","AM4","LGA1700","LGA1851","LGA1200","LGA115x"],fan:{sizeMm:120,connector:"4-pin PWM",count:1},source:"https://www.noctua.at/en/products/nh-u12s-redux/specifications"},
+ "Noctua NH-D15 chromax.black":{heightMm:165,widthMm:150,depthMm:135,weightG:1320,sockets:["AM5","AM4","LGA1700","LGA1851","LGA1200","LGA115x"],fan:{sizeMm:140,connector:"4-pin PWM",count:2},source:"https://cdn.noctua.at/media/noctua_nh-d15_chromax.black_infosheet_en_web.pdf"},
+ "Noctua NH-U12A chromax.black":{heightMm:158,widthMm:125,depthMm:112,weightG:1220,sockets:["AM5","AM4","LGA1700","LGA1851","LGA1200","LGA115x"],fan:{sizeMm:120,connector:"4-pin PWM",count:2},source:"https://www.noctua.at/en/products/nh-u12a-chromax-black/specifications"},
+ "DeepCool AK400":{heightMm:155,widthMm:127,depthMm:97,weightG:661,sockets:["AM5","AM4","LGA1851","LGA1700","LGA1200","LGA1151","LGA1150","LGA1155"],fan:{sizeMm:120,connector:"4-pin PWM",count:1},source:"https://deepcool.com/products/Cooling/cpuaircoolers/AK400-Performance-CPU-Cooler-1851-1700-AM5/2024/15222.shtml"},
+ "DeepCool AK620":{heightMm:160,widthMm:129,depthMm:138,weightG:1456,sockets:["AM5","AM4","LGA1700","LGA1200","LGA115x"],fan:{sizeMm:120,connector:"4-pin PWM",count:2},source:"https://uk.deepcool.com/company/pressroom/newsrelease/2022/16542.shtml?id=PressRoom"},
+ "Thermalright Phantom Spirit 120 SE":{heightMm:null,widthMm:null,depthMm:null,weightG:null,sockets:["AM5","AM4","LGA1700"],fan:{sizeMm:120,connector:"4-pin PWM",count:2},source:"https://www.thermalright.com/product/phantom-spirit-120/",note:"Pagina oficială găsită descrie Phantom Spirit 120 standard, nu confirmă automat varianta SE."},
+ "Arctic Liquid Freezer III 360":{radiatorMm:360,radiator:{lengthMm:398,widthMm:120,thicknessMm:38},tubeLengthMm:450,sockets:["AM5","AM4","LGA1700","LGA1851"],pumpConnector:"4-pin PWM",fan:{sizeMm:120,connector:"4-pin PWM",count:3},source:"https://www.arctic.de/en/Liquid-Freezer-III-360/ACFRE00136A"},
+ "NZXT Kraken 240":{radiatorMm:240,radiator:{lengthMm:null,widthMm:null,thicknessMm:null},sockets:["AM5","AM4","LGA1700","LGA1851","LGA1200","LGA115x"],source:"https://nzxt.com/en-int/products/kraken-240",note:"Specificațiile detaliate disponibile în sursa găsită se referă la Kraken Elite 240, nu sunt copiate pe Kraken 240."},
+ "Corsair H100x RGB Elite":{radiatorMm:240,radiator:{lengthMm:null,widthMm:null,thicknessMm:null},sockets:["AM5","AM4","LGA1700"],source:"https://www.corsair.com/"},
+ "Cooler Master MasterLiquid 360L Core":{radiatorMm:360,radiator:{lengthMm:null,widthMm:null,thicknessMm:null},sockets:["AM5","AM4","LGA1700"],source:"https://www.coolermaster.com/"}
+};
+D.forEach(p=>{
+ if(p.cat==="CPU"){
+  const d=CPU_DETAIL[p.name];
+  p.hw={...(p.hw||{}),kind:"cpu",socket:p.socket,tdpW:Number(p.spec)||null,cores:d?.[0]??null,threads:d?.[1]??null,manufacturerSource:d?.[2]??(p.brand==="AMD"?"https://www.amd.com/en/products/processors/desktops/ryzen.html":"https://ark.intel.com/"),detailStatus:d?"core/thread mapped; verify exact SKU page":"partial"};
+ }
+ if(p.cat==="PSU")p.hw={...(p.hw||{}),kind:"psu",...(PSU_DETAIL[p.name]||{wattageW:Number(p.spec)||null}),detailStatus:PSU_DETAIL[p.name]?.connectors?"partial verified PSU SKU":"partial; connectors/dimensions unverified"};
+ if(p.cat==="COOL")p.hw={...(p.hw||{}),kind:"cooler",heightMm:Number(p.spec)||null,sockets:String(p.socket||"").split(",").filter(Boolean),...(COOL_DETAIL[p.name]||{}),detailStatus:COOL_DETAIL[p.name]?.source?"model-specific reference; check variant":"partial"};
+});
 D.forEach(p=>{if(HW_SPECS[p.name])p.hw=HW_SPECS[p.name]});
 
 const PRODUCT_PHOTOS={
