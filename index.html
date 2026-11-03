@@ -48,7 +48,7 @@ const D=[
 ["COOL","DeepCool AG400","DeepCool",2022,130,"AM4,AM5,LGA1700",150,"Air · 120 mm"],["COOL","Cooler Master Hyper 212 Black","Cooler Master",2020,190,"AM4,AM5,LGA1700",152,"Air · 120 mm"],["COOL","Thermalright Peerless Assassin 120 SE","Thermalright",2022,220,"AM4,AM5,LGA1700",155,"Dual tower · 120 mm"],["COOL","Arctic Liquid Freezer III 240","Arctic",2024,420,"AM4,AM5,LGA1700,LGA1851",0,"AIO · radiator 240 mm"],
 ["FAN","Arctic P12 PWM PST 120 mm","Arctic",2020,35,"",120,"120 mm · PWM"],["FAN","Noctua NF-A14 PWM 140 mm","Noctua",2020,115,"",140,"140 mm · PWM"],["FAN","Corsair AF120 RGB ELITE","Corsair",2022,115,"",120,"120 mm · RGB"],["FAN","Lian Li UNI FAN SL-INF 120","Lian Li",2022,145,"",120,"120 mm · ARGB"],
 ["RAM","HyperX Predator 16GB DDR4-4600 HX446C19PB3K2/16","Hyper X",2020,520,"DDR4",16,"2×8GB · XMP · QVL ASUS ROG/B550M-A"],["RAM","Corsair Vengeance LPX 16GB DDR4-4400 CMK16GX4M2K4400C19","Corsair",2020,420,"DDR4",16,"2×8GB · XMP · SKU ver4.31"],["RAM","G.Skill Trident Z 16GB DDR4-4400 F4-4400C19D-16GTZSW","G.Skill",2020,460,"DDR4",16,"2×8GB · XMP · Samsung IC"],["RAM","Thermaltake TOUGHRAM 16GB DDR4-4400 R017D408GX2-4400C19A","Thermaltake",2021,430,"DDR4",16,"2×8GB · XMP · Ver.2.1.4"],].map(a=>({cat:a[0],name:a[1],brand:a[2],year:a[3],price:a[4],socket:a[5],spec:a[6],desc:a[7]}));
-// Catalogul de bază este definit explicit mai sus; nu există o listă EXTRA externă.
+if (typeof EXTRA !== 'undefined' && Array.isArray(EXTRA)) D.push(...EXTRA);
 D.push(
  {cat:"GPU",name:"ASUS TUF Gaming GeForce RTX 5070 12GB (TUF-RTX5070-12G-GAMING)",brand:"ASUS",year:2025,price:3650,socket:"",spec:250,desc:"12 GB GDDR7 · 329 × 140 × 62.5 mm · 3.125 sloturi · 1×16-pin"},
  {cat:"GPU",name:"Gigabyte GeForce RTX 5070 WINDFORCE OC SFF 12G (GV-N5070WF3OC-12GD)",brand:"Gigabyte",year:2025,price:3450,socket:"",spec:250,desc:"12 GB GDDR7 · 282 × 110 × 50 mm · 16-pin"},
@@ -379,10 +379,25 @@ const PRODUCT_PHOTOS={
 };
 D.forEach(p=>{const photo=PRODUCT_PHOTOS[p.name];if(photo){p.imageUrl=photo.url;p.imageSource=photo.source;p.imageLabel=photo.label;p.imageVerified=false;p.imageStatus="Sursă asociată; potrivirea vizuală a imaginii cu SKU-ul exact este încă în verificare."}});
 let cat="CPU",build={};const $=id=>document.getElementById(id),money=n=>n.toLocaleString("ro-RO")+" RON";
-Object.keys(names).forEach(k=>{let b=document.createElement("button");b.textContent=names[k];b.onclick=()=>{cat=k;draw()};b.dataset.k=k;$("tabs").append(b)});
+const stageDescriptions={CPU:"Alege procesorul care va sta la baza configurației.",MB:"Alege placa de bază compatibilă cu procesorul.",RAM:"Alege memoria RAM acceptată de placă și procesor.",GPU:"Alege placa video potrivită carcasei și sursei.",SSD:"Alege unitatea de stocare și interfața potrivită.",PSU:"Alege sursa cu puterea și cablurile necesare.",COOL:"Alege coolerul compatibil cu socketul și carcasa.",CASE:"Alege carcasa în care încap toate componentele.",FAN:"Alege ventilatoarele suplimentare, dacă sunt necesare."};
+function renderStages(){
+ const nav=$("stageNav"); if(!nav) throw new Error("Lipsește zona de navigare a etapelor.");
+ nav.innerHTML=Object.keys(names).map((k,i)=>'<button type="button" class="stage-step '+(k===cat?"active":"")+'" data-stage="'+k+'" aria-current="'+(k===cat?"step":"false")+'"><span>'+(i+1)+'</span>'+names[k]+'</button>').join("");
+ $("stageTitle").textContent=(Object.keys(names).indexOf(cat)+1)+". "+names[cat];
+ $("stageDescription").textContent=stageDescriptions[cat]||"Alege componenta pentru această etapă.";
+ $("stageBadge").textContent="Pasul "+(Object.keys(names).indexOf(cat)+1)+" din 9";
+ $("prevStage").disabled=cat==="CPU";
+ $("nextStage").disabled=cat==="FAN";
+}
+Object.keys(names).forEach(k=>{});
+$("stageNav").addEventListener("click",e=>{const b=e.target.closest("[data-stage]");if(b){cat=b.dataset.stage;$("q").value="";draw()}});
+const stages=Object.keys(names);
+$("prevStage").addEventListener("click",()=>{const i=stages.indexOf(cat);if(i>0){cat=stages[i-1];$("q").value="";draw()}});
+$("nextStage").addEventListener("click",()=>{const i=stages.indexOf(cat);if(i<stages.length-1){cat=stages[i+1];$("q").value="";draw()}});
+
 function add(i){build[D[i].cat]=D[i];drawBuild()}function del(k){delete build[k];drawBuild()}
 function draw(){
- document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("active",b.dataset.k===cat));
+ renderStages();
  let q=$("q").value.toLowerCase(),arr=D.map((x,i)=>({...x,i})).filter(x=>x.cat===cat&&(x.name+" "+x.brand+" "+x.desc).toLowerCase().includes(q));
  let sort=$("sort").value;arr.sort((a,b)=>sort==="low"?a.price-b.price:sort==="high"?b.price-a.price:a.name.localeCompare(b.name));
  $("catalog").innerHTML=arr.map(x=>'<article class="item" tabindex="0" data-product="'+x.i+'" role="button" aria-label="Detalii '+x.name+'"><div class="pic">'+(x.imageUrl?'<img src="'+x.imageUrl+'" alt="Fotografie '+x.name+'" loading="lazy">':'<div class="photo-missing">Fotografie indisponibilă momentan</div>')+'</div><div><h3>'+x.name+'</h3><p>'+x.brand+' · '+x.year+' · '+x.desc+'</p><div class="price">'+money(x.price)+'</div>'+(x.imageUrl?'<a class="photo-source" href="'+x.imageSource+'" target="_blank" rel="noopener">Sursa imaginii ↗</a>':'')+'</div><div class="action"><button class="btn details-btn" type="button" data-detail="'+x.i+'">Vezi detalii</button><button class="btn primary" type="button" data-add="'+x.i+'">'+(build[x.cat]?.name===x.name?"Selectată ✓":"Adaugă piesa")+'</button></div></article>').join("")||'<div class="empty-state"><b>Nu am găsit componente.</b>Încearcă alt nume sau șterge textul din căutare.</div>';
