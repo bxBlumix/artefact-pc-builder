@@ -133,16 +133,19 @@ D.forEach(p=>{
 });
 Object.assign(HW_SPECS,{
  "MSI GeForce RTX 4060 VENTUS 2X BLACK 8G OC":{
+  requiredPcie8pin:1,
   kind:"gpu",sku:"GeForce RTX 4060 VENTUS 2X BLACK 8G OC",gpuChip:"AD107",vramGB:8,vramType:"GDDR6",boardPowerW:120,systemPsuRecommendedW:550,
   lengthMm:199,widthMm:120,heightMm:41,thicknessSlots:2,powerConnectors:["1x PCIe 8-pin"],variantExact:true,
   source:"https://www.msi.com/Graphics-Card/GeForce-RTX-4060-VENTUS-2X-BLACK-8G-OC/Specification",verifiedOn:"2026-11-04"
  },
  "ASUS Dual GeForce RTX 4060 OC Edition 8GB (DUAL-RTX4060-O8G)":{
+  requiredPcie8pin:1,
   kind:"gpu",sku:"DUAL-RTX4060-O8G",gpuChip:"AD107",vramGB:8,vramType:"GDDR6",boardPowerW:null,systemPsuRecommendedW:550,
   lengthMm:227.2,widthMm:123.24,heightMm:49.6,thicknessSlots:2.5,powerConnectors:["1x PCIe 8-pin"],variantExact:true,
   source:"https://www.asus.com/es/motherboards-components/graphics-cards/dual/dual-rtx4060-o8g/techspec/",verifiedOn:"2026-11-04"
  },
  "Gigabyte GeForce RTX 4060 WINDFORCE OC 8G (GV-N4060WF2OC-8GD)":{
+  requiredPcie8pin:1,
   kind:"gpu",sku:"GV-N4060WF2OC-8GD",gpuChip:"AD107",vramGB:8,vramType:"GDDR6",boardPowerW:null,systemPsuRecommendedW:450,
   lengthMm:192,widthMm:120,heightMm:41,thicknessSlots:2,powerConnectors:["1x PCIe 8-pin"],variantExact:true,
   source:"https://www.gigabyte.com/ro/Graphics-Card/GV-N4060WF2OC-8GD/sp",verifiedOn:"2026-11-04"
@@ -217,10 +220,11 @@ function check(){
    const estimate=Math.ceil((cpuW+gpuW+100)*1.35/50)*50;
    add(psuW>=estimate?"ok":"warn","Putere sursă estimată","CPU "+cpuW+" W + GPU "+gpuW+" W; reper orientativ "+estimate+" W; sursă "+psuW+" W. Nu este o certificare a calității sau a tranzienților.");
   }else add("warn","Putere sursă","Lipsește consumul TBP/TGP exact al plăcii video sau puterea verificată a sursei; estimarea completă nu poate fi făcută.");
-  if(gh.variantExact&&gh.powerConnectors&&ph.pcieConnectors){
-   const ok=gh.powerConnectors.every(x=>ph.pcieConnectors.includes(x));
-   add(ok?"ok":"bad","Conectori alimentare GPU",ok?"Sursa declară conectorii necesari.":"Conectorii GPU nu corespund cu cei declarați pentru sursă.");
-  }else add("warn","Conectori alimentare GPU","Catalogul are cerința de referință GPU, dar nu și codul SKU exact / conectorii sursei. Confirmă cablurile în manualele modelelor concrete.");
+  if(gh.variantExact&&gh.requiredPcie8pin!==undefined&&ph.connectors){
+   const available=Number(ph.connectors.pcie6plus2||0);
+   const ok=available>=gh.requiredPcie8pin;
+   add(ok?"ok":"bad","Conectori alimentare GPU",ok?"GPU cere "+gh.requiredPcie8pin+"× 8-pin; sursa declară "+available+"× PCIe 6+2-pin.":"GPU cere "+gh.requiredPcie8pin+"× 8-pin, dar sursa declară doar "+available+".");
+  }else add("warn","Conectori alimentare GPU","Nu există date verificate pentru conectorii exacți ai sursei și ai plăcii video selectate.");
  }else if(p)add("warn","Sursă / alimentare","Selectează CPU, GPU și sursă pentru analiza completă.");
  if(ssd&&m){
   const sh=hw(ssd),mh=hw(m);
