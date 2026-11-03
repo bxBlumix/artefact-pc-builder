@@ -55,7 +55,7 @@ Object.assign(HW_SPECS,{
  },
  "Gigabyte GeForce RTX 4070 SUPER WINDFORCE OC 12G (GV-N407SWF3OC-12GD)":{
   kind:"gpu",sku:"GV-N407SWF3OC-12GD",pcbRevision:["1.0","1.1"],gpuChip:"AD104",vramGB:12,vramType:"GDDR6X",boardPowerW:220,systemPsuRecommendedW:700,
-  lengthMm:261,widthMm:126,heightMm:50,thicknessSlots:3,powerConnectors:["1x 16-pin"],required12VHPWR:true,adapterPcie8pin:2,variantExact:true,
+  lengthMm:261,widthMm:126,heightMm:50,thicknessMm:50,thicknessSlots:null,slotStatus:"Manufacturer publishes 50 mm thickness; slot count not explicitly stated."powerConnectors:["1x 16-pin"],required12VHPWR:true,adapterPcie8pin:2,variantExact:true,
   source:"https://www.gigabyte.com/ro/Graphics-Card/GV-N407SWF3OC-12GD-rev-10/sp",powerSource:"https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4070-family/",revisionNote:"Dimensiunile publicate sunt identice pentru reviziile 1.0 și 1.1 din paginile producătorului; verifică eticheta PCB.",verifiedOn:"2026-11-04"
 }
 });
@@ -181,7 +181,7 @@ Object.assign(HW_SPECS,{
  },
  "Gigabyte GeForce RTX 5070 WINDFORCE OC SFF 12G (GV-N5070WF3OC-12GD)":{
   kind:"gpu",sku:"GV-N5070WF3OC-12GD",gpuChip:"GB205",vramGB:12,vramType:"GDDR7",boardPowerW:250,systemPsuRecommendedW:750,
-  lengthMm:282,widthMm:110,heightMm:50,thicknessSlots:null,powerConnectors:["1x 16-pin"],required12VHPWR:true,adapterPcie8pin:2,variantExact:true,
+  lengthMm:282,widthMm:110,heightMm:50,thicknessMm:50,thicknessSlots:null,slotStatus:"Manufacturer publishes 50 mm thickness; slot count not explicitly stated."powerConnectors:["1x 16-pin"],required12VHPWR:true,adapterPcie8pin:2,variantExact:true,
   source:"https://www.gigabyte.com/Graphics-Card/GV-N5070WF3OC-12GD/sp",verifiedOn:"2026-11-04"
  },
  "MSI GeForce RTX 5070 12G VENTUS 2X (G5070-12V2C)":{
@@ -191,44 +191,45 @@ Object.assign(HW_SPECS,{
  },
  "Corsair CV550 550W Bronze":{
   kind:"psu",sku:"CP-9020210-EU",wattageW:550,lengthMm:125,widthMm:150,heightMm:86,modular:false,atxVersion:"2.31",
-  connectors:{atx24:1,eps4plus4:1,pcie6plus2:2,pcie12plus4:0,sata:7,molex:4},
+  connectors:{atx24:1,eps4plus4:1,pcie6plus2:2,pcie12plus4:0,sata:7,molex:2,fdd:1},
   source:"https://www.corsair.com/uk/en/p/psu/cp-9020210-uk/cv-series-cv550-550-watt-80-plus-bronze-certified-psu-cp-9020210-uk",verifiedOn:"2026-11-04"
  },
  "Seasonic Focus GX-650 Gold":{
   kind:"psu",sku:null,wattageW:650,lengthMm:140,widthMm:150,heightMm:86,modular:true,
-  connectors:{atx24:1,eps4plus4:2,pcie6plus2:4,pcie12plus4:0,sata:10,molex:3},
-  source:"https://seasonic.com/wp-content/uploads/2024/04/FOCUS-GX-FX.pdf",detailStatus:"model-level data; confirm label/SKU and hardware revision",verifiedOn:"2026-11-04"
+  connectors:{atx24:null,eps4plus4:null,pcie6plus2:null,pcie12plus4:null,sata:null,molex:null},
+  detailStatus:"INCOMPLETE: Focus GX-650 has multiple model/revision variants; connector map withheld until exact SSR part number / revision is identified.",
+  source:"https://seasonic.com/focus-gx/",verifiedOn:"2026-11-04"
  },
  "be quiet! Pure Power 12 M 750W":{
-  kind:"psu",sku:"BN715",wattageW:750,lengthMm:null,widthMm:null,heightMm:null,modular:true,atxVersion:"3.0",
-  connectors:{atx24:1,eps4plus4:null,pcie6plus2:2,pcie12plus4:1},
-  source:"https://bequiet.com/en/powersupply/4078",detailStatus:"PCIe connectors verified; EPS/SATA counts and enclosure dimensions not added until confirmed from datasheet",verifiedOn:"2026-11-04"
+  kind:"psu",sku:"BN343",ean:"4260052189481",wattageW:750,lengthMm:160,widthMm:150,heightMm:86,modular:true,atxVersion:"3.1",
+  connectors:{atx24:1,eps4plus4:1,eps8:1,pcie6plus2:2,pcie12plus4:1,sata:5,molex:2,fdd:0},
+  source:"https://www.bequiet.com/en/powersupply/4068",detailStatus:"SKU BN343 verified; 1x 4+4 CPU, 1x 8-pin CPU, 2x PCIe 6+2, 1x 12V-2x6, 5x SATA, 2x PATA.",verifiedOn:"2026-11-04"
  },
  "Corsair RM850e 850W Gold":{
   kind:"psu",sku:"CP-9020336-EU",wattageW:850,lengthMm:140,widthMm:150,heightMm:86,modular:true,atxVersion:"3.1",
-  connectors:{atx24:1,eps4plus4:2,pcie6plus2:3,pcie12plus4:1,sata:6,molex:2},
+  connectors:{atx24:1,eps4plus4:2,pcie6plus2:3,pcie12plus4:1,sata:6,molex:2,fdd:0},
   source:"https://www.corsair.com/eu/en/p/psu/cp-9020336-eu/rm850e-atx-3.1-low-noise-atx-power-supply-with-thermalprotect-12v-2x6-cable-cp-9020336-eu",detailStatus:"SKU CP-9020336-EU (2025 ATX 3.1 revision)",verifiedOn:"2026-11-04"
  },
  "DeepCool AG400":{
-  kind:"cooler",sku:"R-AG400-BKNNMN-G-1",heightMm:150,widthMm:125,depthMm:92,weightG:614,
+  kind:"cooler",sku:"R-AG400-BKNNMN-G-1",heightMm:150,widthMm:125,depthMm:92,weightG:614,heatsinkHeightMm:150,heatsinkWidthMm:120,heatsinkDepthMm:92,fanClearanceRamMm:null,
   sockets:["AM5","AM4","LGA1700","LGA1200","LGA1151","LGA1150","LGA1155"],
   fan:{sizeMm:120,thicknessMm:25,connector:"4-pin PWM",count:1,speedRpm:"500–2000"},
   source:"https://www.deepcool.com/products/Cooling/cpuaircoolers/GAMMAXX-AG400-Single-Tower-CPU-Cooler-1700-AM5/2022/15898.shtml",verifiedOn:"2026-11-04"
  },
  "Cooler Master Hyper 212 Black":{
-  kind:"cooler",sku:"RR-212S-20PK-R2",heightMm:158.8,widthMm:123,depthMm:77,weightG:null,
+  kind:"cooler",sku:"RR-212S-20PK-R2",heightMm:158.8,widthMm:123,depthMm:77,weightG:null,heatsinkHeightMm:158.8,fanClearanceRamMm:null,
   sockets:["LGA1700","LGA1200","LGA1156","LGA1155","LGA1151","LGA1150","LGA1366","AM4","AM5"],
   fan:{sizeMm:120,thicknessMm:25,connector:"4-pin PWM",count:1,speedRpm:"800–2000"},
   source:"https://www.coolermaster.com/en-us/products/hyper-212-black-edition-with-lga1700.html",note:"Suportul AM5 poate depinde de kitul inclus în pachet; verifică SKU-ul/revizia pachetului.",verifiedOn:"2026-11-04"
  },
  "Thermalright Peerless Assassin 120 SE":{
-  kind:"cooler",sku:null,heightMm:155,widthMm:125,depthMm:110,weightG:730,
+  kind:"cooler",sku:"PA120 SE (finish-specific SKU not resolved)",heightMm:155,widthMm:125,depthMm:110,weightG:730,fanClearanceRamMm:null,detailStatus:"Exact SE model dimensions and socket support verified; color/retail SKU must be confirmed before treating the finish variant as exact.",
   sockets:["AM5","AM4","LGA1700","LGA1851","LGA1200","LGA115x"],
   fan:{sizeMm:120,thicknessMm:25,connector:"4-pin PWM",count:2},
   source:"https://www.thermalright.com/product/peerless-assassin-120-se-black/",detailStatus:"model dimensions from official SE Black listing; exact finish/part number in catalog not resolved",verifiedOn:"2026-11-04"
  },
  "Arctic Liquid Freezer III 240":{
-  kind:"cooler",sku:"ACFRE00134A",radiatorMm:240,radiator:{lengthMm:277,widthMm:120,thicknessMm:38,overallThicknessWithFansMm:66},
+  kind:"cooler",sku:"ACFRE00134A",radiatorMm:240,radiator:{lengthMm:277,widthMm:120,thicknessMm:38,overallThicknessWithFansMm:66},radiatorEnvelope:{lengthMm:277,widthMm:120,thicknessMm:66},
   tubeLengthMm:450,sockets:["AM5","AM4","LGA1700","LGA1851"],pumpConnector:"4-pin PWM",fan:{sizeMm:120,connector:"4-pin PWM",count:2},
   source:"https://www.arctic.de/en/Liquid-Freezer-III-240/ACFRE00134A",verifiedOn:"2026-11-04"
  }
