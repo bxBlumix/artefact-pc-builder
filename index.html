@@ -31,12 +31,28 @@ D.push(
  {cat:"GPU",name:"ASUS Dual GeForce RTX 4060 OC Edition 8GB (DUAL-RTX4060-O8G)",brand:"ASUS",year:2023,price:1490,socket:"",spec:115,desc:"8 GB GDDR6 · 227.2 × 123.24 × 49.6 mm · 2.5 slot · 1×8-pin"},
  {cat:"GPU",name:"Gigabyte GeForce RTX 4060 WINDFORCE OC 8G (GV-N4060WF2OC-8GD)",brand:"Gigabyte",year:2023,price:1470,socket:"",spec:115,desc:"8 GB GDDR6 · 192 × 120 × 41 mm · 1×8-pin"}
 );
+D.push(
+ {cat:"GPU",name:"ASUS TUF Gaming GeForce RTX 4070 SUPER OC 12GB (TUF-RTX4070S-O12G-GAMING)",brand:"ASUS",year:2024,price:3300,socket:"",spec:220,desc:"12 GB GDDR6X · 301 × 139 × 63 mm · 3.15 slot · 1×16-pin"},
+ {cat:"GPU",name:"Gigabyte GeForce RTX 4070 SUPER WINDFORCE OC 12G (GV-N407SWF3OC-12GD)",brand:"Gigabyte",year:2024,price:3150,socket:"",spec:220,desc:"12 GB GDDR6X · 261 × 126 × 50 mm · 3 slot · 1×16-pin"}
+);
 const HW_SPECS={
  "AMD Ryzen 5 5600":{kind:"cpu",socket:"AM4",tdpW:65,cores:6,threads:12,memoryType:"DDR4",memoryMaxGB:128,memorySpeedMTs:3200,pcie:"4.0",igpu:false,maxTempC:90,source:"https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-5-5600.html",verifiedOn:"2026-11-04"},
  "MSI B550M PRO-VDH WIFI":{kind:"motherboard",socket:"AM4",chipset:"B550",formFactor:"mATX",widthMm:244,heightMm:244,memoryType:"DDR4",dimmSlots:4,memoryMaxGB:128,memoryOcMaxMTs:4400,m2Slots:[{count:1,interface:"PCIe 4.0 x4 / SATA",sizes:["2242","2260","2280"],note:"M2_1; depinde de CPU"},{count:1,interface:"PCIe 3.0 x4",sizes:["2242","2260","2280"]}],sataPorts:4,pcieX16:"PCIe 4.0 / 3.0 în funcție de CPU",powerConnectors:["24-pin ATX","8-pin ATX 12V"],fanHeaders:{cpu:1,pump:1,system:3},cpuSupport:"Ryzen 5000/3000 desktop și Ryzen 4000G, cu excepțiile MSI",biosLatest:{version:"7C95v2P2",date:"2026-08-31"},biosMinimumForSelectedCpu:null,biosNote:"Versiunea minimă pentru CPU-ul selectat nu este confirmată din lista oficială în acest catalog. Verifică lista CPU Support înainte de update.",cpuSupportUrl:"https://www.msi.com/Motherboard/B550M-PRO-VDH-WIFI/support",source:"https://www.msi.com/Motherboard/B550M-PRO-VDH-WIFI/Specification",verifiedOn:"2026-11-04"},
  "Corsair 4000D Airflow":{kind:"case",formFactors:["Mini-ITX","mATX","ATX","E-ATX up to 305 x 277 mm"],widthMm:230,heightMm:466,lengthMm:453,gpuMaxLengthMm:360,cpuCoolerMaxHeightMm:170,psuMaxLengthMm:220,radiatorSupport:{front:[240,280,360],top:[240,280],rear:[120]},fanSupport:{front:["3x120","2x140"],top:["2x120","2x140"],rear:["1x120"]},source:"https://www.corsair.com/us/en/p/pc-cases/cc-9011200-ww/4000d-airflow-tempered-glass-mid-tower-atx-case-black-cc-9011200-ww",verifiedOn:"2026-11-04"}
 };
 
+Object.assign(HW_SPECS,{
+ "ASUS TUF Gaming GeForce RTX 4070 SUPER OC 12GB (TUF-RTX4070S-O12G-GAMING)":{
+  kind:"gpu",sku:"TUF-RTX4070S-O12G-GAMING",gpuChip:"AD104",vramGB:12,vramType:"GDDR6X",boardPowerW:220,systemPsuRecommendedW:750,
+  lengthMm:301,widthMm:139,heightMm:63,thicknessSlots:3.15,powerConnectors:["1x 16-pin"],required12VHPWR:true,adapterPcie8pin:2,variantExact:true,
+  source:"https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx4070s-o12g-gaming/techspec/",powerSource:"https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4070-family/",verifiedOn:"2026-11-04"
+ },
+ "Gigabyte GeForce RTX 4070 SUPER WINDFORCE OC 12G (GV-N407SWF3OC-12GD)":{
+  kind:"gpu",sku:"GV-N407SWF3OC-12GD",pcbRevision:["1.0","1.1"],gpuChip:"AD104",vramGB:12,vramType:"GDDR6X",boardPowerW:220,systemPsuRecommendedW:700,
+  lengthMm:261,widthMm:126,heightMm:50,thicknessSlots:3,powerConnectors:["1x 16-pin"],required12VHPWR:true,adapterPcie8pin:2,variantExact:true,
+  source:"https://www.gigabyte.com/ro/Graphics-Card/GV-N407SWF3OC-12GD-rev-10/sp",powerSource:"https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4070-family/",revisionNote:"Dimensiunile publicate sunt identice pentru reviziile 1.0 și 1.1 din paginile producătorului; verifică eticheta PCB.",verifiedOn:"2026-11-04"
+}
+});
 Object.assign(HW_SPECS,{
  "ASUS PRIME B550M-A WIFI II":{kind:"motherboard",socket:"AM4",chipset:"B550",formFactor:"mATX",widthMm:244,heightMm:244,memoryType:"DDR4",dimmSlots:4,memoryMaxGB:128,memoryOcMaxMTs:4866,m2Slots:[{interface:"PCIe 4.0 x4 / SATA",sizes:["2242","2260","2280","22110"],cpuDependent:true},{interface:"PCIe 3.0 x4 / SATA",sizes:["2242","2260","2280"]}],sataPorts:4,powerConnectors:["24-pin ATX","8-pin CPU"],cpuSupportUrl:"https://www.asus.com/motherboards-components/motherboards/prime/prime-b550m-a-wifi-ii/techspec/",biosSupportUrl:"https://www.asus.com/motherboards-components/motherboards/prime/prime-b550m-a-wifi-ii/helpdesk_bios/",biosMinimumForSelectedCpu:null,revisionRequired:false,source:"https://www.asus.com/motherboards-components/motherboards/prime/prime-b550m-a-wifi-ii/techspec/",verifiedOn:"2026-11-04"},
  "Gigabyte B550 AORUS ELITE V2":{kind:"motherboard",socket:"AM4",chipset:"B550",formFactor:"ATX",widthMm:305,heightMm:244,memoryType:"DDR4",dimmSlots:4,memoryMaxGB:128,m2Slots:[{interface:"PCIe 4.0 x4 / SATA",sizes:["2242","2260","2280","22110"],cpuDependent:true},{interface:"PCIe 3.0 x4 / SATA",sizes:["2242","2260","2280","22110"]}],sataPorts:4,powerConnectors:["24-pin ATX","8-pin CPU","4-pin CPU"],cpuSupportUrl:"https://www.gigabyte.com/Motherboard/B550-AORUS-ELITE-V2-rev-10-11/sp",biosSupportUrl:"https://www.gigabyte.com/Motherboard/B550-AORUS-ELITE-V2-rev-10-11/support",biosMinimumForSelectedCpu:null,revisionRequired:true,revisionNote:"Trebuie confirmată revizia PCB (1.0/1.1/1.2 etc.); BIOS-ul diferă între revizii.",source:"https://www.gigabyte.com/Motherboard/B550-AORUS-ELITE-V2-rev-10-11/sp",verifiedOn:"2026-11-04"},
@@ -220,7 +236,11 @@ function check(){
    const estimate=Math.ceil((cpuW+gpuW+100)*1.35/50)*50;
    add(psuW>=estimate?"ok":"warn","Putere sursă estimată","CPU "+cpuW+" W + GPU "+gpuW+" W; reper orientativ "+estimate+" W; sursă "+psuW+" W. Nu este o certificare a calității sau a tranzienților.");
   }else add("warn","Putere sursă","Lipsește consumul TBP/TGP exact al plăcii video sau puterea verificată a sursei; estimarea completă nu poate fi făcută.");
-  if(gh.variantExact&&gh.requiredPcie8pin!==undefined&&ph.connectors){
+  if(gh.variantExact&&gh.required12VHPWR&&ph.connectors){
+   const native=Number(ph.connectors.pcie12plus4||0),eight=Number(ph.connectors.pcie6plus2||0),need=Number(gh.adapterPcie8pin||2);
+   const ok=native>=1||eight>=need;
+   add(ok?"ok":"bad","Conectori alimentare GPU",ok?"GPU 16-pin: sursa declară "+native+" conector(i) 16-pin și "+eight+" PCIe 6+2-pin; alimentarea poate fi realizată nativ sau prin adaptorul inclus, dacă modelul GPU îl furnizează.":"GPU 16-pin: sursa declară "+native+" conector(i) 16-pin și "+eight+" PCIe 6+2-pin; nu sunt suficiente date/conectori pentru alimentare.");
+  }else if(gh.variantExact&&gh.requiredPcie8pin!==undefined&&ph.connectors){
    const available=Number(ph.connectors.pcie6plus2||0);
    const ok=available>=gh.requiredPcie8pin;
    add(ok?"ok":"bad","Conectori alimentare GPU",ok?"GPU cere "+gh.requiredPcie8pin+"× 8-pin; sursa declară "+available+"× PCIe 6+2-pin.":"GPU cere "+gh.requiredPcie8pin+"× 8-pin, dar sursa declară doar "+available+".");
