@@ -251,8 +251,8 @@ Object.assign(HW_SPECS,{
   source:"https://www.gskill.com/product/165/390/1662622664/F5-6000J3038F16GX2-TZ5N",detailStatus:"exact kit SKU; module height not added without verified datasheet",verifiedOn:"2026-11-04"
  },
  "PowerColor Hellhound Radeon RX 9070 XT 16GB (RX9070XT 16G-L/OC)":{
-  kind:"gpu",sku:"RX9070XT 16G-L/OC",gpuChip:"Navi 48",vramGB:16,vramType:"GDDR6",boardPowerW:304,systemPsuRecommendedW:800,
-  lengthMm:340,widthMm:142,heightMm:49,thicknessSlots:2.5,powerConnectors:["2x PCIe 8-pin"],requiredPcie8pin:2,variantExact:true,
+  kind:"gpu",sku:"RX9070XT 16G-L/OC",gpuChip:"Navi 48",vramGB:16,vramType:"GDDR6",boardPowerW:null,systemPsuRecommendedW:800,
+  lengthMm:340,widthMm:142,heightMm:49,boardLengthMm:327,boardWidthMm:128,thicknessSlots:2.5,powerConnectors:["2x PCIe 8-pin"],requiredPcie8pin:2,variantExact:true,
   source:"https://www.powercolor.com/product-detail44.htm",verifiedOn:"2026-11-04"
  }
 });
@@ -338,10 +338,11 @@ function check(){
  if(c&&g&&p){
   const ch=hw(c),gh=hw(g),ph=hw(p),cpuW=ch.tdpW??mm(c.spec),gpuW=gh.boardPowerW;
   const psuW=ph.wattageW??mm(p.spec);
-  if(cpuW!==null&&gpuW!==null&&gpuW!==undefined&&psuW!==null){
-   const estimate=Math.ceil((cpuW+gpuW+100)*1.35/50)*50;
-   const recommended=Number(gh.systemPsuRecommendedW||0);const required=Math.max(estimate,recommended);add(psuW>=required?"ok":"warn","Putere sursă estimată","CPU "+cpuW+" W + GPU "+gpuW+" W; estimare cu rezervă "+estimate+" W; recomandarea producătorului GPU "+(recommended||"necunoscută")+" W; reper folosit "+required+" W; sursă "+psuW+" W. Verificare orientativă, nu certifică răspunsul la tranzienți sau calitatea sursei.");
-  }else add("warn","Putere sursă","Lipsește consumul TBP/TGP exact al plăcii video sau puterea verificată a sursei; estimarea completă nu poate fi făcută.");
+  const recommended=Number(gh.systemPsuRecommendedW||0);
+  if(cpuW!==null&&psuW!==null&&(gpuW!==null&&gpuW!==undefined||recommended>0)){
+   const estimate=(gpuW!==null&&gpuW!==undefined)?Math.ceil((cpuW+gpuW+100)*1.35/50)*50:0;
+   const required=Math.max(estimate,recommended);add(psuW>=required?"ok":"warn","Putere sursă estimată",(gpuW!==null&&gpuW!==undefined?("CPU "+cpuW+" W + GPU "+gpuW+" W; estimare cu rezervă "+estimate+" W. "):"Consum exact GPU neconfirmat. ")+"Recomandarea producătorului GPU "+(recommended||"necunoscută")+" W; reper folosit "+required+" W; sursă "+psuW+" W. Verificare orientativă, nu certifică răspunsul la tranzienți sau calitatea sursei.");
+  }else add("warn","Putere sursă","Lipsește consumul GPU și/sau recomandarea producătorului, ori puterea verificată a sursei.");
   if(gh.variantExact&&gh.required12VHPWR&&ph.connectors){
    const native=Number(ph.connectors.pcie12plus4||0),eight=Number(ph.connectors.pcie6plus2||0),need=Number(gh.adapterPcie8pin||2);
    const ok=native>=1||eight>=need;
