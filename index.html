@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ro"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080d18"><link rel="manifest" href="./manifest.webmanifest"><title>ARTEFACT | PC Builder</title>
+<html lang="ro"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080b12"><link rel="manifest" href="./manifest.webmanifest"><title>ARTEFACT | PC Builder</title>
 <style>:root{--bg:#f3f6fb;--surface:#fff;--surface2:#f7f9fc;--line:#dce4ef;--txt:#17243a;--muted:#607089;--blue:#1769d2;--blue2:#eaf3ff;--cyan:#0d8195;--green:#13865d;--red:#c83e52;--yellow:#a66a08;--shadow:0 8px 24px rgba(24,49,82,.07)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
 header{position:sticky;top:0;z-index:5;background:#ffffffed;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px max(18px,calc((100% - 1240px)/2));display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 12px #243b5308}
@@ -51,6 +51,32 @@ button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{ou
  .component-compat-head{align-items:flex-start;flex-direction:column}
 }
 @media(min-width:561px) and (max-width:900px){.stage-nav{grid-template-columns:repeat(5,minmax(0,1fr))}}
+
+/* ARTEFACT MODERN DARK — redesign vizual, fără modificarea logicii aplicației */
+:root{color-scheme:dark;--bg:#080b12;--surface:#111722;--surface2:#171f2d;--line:#273449;--txt:#edf3fc;--muted:#94a3b8;--blue:#4b9cff;--blue2:#172d49;--cyan:#55d6e8;--green:#35c98a;--red:#ff6577;--yellow:#f4bd58;--shadow:0 14px 38px rgba(0,0,0,.28)}
+body{background:radial-gradient(ellipse at 50% -20%,#172944 0%,#0b111c 42%,var(--bg) 78%);color:var(--txt);min-height:100vh}
+header{max-width:none;background:rgba(8,12,20,.88);border-bottom:1px solid #26364c;box-shadow:0 8px 30px #0005;padding:15px max(20px,calc((100% - 1440px)/2)}
+.logo{font-size:26px;letter-spacing:3px}.logo b{color:var(--cyan)}.brand-sub{color:#8194ae;letter-spacing:.14em;font-size:10px}
+main{max-width:1440px;padding:34px 24px 60px}.hero{padding:26px 28px;margin-bottom:22px;border:1px solid #263b56;border-radius:20px;background:linear-gradient(115deg,rgba(25,49,78,.9),rgba(16,25,40,.72) 55%,rgba(13,22,35,.65));box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:280px;height:280px;border:1px solid #4b9cff22;border-radius:50%;right:-75px;top:-140px;box-shadow:0 0 0 30px #4b9cff08,0 0 0 65px #4b9cff06;pointer-events:none}.hero h1{font-size:clamp(30px,4vw,46px);letter-spacing:-.04em}.hero h1 span{color:var(--cyan)!important}.hero p{color:#a8b8cd;max-width:700px}
+.guide-step{background:#111b2a;border-color:#2a3c54;box-shadow:none;border-radius:12px}.guide-num{background:#193b5d;color:#70c9ff}.guide-step small{color:#91a4bd}
+.layout{grid-template-columns:minmax(0,1.55fr) minmax(320px,.78fr);gap:20px}.box{background:linear-gradient(155deg,#141d2a,#101722 70%);border:1px solid #29384d;border-radius:17px;box-shadow:var(--shadow);padding:21px}.box h2{font-size:20px;letter-spacing:-.02em}.section-help{color:#91a2b8}
+.stage-nav{gap:8px}.stage-link{background:#111a27;border-color:#2a3a50;color:#dce7f5;border-radius:11px;min-height:72px}.stage-link:hover{background:#19283a;border-color:#4b9cff}.stage-link.active{background:linear-gradient(135deg,#173b61,#172b45);border:1px solid #4b9cff;padding:10px 9px;box-shadow:inset 0 0 0 1px #4b9cff33,0 0 20px #287bca18}.stage-index{background:#253449;color:#c2d2e5}.stage-link.active .stage-index{background:#4b9cff;color:#071321}.stage-link.done .stage-index{background:#23875f}.stage-state{color:#8498b2}
+.stage-heading{background:#121e2d;border-color:#2b405a;border-radius:12px}.stage-heading p{color:#9aabc1}.stage-badge{background:#183a5d;color:#8bc9ff}
+.filters input,.filters select,.tabs button{background:#0c1420;border-color:#2b3a4e;color:#e7effa}.filters input::placeholder{color:#71839b}.tabs button.active{background:#2478c9;border-color:#398de0;color:white}
+.item{background:#101925;border-color:#29394e;border-radius:13px}.item:hover{border-color:#4b9cff;box-shadow:0 7px 22px #0005,0 0 0 1px #4b9cff20}.pic{background:#1b293a;color:#64cce0}.pic img{background:#f5f7fa}.item h3{color:#edf4ff}.item p,.muted{color:#92a3b9}.price{color:#55d6a2}
+.btn{background:#182333;border-color:#34465e;color:#e5edf8}.btn:hover{background:#22334a;border-color:#5683b5}.primary{background:linear-gradient(135deg,#2689df,#2464bd);border-color:#328ce0;color:#fff;box-shadow:0 5px 16px #1674ca30}.primary:hover{background:#328fe5;border-color:#4aa5f7}
+aside .box{background:linear-gradient(160deg,#162235,#101722)}.build-summary{background:#142b43;border-color:#2a5278}.build-summary b{color:#a7d8ff}.build-summary span{color:#9ab6d2}.build-progress{background:#26384d}.build-progress i{background:linear-gradient(90deg,#2d8ee5,#55d6e8)}
+.buildline{border-color:#29384b}.build-thumb{background:#f4f7fa;border-color:#394b61}.total{color:#70d9b1}.total-label{color:#9aabc1}
+.check{background:#172231;border-color:#2b3b50}.check.ok{border-left-color:var(--green)}.check.bad{border-left-color:var(--red)}.check.warn{border-left-color:var(--yellow)}
+.compat-intro{background:#142131;border-color:#2b4058;color:#aabbd0}.compat-count{background:#111c2a;border-color:#2c3c51}.compat-count.good b{color:#55d6a2}.compat-count.fail b{color:#ff7888}.compat-count.pending b{color:#f4c66d}
+.component-compat{background:#111d2b;border-color:#2a3d54}.component-compat-row{border-color:#2b3a4e}.component-compat-summary.good{background:#123b30;color:#72e0b2}.component-compat-summary.bad{background:#48232b;color:#ff9ba6}.component-compat-summary.pending{background:#46371e;color:#f7d18a}
+.empty-state{background:#111d2b;border-color:#354963;color:#a1b2c8}.empty-state b{color:#e8f1fc}
+.modal{background:#111a27;color:var(--txt);border-color:#34465e;box-shadow:0 24px 80px #0009}.modal-head{background:#141f2e;border-color:#2b3c51}.detail-row{background:#172333;border-color:#2c3e54}.detail-row small{color:#9aabc1}.detail-note{background:#3b301b;border-color:#69552d;color:#f2d69b}.final-status{background:#172333}.report-good{background:#123126;color:#c3f3dc}.report-empty{background:#172333;color:#9aabc1}.recommendation{background:#172333;border-color:#35465c}.recommendation p{color:#d1dbea}.recommendation .affected{color:#9aabc1}
+footer{color:#74869f}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline-color:#68c8ff}
+@media(max-width:900px){main{padding:24px 16px 48px}.layout{grid-template-columns:1fr}}
+@media(max-width:560px){main{padding:17px 11px 38px}.hero{padding:20px 16px;border-radius:15px}.box{padding:14px}.stage-link{min-height:70px}.hero:after{opacity:.35}.guide-step{background:#111b2a}}
+
 </style></head><body>
 <header><div><div class="logo">ARTE<b>FACT</b></div><div class="brand-sub">ASISTENTUL TĂU PENTRU CONFIGURAREA PC-ULUI</div></div><button class="btn" id="install" hidden>Instalează aplicația</button></header>
 <main><section class="hero"><h1>Construiește un PC potrivit<br><span style="color:var(--blue)">nevoilor tale.</span></h1><p>Alege piesele pe rând. ARTEFACT îți calculează bugetul și îți semnalează ce se potrivește, ce nu se potrivește și unde mai lipsesc informații.</p><div class="guide"><div class="guide-step"><span class="guide-num">1</span><div><b>Alege componentele</b><small>Procesor, placă de bază, RAM și restul pieselor</small></div></div><div class="guide-step"><span class="guide-num">2</span><div><b>Verifică potrivirea</b><small>Urmărește verificările din configurație</small></div></div><div class="guide-step"><span class="guide-num">3</span><div><b>Salvează configurația</b><small>Păstrează lista pe acest dispozitiv</small></div></div></div></section>
