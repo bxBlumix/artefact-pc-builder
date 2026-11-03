@@ -256,6 +256,28 @@ Object.assign(HW_SPECS,{
   source:"https://www.powercolor.com/product-detail44.htm",verifiedOn:"2026-11-04"
  }
 });
+Object.assign(HW_SPECS,{
+ "Samsung 990 PRO 1TB":{
+  kind:"ssd",sku:"MZ-V9P1T0BW",capacityGB:1000,interface:"PCIe Gen 4.0 x4 / NVMe 2.0",formFactor:"2280",m2Key:"M",
+  lengthMm:80,widthMm:22,heightMm:2.3,seqReadMBs:7450,seqWriteMBs:6900,tbw:600,weightG:9,
+  source:"https://www.samsung.com/uk/memory-storage/nvme-ssd/990-pro-1tb-nvme-pcie-gen-4-mz-v9p1t0bw/",verifiedOn:"2026-11-04"
+ },
+ "Samsung 990 PRO 2TB":{
+  kind:"ssd",sku:"MZ-V9P2T0BW",capacityGB:2000,interface:"PCIe Gen 4.0 x4 / NVMe 2.0",formFactor:"2280",m2Key:"M",
+  lengthMm:80,widthMm:22,heightMm:2.3,seqReadMBs:7450,seqWriteMBs:6900,tbw:1200,weightG:9,
+  source:"https://www.samsung.com/uk/memory-storage/nvme-ssd/990-pro-2tb-nvme-pcie-gen-4-mz-v9p2t0bw/",verifiedOn:"2026-11-04"
+ },
+ "WD Black SN850X 1TB":{
+  kind:"ssd",sku:"WDS100T2X0E",capacityGB:1000,interface:"PCIe Gen 4 x4 / NVMe",formFactor:"2280",m2Key:"M",
+  lengthMm:80,widthMm:22,heightMm:2.38,seqReadMBs:7300,seqWriteMBs:6300,tbw:600,
+  source:"https://documents.westerndigital.com/content/dam/doc-library/en_us/assets/public/western-digital/product/internal-drives/wd-black-ssd/data-sheet-wd-black-sn850x-nvme-ssd.pdf",verifiedOn:"2026-11-04"
+ },
+ "WD Black SN850X 2TB":{
+  kind:"ssd",sku:"WDS200T2X0E",capacityGB:2000,interface:"PCIe Gen 4 x4 / NVMe",formFactor:"2280",m2Key:"M",
+  lengthMm:80,widthMm:22,heightMm:2.38,seqReadMBs:7300,seqWriteMBs:6600,tbw:1200,
+  source:"https://documents.westerndigital.com/content/dam/doc-library/en_us/assets/public/western-digital/product/internal-drives/wd-black-ssd/data-sheet-wd-black-sn850x-nvme-ssd.pdf",verifiedOn:"2026-11-04"
+ }
+});
 D.forEach(p=>{if(HW_SPECS[p.name])p.hw=HW_SPECS[p.name]});
 D.forEach(p=>{
  if(p.cat==="RAM"){
@@ -282,6 +304,7 @@ function check(){
  const a=build,r=[],c=a.CPU,m=a.MB,ram=a.RAM,g=a.GPU,p=a.PSU,cs=a.CASE,cl=a.COOL,ssd=a.SSD;
  const add=(level,title,detail)=>r.push([level,"<b>"+title+"</b><br>"+detail]);
  const hw=x=>x&&x.hw||{};
+ const cpuHw=hw(c);
  const mm=x=>Number.isFinite(Number(x))?Number(x):null;
  const caseForm=cs&&cs.socket;
  if(!c||!m)add("warn","Platformă incompletă","Selectează procesorul și placa de bază.");
@@ -304,7 +327,7 @@ function check(){
   else add("warn","Capacitate RAM","Capacitatea kitului sau limita plăcii nu este verificată.");
   if(rh.moduleCount&&mh.dimmSlots)add(rh.moduleCount<=mh.dimmSlots?"ok":"bad","Număr module RAM",rh.moduleCount+" module / "+mh.dimmSlots+" sloturi DIMM.");
   else add("warn","Număr module RAM","Numărul modulelor sau sloturilor DIMM nu este cunoscut.");
-  const speed=rh.speedMTs,boardMax=mh.memoryOcMaxMTs,cpuMax=ch.memorySpeedMTs;
+  const speed=rh.speedMTs,boardMax=mh.memoryOcMaxMTs,cpuMax=cpuHw.memorySpeedMTs;
   if(speed&&boardMax)add(speed<=boardMax?"ok":"warn","Frecvență RAM / placă",speed+" MT/s; limita OC publicată a plăcii este "+boardMax+" MT/s. Frecvența efectivă depinde de CPU, BIOS și configurația DIMM.");
   else add("warn","Frecvență RAM / placă","Nu este disponibilă limita de memorie a plăcii pentru a valida frecvența kitului.");
   if(speed&&cpuMax)add(speed<=cpuMax?"ok":"warn","Frecvență RAM / controler CPU",speed+" MT/s kit; viteza oficială de memorie a CPU este "+cpuMax+" MT/s. Profilul XMP/EXPO peste specificația CPU este overclocking și nu este garantat.");
@@ -355,11 +378,19 @@ function check(){
  }else if(p)add("warn","Sursă / alimentare","Selectează CPU, GPU și sursă pentru analiza completă.");
  if(ssd&&m){
   const sh=hw(ssd),mh=hw(m);
-  if(ssd.socket==="SATA")add(mh.sataPorts?"ok":"warn","SSD SATA",mh.sataPorts?mh.sataPorts+" porturi SATA declarate pe placă; verifică și cablul de date/alimentare.":"Numărul porturilor SATA nu este înregistrat.");
-  else if(sh.interface&&mh.m2Slots){
-   const compatible=mh.m2Slots.some(slot=>slot.interface.toLowerCase().includes("pcie")&&sh.interface.toLowerCase().includes("pcie"));
-   add(compatible?"ok":"warn","SSD M.2 / slot",compatible?"Placa are slot M.2 PCIe; verifică generația, lungimea și partajarea liniilor.":"Interfața exactă a SSD-ului și sloturile nu confirmă o potrivire.");
-  }else add("warn","SSD / sloturi","Numărul, interfața și partajarea liniilor M.2/SATA nu sunt confirmate pentru această combinație.");
+  if(sh.formFactor==="2.5"||ssd.socket==="SATA"){
+   add(mh.sataPorts?"ok":"warn","SSD SATA",mh.sataPorts?mh.sataPorts+" porturi SATA declarate pe placă; verifică separat locașul de 2,5 inchi din carcasă și cablurile SATA/alimentare.":"Numărul porturilor SATA nu este înregistrat.");
+  }else if(sh.formFactor&&sh.interface&&mh.m2Slots){
+   const wantPcie=/pcie/i.test(sh.interface),wantSata=/sata/i.test(sh.interface);
+   const candidates=mh.m2Slots.filter(slot=>Array.isArray(slot.sizes)&&slot.sizes.includes(sh.formFactor));
+   const matching=candidates.filter(slot=>wantPcie?/pcie/i.test(slot.interface):wantSata?/sata/i.test(slot.interface):false);
+   if(matching.length){
+    const slot=matching[0],ssdGen=(sh.interface.match(/Gen(?:eration)?\s*(\d+(?:\.\d+)?)/i)||[])[1],slotGen=(slot.interface.match(/PCIe\s*(\d+(?:\.\d+)?)/i)||[])[1];
+    const slower=ssdGen&&slotGen&&Number(ssdGen)>Number(slotGen);
+    add(slower?"warn":"ok","SSD M.2 / slot", "Format "+sh.formFactor+" și interfață "+sh.interface+" se potrivesc cu slotul "+slot.interface+". "+(slower?"SSD-ul va funcționa la generația slotului, cu viteză potențial redusă. ":"")+"Partajarea liniilor cu SATA/PCIe trebuie verificată în manualul plăcii.");
+   }else add("bad","SSD M.2 / slot","Nu a fost găsit un slot care să confirme simultan lungimea "+sh.formFactor+" și interfața "+sh.interface+".");
+  }else add("warn","SSD / sloturi","Lipsesc datele exacte pentru formatul, interfața SSD-ului sau sloturile M.2 ale plăcii.");
+  if(sh.sku)add("ok","Identificare SSD","SKU "+sh.sku+" · "+(sh.capacityGB?sh.capacityGB+" GB · ":"")+(sh.lengthMm&&sh.widthMm?sh.lengthMm+" × "+sh.widthMm+" × "+sh.heightMm+" mm":"dimensiuni incomplete")+".");
  }
  if(p&&cs){const ph=hw(p),sh=hw(cs);if(ph.lengthMm&&sh.psuMaxLengthMm)add(ph.lengthMm<=sh.psuMaxLengthMm?"ok":"bad","Lungime sursă",ph.lengthMm+" mm PSU / "+sh.psuMaxLengthMm+" mm limită.");}
  const known=Object.values(a).filter(x=>x&&x.hw).length;
