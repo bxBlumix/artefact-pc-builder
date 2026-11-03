@@ -37,6 +37,20 @@ button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{ou
 .component-compat-row{font-size:10px;line-height:1.45;padding:6px 0;border-top:1px solid #e8edf3}
 .component-compat-row.ok{color:#187344}.component-compat-row.bad{color:#b42318}.component-compat-row.warn{color:#8a5a00}
 .component-compat-empty{font-size:10px;color:var(--muted)}
+
+/* Navigare și carduri optimizate pentru ecrane mici */
+@media(max-width:560px){
+ .stage-nav{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+ .stage-link{padding:9px 7px;min-height:76px}
+ .stage-link.active{padding:8px 6px}
+ .stage-name{font-size:11px}
+ .stage-state{font-size:9px}
+ .item{grid-template-columns:54px minmax(0,1fr);align-items:start}
+ .item .action{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:7px}
+ .component-compat{grid-column:1/-1;width:100%;box-sizing:border-box}
+ .component-compat-head{align-items:flex-start;flex-direction:column}
+}
+@media(min-width:561px) and (max-width:900px){.stage-nav{grid-template-columns:repeat(5,minmax(0,1fr))}}
 </style></head><body>
 <header><div><div class="logo">ARTE<b>FACT</b></div><div class="brand-sub">ASISTENTUL TĂU PENTRU CONFIGURAREA PC-ULUI</div></div><button class="btn" id="install" hidden>Instalează aplicația</button></header>
 <main><section class="hero"><h1>Construiește un PC potrivit<br><span style="color:var(--blue)">nevoilor tale.</span></h1><p>Alege piesele pe rând. ARTEFACT îți calculează bugetul și îți semnalează ce se potrivește, ce nu se potrivește și unde mai lipsesc informații.</p><div class="guide"><div class="guide-step"><span class="guide-num">1</span><div><b>Alege componentele</b><small>Procesor, placă de bază, RAM și restul pieselor</small></div></div><div class="guide-step"><span class="guide-num">2</span><div><b>Verifică potrivirea</b><small>Urmărește verificările din configurație</small></div></div><div class="guide-step"><span class="guide-num">3</span><div><b>Salvează configurația</b><small>Păstrează lista pe acest dispozitiv</small></div></div></div></section>
@@ -659,5 +673,5 @@ function makeReport(){
  $("downloadReport").onclick=()=>{const blob=new Blob([report],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="ARTEFACT-raport-compatibilitate.txt";a.click();URL.revokeObjectURL(url)};
  $("printReport").onclick=()=>window.print();$("finalDialog").showModal();
 }
-$("q").oninput=draw;$("sort").onchange=draw;$("clear").onclick=()=>{build={};draw()};$("finalize").onclick=makeReport;document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>$(b.dataset.close).close());$("catalog").addEventListener("click",e=>{const d=e.target.closest("[data-detail]"),ad=e.target.closest("[data-add]");if(d){e.stopPropagation();showDetails(Number(d.dataset.detail))}else if(ad){e.stopPropagation();add(Number(ad.dataset.add))}else{const c=e.target.closest("[data-product]");if(c)showDetails(Number(c.dataset.product))}});$("catalog").addEventListener("keydown",e=>{const c=e.target.closest("[data-product]");if(c&&(e.key==="Enter"||e.key===" ")){e.preventDefault();showDetails(Number(c.dataset.product))}});$("save").onclick=()=>{localStorage.setItem("artefact-build",JSON.stringify(build));$("msg").textContent="Configurație salvată pe acest dispozitiv."};try{build=JSON.parse(localStorage.getItem("artefact-build")||"{}")}catch(e){}let dp;addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;$("install").hidden=false});$("install").onclick=()=>dp&&dp.prompt();if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("./sw.js"));draw();
+$("q").oninput=draw;$("sort").onchange=draw;$("clear").onclick=()=>{build={};draw()};$("finalize").onclick=makeReport;document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>$(b.dataset.close).close());$("catalog").addEventListener("click",e=>{const d=e.target.closest("[data-detail]"),ad=e.target.closest("[data-add]");if(d){e.stopPropagation();showDetails(Number(d.dataset.detail))}else if(ad){e.stopPropagation();add(Number(ad.dataset.add))}else{const c=e.target.closest("[data-product]");if(c)showDetails(Number(c.dataset.product))}});$("catalog").addEventListener("keydown",e=>{const c=e.target.closest("[data-product]");if(c&&(e.key==="Enter"||e.key===" ")){e.preventDefault();showDetails(Number(c.dataset.product))}});$("save").onclick=()=>{localStorage.setItem("artefact-build",JSON.stringify(build));$("msg").textContent="Configurație salvată pe acest dispozitiv."};try{build=JSON.parse(localStorage.getItem("artefact-build")||"{}")}catch(e){}let dp;addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;$("install").hidden=false});$("install").onclick=()=>dp&&dp.prompt();if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("./sw.js",{updateViaCache:"none"}));draw();
 </script></body></html>
