@@ -96,7 +96,7 @@ function check(){
  }else if(m||cs)add("warn","Format placă de bază / carcasă","Selectează placa și carcasa.");
  if(g&&cs){
   const gh=hw(g),sh=hw(cs),gpuLen=gh.lengthMm,limit=sh.gpuMaxLengthMm;
-  if(gpuLen&&limit)add(gpuLen<=limit?"ok":"bad","Lungime placă video",gpuLen+" mm GPU / "+limit+" mm limită carcasă.");
+  if(gh.variantExact&&gpuLen&&limit)add(gpuLen<=limit?"ok":"bad","Lungime placă video",gpuLen+" mm GPU / "+limit+" mm limită carcasă.");
   else add("warn","Lungime placă video","Lipsește lungimea exactă pentru varianta GPU selectată sau limita carcasei. Nu folosesc dimensiunea cipului grafic ca dimensiune a plăcii.");
   if(gh.thicknessSlots&&gh.thicknessSlots>sh.expansionSlots)add("bad","Grosime GPU","Placa video ocupă "+gh.thicknessSlots+" sloturi, dar carcasa oferă "+sh.expansionSlots+".");
  }else if(g||cs)add("warn","Lungime placă video","Selectează placa video și carcasa.");
