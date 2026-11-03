@@ -17,7 +17,7 @@ const names={CPU:"Procesoare",GPU:"Plăci video",MB:"Plăci de bază",RAM:"Memor
 const ico={CPU:"▤",GPU:"▰",MB:"▦",RAM:"▥",SSD:"▱",PSU:"ϟ",CASE:"▣",COOL:"❄",FAN:"◉"};
 const D=[
 ["CPU","AMD Ryzen 5 5600","AMD",2022,520,"AM4",65,"6 nuclee · Zen 3"],["CPU","AMD Ryzen 5 7600","AMD",2023,890,"AM5",65,"6 nuclee · Zen 4"],["CPU","AMD Ryzen 7 5700X","AMD",2022,720,"AM4",65,"8 nuclee"],["CPU","AMD Ryzen 7 7800X3D","AMD",2023,1850,"AM5",120,"8 nuclee · 3D V-Cache"],["CPU","AMD Ryzen 5 9600X","AMD",2024,1250,"AM5",65,"Zen 5"],["CPU","Intel Core i3-12100F","Intel",2022,390,"LGA1700",58,"4 nuclee"],["CPU","Intel Core i5-12400F","Intel",2022,550,"LGA1700",65,"6 nuclee"],["CPU","Intel Core i5-13400F","Intel",2023,790,"LGA1700",65,"10 nuclee"],["CPU","Intel Core i5-14400F","Intel",2024,900,"LGA1700",65,"10 nuclee"],["CPU","Intel Core i7-14700K","Intel",2023,1850,"LGA1700",125,"20 nuclee"],["CPU","Intel Core Ultra 5 245K","Intel",2024,1350,"LGA1851",125,"Arrow Lake"],
-["GPU","GeForce GTX 1660 SUPER","MSI",2020,650,"",125,"6 GB GDDR6 · 230 mm"],["GPU","GeForce RTX 2060","ASUS",2020,850,"",160,"6 GB GDDR6 · 242 mm"],["GPU","GeForce RTX 3060 12GB","Gigabyte",2021,1250,"",170,"12 GB · 282 mm"],["GPU","GeForce RTX 4060","MSI",2023,1450,"",115,"8 GB · 247 mm"],["GPU","GeForce RTX 4070 SUPER","Gigabyte",2024,2900,"",220,"12 GB · 300 mm"],["GPU","GeForce RTX 5070","ASUS",2025,3300,"",250,"12 GB · 304 mm"],["GPU","GeForce RTX 5080","MSI",2025,6200,"",360,"16 GB · 340 mm"],["GPU","Radeon RX 6600","Sapphire",2021,950,"",132,"8 GB · 240 mm"],["GPU","Radeon RX 7800 XT","PowerColor",2023,2450,"",263,"16 GB · 320 mm"],
+["GPU","GeForce GTX 1660 SUPER","MSI",2020,650,"",125,"6 GB GDDR6 · 230 mm"],["GPU","GeForce RTX 2060","ASUS",2020,850,"",160,"6 GB GDDR6 · 242 mm"],["GPU","GeForce RTX 3060 12GB","Gigabyte",2021,1250,"",170,"12 GB · 282 mm"],["GPU","MSI GeForce RTX 4060 VENTUS 2X BLACK 8G OC","MSI",2023,1450,"",115,"8 GB · 199 × 120 × 41 mm · 1×8-pin"],["GPU","GeForce RTX 4070 SUPER","Gigabyte",2024,2900,"",220,"12 GB · 300 mm"],["GPU","GeForce RTX 5070","ASUS",2025,3300,"",250,"12 GB · 304 mm"],["GPU","GeForce RTX 5080","MSI",2025,6200,"",360,"16 GB · 340 mm"],["GPU","Radeon RX 6600","Sapphire",2021,950,"",132,"8 GB · 240 mm"],["GPU","Radeon RX 7800 XT","PowerColor",2023,2450,"",263,"16 GB · 320 mm"],
 ["MB","MSI B550M PRO-VDH WIFI","MSI",2020,520,"AM4","DDR4","mATX · 2× M.2"],["MB","ASUS TUF Gaming B650-PLUS","ASUS",2022,950,"AM5","DDR5","ATX · 3× M.2"],["MB","Gigabyte B760M DS3H DDR4","Gigabyte",2023,570,"LGA1700","DDR4","mATX · 2× M.2"],["MB","MSI PRO B760-P WIFI DDR5","MSI",2023,760,"LGA1700","DDR5","ATX · 2× M.2"],["MB","ASRock Z890 Pro RS","ASRock",2024,1150,"LGA1851","DDR5","ATX · 4× M.2"],
 ["RAM","Kingston Fury Beast 8GB DDR4 3200","Kingston",2020,95,"DDR4",8,"3200 MT/s"],["RAM","Corsair Vengeance LPX 16GB DDR4 3200","Corsair",2020,185,"DDR4",16,"3200 MT/s"],["RAM","G.Skill Ripjaws V 16GB DDR4 3600","G.Skill",2021,210,"DDR4",16,"3600 MT/s"],["RAM","Kingston Fury Beast 16GB DDR5 5600","Kingston",2022,260,"DDR5",16,"5600 MT/s"],["RAM","Corsair Vengeance 32GB DDR5 6000","Corsair",2023,480,"DDR5",32,"6000 MT/s"],["RAM","G.Skill Trident Z5 Neo 32GB DDR5 6400","G.Skill",2024,590,"DDR5",32,"6400 MT/s"],
 ["SSD","Kingston NV2 250GB M.2 NVMe","Kingston",2022,145,"M.2",0,"250 GB · PCIe 4.0"],["SSD","WD Blue SN580 500GB M.2 NVMe","WD",2023,210,"M.2",0,"500 GB · PCIe 4.0"],["SSD","Samsung 990 EVO 500GB M.2","Samsung",2024,310,"M.2",0,"500 GB · NVMe"],["SSD","Crucial P3 Plus 1TB M.2","Crucial",2022,300,"M.2",0,"1 TB · PCIe 4.0"],["SSD","Samsung 870 EVO 500GB SATA","Samsung",2021,260,"SATA",0,"500 GB · 2.5 inch"],["SSD","Crucial BX500 240GB SATA","Crucial",2020,125,"SATA",0,"240 GB · 2.5 inch"],
@@ -27,6 +27,10 @@ const D=[
 ["FAN","Arctic P12 PWM PST 120 mm","Arctic",2020,35,"",120,"120 mm · PWM"],["FAN","Noctua NF-A14 PWM 140 mm","Noctua",2020,115,"",140,"140 mm · PWM"],["FAN","Corsair AF120 RGB ELITE","Corsair",2022,115,"",120,"120 mm · RGB"],["FAN","Lian Li UNI FAN SL-INF 120","Lian Li",2022,145,"",120,"120 mm · ARGB"]
 ].map(a=>({cat:a[0],name:a[1],brand:a[2],year:a[3],price:a[4],socket:a[5],spec:a[6],desc:a[7]}));
 D.push(...EXTRA);
+D.push(
+ {cat:"GPU",name:"ASUS Dual GeForce RTX 4060 OC Edition 8GB (DUAL-RTX4060-O8G)",brand:"ASUS",year:2023,price:1490,socket:"",spec:115,desc:"8 GB GDDR6 · 227.2 × 123.24 × 49.6 mm · 2.5 slot · 1×8-pin"},
+ {cat:"GPU",name:"Gigabyte GeForce RTX 4060 WINDFORCE OC 8G (GV-N4060WF2OC-8GD)",brand:"Gigabyte",year:2023,price:1470,socket:"",spec:115,desc:"8 GB GDDR6 · 192 × 120 × 41 mm · 1×8-pin"}
+);
 const HW_SPECS={
  "AMD Ryzen 5 5600":{kind:"cpu",socket:"AM4",tdpW:65,cores:6,threads:12,memoryType:"DDR4",memoryMaxGB:128,memorySpeedMTs:3200,pcie:"4.0",igpu:false,maxTempC:90,source:"https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-5-5600.html",verifiedOn:"2026-11-04"},
  "MSI B550M PRO-VDH WIFI":{kind:"motherboard",socket:"AM4",chipset:"B550",formFactor:"mATX",widthMm:244,heightMm:244,memoryType:"DDR4",dimmSlots:4,memoryMaxGB:128,memoryOcMaxMTs:4400,m2Slots:[{count:1,interface:"PCIe 4.0 x4 / SATA",sizes:["2242","2260","2280"],note:"M2_1; depinde de CPU"},{count:1,interface:"PCIe 3.0 x4",sizes:["2242","2260","2280"]}],sataPorts:4,pcieX16:"PCIe 4.0 / 3.0 în funcție de CPU",powerConnectors:["24-pin ATX","8-pin ATX 12V"],fanHeaders:{cpu:1,pump:1,system:3},cpuSupport:"Ryzen 5000/3000 desktop și Ryzen 4000G, cu excepțiile MSI",biosLatest:{version:"7C95v2P2",date:"2026-08-31"},biosMinimumForSelectedCpu:null,biosNote:"Versiunea minimă pentru CPU-ul selectat nu este confirmată din lista oficială în acest catalog. Verifică lista CPU Support înainte de update.",cpuSupportUrl:"https://www.msi.com/Motherboard/B550M-PRO-VDH-WIFI/support",source:"https://www.msi.com/Motherboard/B550M-PRO-VDH-WIFI/Specification",verifiedOn:"2026-11-04"},
@@ -126,6 +130,23 @@ D.forEach(p=>{
  }
  if(p.cat==="PSU")p.hw={...(p.hw||{}),kind:"psu",...(PSU_DETAIL[p.name]||{wattageW:Number(p.spec)||null}),detailStatus:PSU_DETAIL[p.name]?.connectors?"partial verified PSU SKU":"partial; connectors/dimensions unverified"};
  if(p.cat==="COOL")p.hw={...(p.hw||{}),kind:"cooler",heightMm:Number(p.spec)||null,sockets:String(p.socket||"").split(",").filter(Boolean),...(COOL_DETAIL[p.name]||{}),detailStatus:COOL_DETAIL[p.name]?.source?"model-specific reference; check variant":"partial"};
+});
+Object.assign(HW_SPECS,{
+ "MSI GeForce RTX 4060 VENTUS 2X BLACK 8G OC":{
+  kind:"gpu",sku:"GeForce RTX 4060 VENTUS 2X BLACK 8G OC",gpuChip:"AD107",vramGB:8,vramType:"GDDR6",boardPowerW:120,systemPsuRecommendedW:550,
+  lengthMm:199,widthMm:120,heightMm:41,thicknessSlots:2,powerConnectors:["1x PCIe 8-pin"],variantExact:true,
+  source:"https://www.msi.com/Graphics-Card/GeForce-RTX-4060-VENTUS-2X-BLACK-8G-OC/Specification",verifiedOn:"2026-11-04"
+ },
+ "ASUS Dual GeForce RTX 4060 OC Edition 8GB (DUAL-RTX4060-O8G)":{
+  kind:"gpu",sku:"DUAL-RTX4060-O8G",gpuChip:"AD107",vramGB:8,vramType:"GDDR6",boardPowerW:null,systemPsuRecommendedW:550,
+  lengthMm:227.2,widthMm:123.24,heightMm:49.6,thicknessSlots:2.5,powerConnectors:["1x PCIe 8-pin"],variantExact:true,
+  source:"https://www.asus.com/es/motherboards-components/graphics-cards/dual/dual-rtx4060-o8g/techspec/",verifiedOn:"2026-11-04"
+ },
+ "Gigabyte GeForce RTX 4060 WINDFORCE OC 8G (GV-N4060WF2OC-8GD)":{
+  kind:"gpu",sku:"GV-N4060WF2OC-8GD",gpuChip:"AD107",vramGB:8,vramType:"GDDR6",boardPowerW:null,systemPsuRecommendedW:450,
+  lengthMm:192,widthMm:120,heightMm:41,thicknessSlots:2,powerConnectors:["1x PCIe 8-pin"],variantExact:true,
+  source:"https://www.gigabyte.com/ro/Graphics-Card/GV-N4060WF2OC-8GD/sp",verifiedOn:"2026-11-04"
+ }
 });
 D.forEach(p=>{if(HW_SPECS[p.name])p.hw=HW_SPECS[p.name]});
 
