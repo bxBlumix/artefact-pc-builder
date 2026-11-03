@@ -17,7 +17,7 @@ const names={CPU:"Procesoare",GPU:"Plăci video",MB:"Plăci de bază",RAM:"Memor
 const ico={CPU:"▤",GPU:"▰",MB:"▦",RAM:"▥",SSD:"▱",PSU:"ϟ",CASE:"▣",COOL:"❄",FAN:"◉"};
 const D=[
 ["CPU","AMD Ryzen 5 5600","AMD",2022,520,"AM4",65,"6 nuclee · Zen 3"],["CPU","AMD Ryzen 5 7600","AMD",2023,890,"AM5",65,"6 nuclee · Zen 4"],["CPU","AMD Ryzen 7 5700X","AMD",2022,720,"AM4",65,"8 nuclee"],["CPU","AMD Ryzen 7 7800X3D","AMD",2023,1850,"AM5",120,"8 nuclee · 3D V-Cache"],["CPU","AMD Ryzen 5 9600X","AMD",2024,1250,"AM5",65,"Zen 5"],["CPU","Intel Core i3-12100F","Intel",2022,390,"LGA1700",58,"4 nuclee"],["CPU","Intel Core i5-12400F","Intel",2022,550,"LGA1700",65,"6 nuclee"],["CPU","Intel Core i5-13400F","Intel",2023,790,"LGA1700",65,"10 nuclee"],["CPU","Intel Core i5-14400F","Intel",2024,900,"LGA1700",65,"10 nuclee"],["CPU","Intel Core i7-14700K","Intel",2023,1850,"LGA1700",125,"20 nuclee"],["CPU","Intel Core Ultra 5 245K","Intel",2024,1350,"LGA1851",125,"Arrow Lake"],
-["GPU","GeForce GTX 1660 SUPER","MSI",2020,650,"",125,"6 GB GDDR6 · 230 mm"],["GPU","GeForce RTX 2060","ASUS",2020,850,"",160,"6 GB GDDR6 · 242 mm"],["GPU","GeForce RTX 3060 12GB","Gigabyte",2021,1250,"",170,"12 GB · 282 mm"],["GPU","MSI GeForce RTX 4060 VENTUS 2X BLACK 8G OC","MSI",2023,1450,"",115,"8 GB · 199 × 120 × 41 mm · 1×8-pin"],["GPU","GeForce RTX 4070 SUPER","Gigabyte",2024,2900,"",220,"12 GB · 300 mm"],["GPU","GeForce RTX 5070","ASUS",2025,3300,"",250,"12 GB · 304 mm"],["GPU","GeForce RTX 5080","MSI",2025,6200,"",360,"16 GB · 340 mm"],["GPU","Radeon RX 6600","Sapphire",2021,950,"",132,"8 GB · 240 mm"],["GPU","Radeon RX 7800 XT","PowerColor",2023,2450,"",263,"16 GB · 320 mm"],
+["GPU","GeForce GTX 1660 SUPER","MSI",2020,650,"",125,"6 GB GDDR6 · 230 mm"],["GPU","GeForce RTX 2060","ASUS",2020,850,"",160,"6 GB GDDR6 · 242 mm"],["GPU","GeForce RTX 3060 12GB","Gigabyte",2021,1250,"",170,"12 GB · 282 mm"],["GPU","MSI GeForce RTX 4060 VENTUS 2X BLACK 8G OC","MSI",2023,1450,"",115,"8 GB · 199 × 120 × 41 mm · 1×8-pin"],["GPU","GeForce RTX 4070 SUPER","Gigabyte",2024,2900,"",220,"12 GB · 300 mm"],["GPU","MSI GeForce RTX 5070 12G VENTUS 2X (G5070-12V2)","MSI",2025,3300,"",250,"12 GB GDDR7 · 236 × 126 × 50 mm · 16-pin"],["GPU","GeForce RTX 5080","MSI",2025,6200,"",360,"16 GB · 340 mm"],["GPU","Radeon RX 6600","Sapphire",2021,950,"",132,"8 GB · 240 mm"],["GPU","Radeon RX 7800 XT","PowerColor",2023,2450,"",263,"16 GB · 320 mm"],
 ["MB","MSI B550M PRO-VDH WIFI","MSI",2020,520,"AM4","DDR4","mATX · 2× M.2"],["MB","ASUS TUF Gaming B650-PLUS","ASUS",2022,950,"AM5","DDR5","ATX · 3× M.2"],["MB","Gigabyte B760M DS3H DDR4","Gigabyte",2023,570,"LGA1700","DDR4","mATX · 2× M.2"],["MB","MSI PRO B760-P WIFI DDR5","MSI",2023,760,"LGA1700","DDR5","ATX · 2× M.2"],["MB","ASRock Z890 Pro RS","ASRock",2024,1150,"LGA1851","DDR5","ATX · 4× M.2"],
 ["RAM","Kingston Fury Beast 8GB DDR4 3200","Kingston",2020,95,"DDR4",8,"3200 MT/s"],["RAM","Corsair Vengeance LPX 16GB DDR4 3200","Corsair",2020,185,"DDR4",16,"3200 MT/s"],["RAM","G.Skill Ripjaws V 16GB DDR4 3600","G.Skill",2021,210,"DDR4",16,"3600 MT/s"],["RAM","Kingston Fury Beast 16GB DDR5 5600","Kingston",2022,260,"DDR5",16,"5600 MT/s"],["RAM","Corsair Vengeance 32GB DDR5 6000","Corsair",2023,480,"DDR5",32,"6000 MT/s"],["RAM","G.Skill Trident Z5 Neo 32GB DDR5 6400","G.Skill",2024,590,"DDR5",32,"6400 MT/s"],
 ["SSD","Kingston NV2 250GB M.2 NVMe","Kingston",2022,145,"M.2",0,"250 GB · PCIe 4.0"],["SSD","WD Blue SN580 500GB M.2 NVMe","WD",2023,210,"M.2",0,"500 GB · PCIe 4.0"],["SSD","Samsung 990 EVO 500GB M.2","Samsung",2024,310,"M.2",0,"500 GB · NVMe"],["SSD","Crucial P3 Plus 1TB M.2","Crucial",2022,300,"M.2",0,"1 TB · PCIe 4.0"],["SSD","Samsung 870 EVO 500GB SATA","Samsung",2021,260,"SATA",0,"500 GB · 2.5 inch"],["SSD","Crucial BX500 240GB SATA","Crucial",2020,125,"SATA",0,"240 GB · 2.5 inch"],
@@ -27,6 +27,12 @@ const D=[
 ["FAN","Arctic P12 PWM PST 120 mm","Arctic",2020,35,"",120,"120 mm · PWM"],["FAN","Noctua NF-A14 PWM 140 mm","Noctua",2020,115,"",140,"140 mm · PWM"],["FAN","Corsair AF120 RGB ELITE","Corsair",2022,115,"",120,"120 mm · RGB"],["FAN","Lian Li UNI FAN SL-INF 120","Lian Li",2022,145,"",120,"120 mm · ARGB"]
 ].map(a=>({cat:a[0],name:a[1],brand:a[2],year:a[3],price:a[4],socket:a[5],spec:a[6],desc:a[7]}));
 D.push(...EXTRA);
+D.push(
+ {cat:"GPU",name:"ASUS TUF Gaming GeForce RTX 5070 12GB (TUF-RTX5070-12G-GAMING)",brand:"ASUS",year:2025,price:3650,socket:"",spec:250,desc:"12 GB GDDR7 · 329 × 140 × 62.5 mm · 3.125 sloturi · 1×16-pin"},
+ {cat:"GPU",name:"Gigabyte GeForce RTX 5070 WINDFORCE OC SFF 12G (GV-N5070WF3OC-12GD)",brand:"Gigabyte",year:2025,price:3450,socket:"",spec:250,desc:"12 GB GDDR7 · 282 × 110 × 50 mm · 16-pin"},
+ {cat:"GPU",name:"MSI GeForce RTX 5070 12G VENTUS 2X OC (G5070-12V2C)",brand:"MSI",year:2025,price:3350,socket:"",spec:250,desc:"12 GB GDDR7 · 236 × 126 × 50 mm · 16-pin"}
+);
+
 D.push(
  {cat:"GPU",name:"ASUS Dual GeForce RTX 4060 OC Edition 8GB (DUAL-RTX4060-O8G)",brand:"ASUS",year:2023,price:1490,socket:"",spec:115,desc:"8 GB GDDR6 · 227.2 × 123.24 × 49.6 mm · 2.5 slot · 1×8-pin"},
  {cat:"GPU",name:"Gigabyte GeForce RTX 4060 WINDFORCE OC 8G (GV-N4060WF2OC-8GD)",brand:"Gigabyte",year:2023,price:1470,socket:"",spec:115,desc:"8 GB GDDR6 · 192 × 120 × 41 mm · 1×8-pin"}
@@ -165,6 +171,66 @@ Object.assign(HW_SPECS,{
   kind:"gpu",sku:"GV-N4060WF2OC-8GD",gpuChip:"AD107",vramGB:8,vramType:"GDDR6",boardPowerW:null,systemPsuRecommendedW:450,
   lengthMm:192,widthMm:120,heightMm:41,thicknessSlots:2,powerConnectors:["1x PCIe 8-pin"],variantExact:true,
   source:"https://www.gigabyte.com/ro/Graphics-Card/GV-N4060WF2OC-8GD/sp",verifiedOn:"2026-11-04"
+ }
+});
+Object.assign(HW_SPECS,{
+ "ASUS TUF Gaming GeForce RTX 5070 12GB (TUF-RTX5070-12G-GAMING)":{
+  kind:"gpu",sku:"TUF-RTX5070-12G-GAMING",gpuChip:"GB205",vramGB:12,vramType:"GDDR7",boardPowerW:250,systemPsuRecommendedW:750,
+  lengthMm:329,widthMm:140,heightMm:62.5,thicknessSlots:3.125,powerConnectors:["1x 16-pin"],required12VHPWR:true,adapterPcie8pin:2,variantExact:true,
+  source:"https://www.asus.com/ro/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5070-12g-gaming/techspec/",verifiedOn:"2026-11-04"
+ },
+ "Gigabyte GeForce RTX 5070 WINDFORCE OC SFF 12G (GV-N5070WF3OC-12GD)":{
+  kind:"gpu",sku:"GV-N5070WF3OC-12GD",gpuChip:"GB205",vramGB:12,vramType:"GDDR7",boardPowerW:250,systemPsuRecommendedW:750,
+  lengthMm:282,widthMm:110,heightMm:50,thicknessSlots:null,powerConnectors:["1x 16-pin"],required12VHPWR:true,adapterPcie8pin:2,variantExact:true,
+  source:"https://www.gigabyte.com/Graphics-Card/GV-N5070WF3OC-12GD/sp",verifiedOn:"2026-11-04"
+ },
+ "MSI GeForce RTX 5070 12G VENTUS 2X (G5070-12V2)":{
+  kind:"gpu",sku:"G5070-12V2",gpuChip:"GB205",vramGB:12,vramType:"GDDR7",boardPowerW:250,systemPsuRecommendedW:650,
+  lengthMm:236,widthMm:126,heightMm:50,thicknessSlots:null,powerConnectors:["1x 16-pin"],required12VHPWR:true,adapterPcie8pin:2,variantExact:true,
+  source:"https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-2X/Specification",verifiedOn:"2026-11-04"
+ },
+ "Corsair CV550 550W Bronze":{
+  kind:"psu",sku:"CP-9020210-EU",wattageW:550,lengthMm:125,widthMm:150,heightMm:86,modular:false,atxVersion:"2.31",
+  connectors:{atx24:1,eps4plus4:1,pcie6plus2:2,pcie12plus4:0,sata:7,molex:4},
+  source:"https://www.corsair.com/uk/en/p/psu/cp-9020210-uk/cv-series-cv550-550-watt-80-plus-bronze-certified-psu-cp-9020210-uk",verifiedOn:"2026-11-04"
+ },
+ "Seasonic Focus GX-650 Gold":{
+  kind:"psu",sku:null,wattageW:650,lengthMm:140,widthMm:150,heightMm:86,modular:true,
+  connectors:{atx24:1,eps4plus4:2,pcie6plus2:4,pcie12plus4:0,sata:10,molex:3},
+  source:"https://seasonic.com/wp-content/uploads/2024/04/FOCUS-GX-FX.pdf",detailStatus:"model-level data; confirm label/SKU and hardware revision",verifiedOn:"2026-11-04"
+ },
+ "be quiet! Pure Power 12 M 750W":{
+  kind:"psu",sku:"BN715",wattageW:750,lengthMm:null,widthMm:null,heightMm:null,modular:true,atxVersion:"3.0",
+  connectors:{atx24:1,eps4plus4:null,pcie6plus2:2,pcie12plus4:1},
+  source:"https://bequiet.com/en/powersupply/4078",detailStatus:"PCIe connectors verified; EPS/SATA counts and enclosure dimensions not added until confirmed from datasheet",verifiedOn:"2026-11-04"
+ },
+ "Corsair RM850e 850W Gold":{
+  kind:"psu",sku:"CP-9020336-EU",wattageW:850,lengthMm:140,widthMm:150,heightMm:86,modular:true,atxVersion:"3.1",
+  connectors:{atx24:1,eps4plus4:2,pcie6plus2:3,pcie12plus4:1,sata:6,molex:2},
+  source:"https://www.corsair.com/eu/en/p/psu/cp-9020336-eu/rm850e-atx-3.1-low-noise-atx-power-supply-with-thermalprotect-12v-2x6-cable-cp-9020336-eu",detailStatus:"SKU CP-9020336-EU (2025 ATX 3.1 revision)",verifiedOn:"2026-11-04"
+ },
+ "DeepCool AG400":{
+  kind:"cooler",sku:"R-AG400-BKNNMN-G-1",heightMm:150,widthMm:125,depthMm:92,weightG:614,
+  sockets:["AM5","AM4","LGA1700","LGA1200","LGA1151","LGA1150","LGA1155"],
+  fan:{sizeMm:120,thicknessMm:25,connector:"4-pin PWM",count:1,speedRpm:"500–2000"},
+  source:"https://www.deepcool.com/products/Cooling/cpuaircoolers/GAMMAXX-AG400-Single-Tower-CPU-Cooler-1700-AM5/2022/15898.shtml",verifiedOn:"2026-11-04"
+ },
+ "Cooler Master Hyper 212 Black":{
+  kind:"cooler",sku:"RR-212S-20PK-R2",heightMm:158.8,widthMm:123,depthMm:77,weightG:null,
+  sockets:["LGA1700","LGA1200","LGA1156","LGA1155","LGA1151","LGA1150","LGA1366","AM4","AM5"],
+  fan:{sizeMm:120,thicknessMm:25,connector:"4-pin PWM",count:1,speedRpm:"800–2000"},
+  source:"https://www.coolermaster.com/en-us/products/hyper-212-black-edition-with-lga1700.html",note:"Suportul AM5 poate depinde de kitul inclus în pachet; verifică SKU-ul/revizia pachetului.",verifiedOn:"2026-11-04"
+ },
+ "Thermalright Peerless Assassin 120 SE":{
+  kind:"cooler",sku:null,heightMm:155,widthMm:125,depthMm:110,weightG:730,
+  sockets:["AM5","AM4","LGA1700","LGA1851","LGA1200","LGA115x"],
+  fan:{sizeMm:120,thicknessMm:25,connector:"4-pin PWM",count:2},
+  source:"https://www.thermalright.com/product/peerless-assassin-120-se-black/",detailStatus:"model dimensions from official SE Black listing; exact finish/part number in catalog not resolved",verifiedOn:"2026-11-04"
+ },
+ "Arctic Liquid Freezer III 240":{
+  kind:"cooler",sku:"ACFRE00134A",radiatorMm:240,radiator:{lengthMm:277,widthMm:120,thicknessMm:38,overallThicknessWithFansMm:66},
+  tubeLengthMm:450,sockets:["AM5","AM4","LGA1700","LGA1851"],pumpConnector:"4-pin PWM",fan:{sizeMm:120,connector:"4-pin PWM",count:2},
+  source:"https://www.arctic.de/en/Liquid-Freezer-III-240/ACFRE00134A",verifiedOn:"2026-11-04"
  }
 });
 D.forEach(p=>{if(HW_SPECS[p.name])p.hw=HW_SPECS[p.name]});
