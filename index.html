@@ -299,7 +299,7 @@ function check(){
  if(ram&&m){
   const rh=hw(ram),mh=hw(m),gen=ram.socket;
   add(gen&&m.spec&&gen===m.spec?"ok":gen&&m.spec?"bad":"warn","Generație RAM",gen&&m.spec?(gen===m.spec?"RAM "+gen+" corespunde.":"RAM "+gen+" nu corespunde plăcii "+m.spec+"."):"Lipsește tipul memoriei.");
-  const capacity=rh.capacityGB??Number(ram.spec)||null;
+  const capacity=(rh.capacityGB??Number(ram.spec))||null;
   if(capacity&&mh.memoryMaxGB)add(capacity<=mh.memoryMaxGB?"ok":"bad","Capacitate RAM",capacity+" GB / limită placă "+mh.memoryMaxGB+" GB.");
   else add("warn","Capacitate RAM","Capacitatea kitului sau limita plăcii nu este verificată.");
   if(rh.moduleCount&&mh.dimmSlots)add(rh.moduleCount<=mh.dimmSlots?"ok":"bad","Număr module RAM",rh.moduleCount+" module / "+mh.dimmSlots+" sloturi DIMM.");
