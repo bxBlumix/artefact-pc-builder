@@ -27,6 +27,13 @@ const D=[
 ["FAN","Arctic P12 PWM PST 120 mm","Arctic",2020,35,"",120,"120 mm · PWM"],["FAN","Noctua NF-A14 PWM 140 mm","Noctua",2020,115,"",140,"140 mm · PWM"],["FAN","Corsair AF120 RGB ELITE","Corsair",2022,115,"",120,"120 mm · RGB"],["FAN","Lian Li UNI FAN SL-INF 120","Lian Li",2022,145,"",120,"120 mm · ARGB"]
 ].map(a=>({cat:a[0],name:a[1],brand:a[2],year:a[3],price:a[4],socket:a[5],spec:a[6],desc:a[7]}));
 D.push(...EXTRA);
+const HW_SPECS={
+ "AMD Ryzen 5 5600":{kind:"cpu",socket:"AM4",tdpW:65,cores:6,threads:12,memoryType:"DDR4",memoryMaxGB:128,memorySpeedMTs:3200,pcie:"4.0",igpu:false,maxTempC:90,source:"https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-5-5600.html",verifiedOn:"2026-11-04"},
+ "MSI B550M PRO-VDH WIFI":{kind:"motherboard",socket:"AM4",chipset:"B550",formFactor:"mATX",widthMm:244,heightMm:244,memoryType:"DDR4",dimmSlots:4,memoryMaxGB:128,memoryOcMaxMTs:4400,m2Slots:[{count:1,interface:"PCIe 4.0 x4 / SATA",sizes:["2242","2260","2280"],note:"M2_1; depinde de CPU"},{count:1,interface:"PCIe 3.0 x4",sizes:["2242","2260","2280"]}],sataPorts:4,pcieX16:"PCIe 4.0 / 3.0 în funcție de CPU",powerConnectors:["24-pin ATX","8-pin ATX 12V"],fanHeaders:{cpu:1,pump:1,system:3},cpuSupport:"Ryzen 5000/3000 desktop și Ryzen 4000G, cu excepțiile MSI",biosLatest:{version:"7C95v2P2",date:"2026-08-31"},biosMinimumForSelectedCpu:null,biosNote:"Versiunea minimă pentru CPU-ul selectat nu este confirmată din lista oficială în acest catalog. Verifică lista CPU Support înainte de update.",cpuSupportUrl:"https://www.msi.com/Motherboard/B550M-PRO-VDH-WIFI/support",source:"https://www.msi.com/Motherboard/B550M-PRO-VDH-WIFI/Specification",verifiedOn:"2026-11-04"},
+ "Corsair 4000D Airflow":{kind:"case",formFactors:["Mini-ITX","mATX","ATX","E-ATX up to 305 x 277 mm"],widthMm:230,heightMm:466,lengthMm:453,gpuMaxLengthMm:360,cpuCoolerMaxHeightMm:170,psuMaxLengthMm:220,radiatorSupport:{front:[240,280,360],top:[240,280],rear:[120]},fanSupport:{front:["3x120","2x140"],top:["2x120","2x140"],rear:["1x120"]},source:"https://www.corsair.com/us/en/p/pc-cases/cc-9011200-ww/4000d-airflow-tempered-glass-mid-tower-atx-case-black-cc-9011200-ww",verifiedOn:"2026-11-04"}
+};
+D.forEach(p=>{if(HW_SPECS[p.name])p.hw=HW_SPECS[p.name]});
+
 const PRODUCT_PHOTOS={
  "AMD Ryzen 5 5600":{url:"https://estore.ua/media/catalog/product/cache/8/image/650x650/9df78eab33525d08d6e5fb8d27136e95/a/m/amd-ryzen-5-5600-100-100000927box_2_.jpg",source:"https://estore.ua/processor-amd-ryzen-5-5600-100-100000927box/",label:"eStore · Ryzen 5 5600"},
  "Ryzen 5 5600":{url:"https://estore.ua/media/catalog/product/cache/8/image/650x650/9df78eab33525d08d6e5fb8d27136e95/a/m/amd-ryzen-5-5600-100-100000927box_2_.jpg",source:"https://estore.ua/processor-amd-ryzen-5-5600-100-100000927box/",label:"eStore · Ryzen 5 5600"},
@@ -42,28 +49,74 @@ function drawBuild(){let keys=Object.keys(build);$("build").innerHTML=keys.lengt
 function check(){
  const a=build,r=[],c=a.CPU,m=a.MB,ram=a.RAM,g=a.GPU,p=a.PSU,cs=a.CASE,cl=a.COOL,ssd=a.SSD;
  const add=(level,title,detail)=>r.push([level,"<b>"+title+"</b><br>"+detail]);
- const num=(v)=>{const n=Number(v);return Number.isFinite(n)?n:null};
- const findMm=(s)=>{const z=String(s||"").match(/(?:max(?:imum)?\s*)?(\d{3})\s*mm/i);return z?Number(z[1]):null};
- const boardForm=(x)=>{const n=(x?.name||"").toLowerCase();if(/\b(matx|micro[- ]?atx)\b/.test(n)||/\bm[0-9a-z]{2,}[- ]/.test(n))return "mATX";if(/\b(itx|mini[- ]?itx)\b/.test(n))return "ITX";if(/\b(eatx|e-atx)\b/.test(n))return "E-ATX";if(x)return "ATX";return null};
- if(!c||!m)add("warn","Platformă incompletă","Selectează procesorul și placa de bază pentru verificarea socketului.");
- else if(c.socket&&m.socket)add(c.socket===m.socket?"ok":"bad","Socket CPU / placă de bază",c.socket===m.socket?"Socketul "+c.socket+" corespunde.":"Incompatibil: procesor "+c.socket+", placă de bază "+m.socket+".");
- else add("warn","Socket CPU / placă de bază","Lipsesc datele exacte pentru confirmare.");
- if(c&&m)add("warn","Compatibilitate BIOS","Socketul poate corespunde, dar versiunea BIOS și lista CPU support a producătorului nu sunt verificate automat. Consultă lista oficială pentru modelul exact.");
- if(ram&&m){const gen=ram.socket||"",boardRam=m.spec||"";add(gen&&boardRam&&gen===boardRam?"ok":gen&&boardRam?"bad":"warn","Generație RAM",gen&&boardRam?(gen===boardRam?"Ambele folosesc "+gen+".":"RAM "+gen+" nu corespunde plăcii "+boardRam+"."):"Nu există date suficiente despre generația memoriei.");}
- else add("warn","Memorie RAM","Selectează RAM și placă de bază pentru verificarea DDR4/DDR5.");
- if(ram&&m&&ram.socket===m.spec)add("warn","Frecvență și profil RAM","Generația corespunde; frecvența suportată, XMP/EXPO, capacitatea maximă și QVL-ul kitului trebuie verificate în specificațiile plăcii.");
- if(m&&cs){const bf=boardForm(m),cf=cs.socket||"ATX",ok=cf==="ATX"?["ATX","mATX","ITX"].includes(bf):cf==="mATX"?["mATX","ITX"].includes(bf):cf==="ITX"?bf==="ITX":null;add(ok===null?"warn":ok?"ok":"bad","Format placă de bază / carcasă",ok===null?"Formatul carcasei nu este cunoscut suficient.":ok?"Formatul "+bf+" pare acceptat de carcasa listată ca "+cf+".":"Carcasa listată ca "+cf+" poate să nu accepte placa "+bf+".");}
- else if(m||cs)add("warn","Format placă de bază / carcasă","Selectează carcasa și placa de bază.");
- if(g&&cs){const gl=findMm(g.desc),clim=num(cs.spec);add(gl&&clim?(gl<=clim?"ok":"bad"):"warn","Lungime placă video",gl&&clim?(gl+" mm GPU / "+clim+" mm limită declarată pentru carcasă. "+(gl<=clim?"Se încadrează după datele catalogului.":"Depășește limita declarată.")):"Nu am găsit dimensiuni exacte pentru ambele modele; verifică fișa producătorului.");}
- if(cl&&c){const supports=String(cl.socket||"").split(",").map(x=>x.trim());add(supports.includes(c.socket)?"ok":supports.length?"bad":"warn","Prindere cooler / socket",supports.length?(supports.includes(c.socket)?"Coolerul listează socketul "+c.socket+".":"Coolerul nu listează socketul "+c.socket+"."):"Lista de socketuri a coolerului lipsește.");}
- if(cl&&cs)add("warn","Înălțime cooler / radiator","Înălțimea maximă a coolerului și compatibilitatea radiatorului cu pozițiile carcasei nu sunt încă stocate pentru aceste modele.");
- if(c&&g&&p){const cpuTdp=num(c.spec),gpuTdp=num(g.spec),psu=num(p.spec);if(cpuTdp!==null&&gpuTdp!==null&&psu!==null){const estimate=Math.ceil((cpuTdp+gpuTdp+100)*1.35/50)*50;add(psu>=estimate?"ok":"warn","Putere sursă (estimare prudentă)","CPU "+cpuTdp+" W + GPU "+gpuTdp+" W. Recomandare orientativă: aproximativ "+estimate+" W sau mai mult; sursa selectată: "+psu+" W. Nu este validată calitatea sursei sau consumul tranzitoriu.");}else add("warn","Putere sursă","Lipsesc valori TDP/putere pentru calculul estimativ.");}
- else if(p)add("warn","Putere sursă","Pentru estimare sunt necesare procesorul și placa video.");
- if(g&&p)add("warn","Cabluri alimentare GPU","Nu sunt înregistrate conectorii exacți ai plăcii video și ai sursei (PCIe 6/8-pin, 12V-2x6/12VHPWR). Verifică manualul ambelor.");
- if(ssd&&m){const type=ssd.socket||"";add("warn","Stocare / sloturi","Tip selectat: "+type+". Numărul de sloturi M.2, interfața PCIe/SATA, partajarea liniilor și porturile SATA dezactivate nu sunt încă definite pentru placa exactă.");}
- if(!a.CASE)add("warn","Carcasă","Selectează o carcasă pentru verificarea formatului și a spațiului intern.");
- if(!a.PSU)add("warn","Sursă","Selectează o sursă pentru verificarea puterii și a cablurilor.");
- add("warn","Limitele verificării","Rezultatele sunt preliminare și depind de datele disponibile în catalog. Confirmă BIOS, QVL RAM, dimensiunile, conectorii și manualele oficiale înainte de cumpărare.");
+ const hw=x=>x&&x.hw||{};
+ const mm=x=>Number.isFinite(Number(x))?Number(x):null;
+ const caseForm=cs&&cs.socket;
+ if(!c||!m)add("warn","Platformă incompletă","Selectează procesorul și placa de bază.");
+ else if(c.socket&&m.socket)add(c.socket===m.socket?"ok":"bad","Socket CPU / placă de bază",c.socket===m.socket?"Socket "+c.socket+" corespunde.":"Incompatibil: CPU "+c.socket+" / placă "+m.socket+".");
+ else add("warn","Socket CPU / placă de bază","Date insuficiente pentru confirmare.");
+ if(c&&m){
+  const ch=hw(c),mh=hw(m);
+  if(ch.memoryType&&mh.memoryType)add(ch.memoryType===mh.memoryType?"ok":"bad","Tip memorie suportat de platformă",ch.memoryType===mh.memoryType?ch.memoryType+" corespunde.":"CPU "+ch.memoryType+" / placă "+mh.memoryType+".");
+  else add("warn","Tip memorie","Nu există specificații complete pentru ambele modele.");
+  if(mh.cpuSupportUrl){
+   const bios=mh.biosMinimumForSelectedCpu;
+   add(bios?"ok":"warn","BIOS / suport CPU",bios?"BIOS minim declarat: "+bios+".":"Placa declară suport pentru familia procesorului, dar versiunea BIOS minimă pentru "+c.name+" nu este confirmată. "+(mh.biosLatest?"Ultima versiune listată: "+mh.biosLatest.version+" ("+mh.biosLatest.date+"). ":"")+"Consultă lista CPU Support oficială.");
+  }else add("warn","BIOS / suport CPU","Versiunea minimă BIOS pentru combinația exactă nu este în baza de date.");
+ }
+ if(ram&&m){
+  const rh=hw(ram),mh=hw(m),gen=ram.socket;
+  add(gen&&m.spec&&gen===m.spec?"ok":gen&&m.spec?"bad":"warn","Generație RAM",gen&&m.spec?(gen===m.spec?"RAM "+gen+" corespunde.":"RAM "+gen+" nu corespunde plăcii "+m.spec+"."):"Lipsește tipul memoriei.");
+  if(rh.capacityGB&&mh.memoryMaxGB)add(rh.capacityGB<=mh.memoryMaxGB?"ok":"bad","Capacitate RAM",rh.capacityGB+" GB / limită "+mh.memoryMaxGB+" GB.");
+  else add("warn","Capacitate RAM","Capacitatea kitului sau limita plăcii nu este verificată.");
+  add("warn","Frecvență / XMP / EXPO","Verifică frecvența în funcție de numărul de module, rank, profilul XMP/EXPO și QVL-ul exact.");
+ }else add("warn","Memorie RAM","Selectează RAM și placă de bază.");
+ if(m&&cs){
+  const mh=hw(m),sh=hw(cs),form=mh.formFactor;
+  const allowed=sh.formFactors||[];
+  if(form&&allowed.length)add(allowed.some(x=>x.toLowerCase().startsWith(form.toLowerCase()))?"ok":"bad","Format placă de bază / carcasă",form+"; carcasă: "+allowed.join(", ")+".");
+  else add("warn","Format placă de bază / carcasă","Nu există formate/dimensiuni exacte pentru ambele produse.");
+ }else if(m||cs)add("warn","Format placă de bază / carcasă","Selectează placa și carcasa.");
+ if(g&&cs){
+  const gh=hw(g),sh=hw(cs),gpuLen=gh.lengthMm,limit=sh.gpuMaxLengthMm;
+  if(gpuLen&&limit)add(gpuLen<=limit?"ok":"bad","Lungime placă video",gpuLen+" mm GPU / "+limit+" mm limită carcasă.");
+  else add("warn","Lungime placă video","Lipsește lungimea exactă pentru varianta GPU selectată sau limita carcasei. Nu folosesc dimensiunea cipului grafic ca dimensiune a plăcii.");
+  if(gh.thicknessSlots&&gh.thicknessSlots>sh.expansionSlots)add("bad","Grosime GPU","Placa video ocupă "+gh.thicknessSlots+" sloturi, dar carcasa oferă "+sh.expansionSlots+".");
+ }else if(g||cs)add("warn","Lungime placă video","Selectează placa video și carcasa.");
+ if(cl&&c){
+  const supported=String(cl.socket||"").split(",").map(x=>x.trim());
+  add(supported.includes(c.socket)?"ok":supported.length?"bad":"warn","Prindere cooler / socket",supported.length?(supported.includes(c.socket)?"Socketul "+c.socket+" este listat.":"Socketul "+c.socket+" nu este listat."):"Lipsesc socketurile coolerului.");
+  const ch=hw(cl),sh=hw(cs);
+  if(cs&&ch.heightMm&&sh.cpuCoolerMaxHeightMm)add(ch.heightMm<=sh.cpuCoolerMaxHeightMm?"ok":"bad","Înălțime cooler",ch.heightMm+" mm cooler / "+sh.cpuCoolerMaxHeightMm+" mm limită.");
+  else if(cs)add("warn","Înălțime cooler","Înălțimea exactă a coolerului sau limita carcasei lipsește.");
+ }else if(cl||c)add("warn","Cooler / CPU","Selectează procesorul și coolerul.");
+ if(cl&&cs){
+  const ch=hw(cl),sh=hw(cs),rad=ch.radiatorMm;
+  if(rad){const supported=Object.values(sh.radiatorSupport||{}).some(list=>list.includes(rad));add(supported?"ok":"warn","Radiator AIO",rad+" mm: "+(supported?"carcasa declară suport pentru această dimensiune într-o poziție compatibilă.":"nu este confirmată o poziție compatibilă."));}
+ }
+ if(c&&g&&p){
+  const ch=hw(c),gh=hw(g),ph=hw(p),cpuW=ch.tdpW??mm(c.spec),gpuW=gh.boardPowerW;
+  const psuW=ph.wattageW??mm(p.spec);
+  if(cpuW!==null&&gpuW!==undefined&&psuW!==null){
+   const estimate=Math.ceil((cpuW+gpuW+100)*1.35/50)*50;
+   add(psuW>=estimate?"ok":"warn","Putere sursă estimată","CPU "+cpuW+" W + GPU "+gpuW+" W; reper orientativ "+estimate+" W; sursă "+psuW+" W. Nu este o certificare a calității sau a tranzienților.");
+  }else add("warn","Putere sursă","Lipsește consumul TBP/TGP exact al plăcii video sau puterea verificată a sursei; estimarea completă nu poate fi făcută.");
+  if(gh.powerConnectors&&ph.pcieConnectors){
+   const ok=gh.powerConnectors.every(x=>ph.pcieConnectors.includes(x));
+   add(ok?"ok":"bad","Conectori alimentare GPU",ok?"Sursa declară conectorii necesari.":"Conectorii GPU nu corespund cu cei declarați pentru sursă.");
+  }else add("warn","Conectori alimentare GPU","Nu există date verificate pentru conectorii exacți ai ambelor modele.");
+ }else if(p)add("warn","Sursă / alimentare","Selectează CPU, GPU și sursă pentru analiza completă.");
+ if(ssd&&m){
+  const sh=hw(ssd),mh=hw(m);
+  if(ssd.socket==="SATA")add(mh.sataPorts?"ok":"warn","SSD SATA",mh.sataPorts?mh.sataPorts+" porturi SATA declarate pe placă; verifică și cablul de date/alimentare.":"Numărul porturilor SATA nu este înregistrat.");
+  else if(sh.interface&&mh.m2Slots){
+   const compatible=mh.m2Slots.some(slot=>slot.interface.toLowerCase().includes("pcie")&&sh.interface.toLowerCase().includes("pcie"));
+   add(compatible?"ok":"warn","SSD M.2 / slot",compatible?"Placa are slot M.2 PCIe; verifică generația, lungimea și partajarea liniilor.":"Interfața exactă a SSD-ului și sloturile nu confirmă o potrivire.");
+  }else add("warn","SSD / sloturi","Numărul, interfața și partajarea liniilor M.2/SATA nu sunt confirmate pentru această combinație.");
+ }
+ if(p&&cs){const ph=hw(p),sh=hw(cs);if(ph.lengthMm&&sh.psuMaxLengthMm)add(ph.lengthMm<=sh.psuMaxLengthMm?"ok":"bad","Lungime sursă",ph.lengthMm+" mm PSU / "+sh.psuMaxLengthMm+" mm limită.");}
+ const known=Object.values(a).filter(x=>x&&x.hw).length;
+ add("warn","Acoperire date exacte",known+" componente selectate au fișe tehnice structurate. Pentru celelalte, aplicația marchează datele ca neverificate; nu deduce dimensiuni din numele cipului.");
  return r
 }
 $("q").oninput=draw;$("sort").onchange=draw;$("clear").onclick=()=>{build={};drawBuild()};$("save").onclick=()=>{localStorage.setItem("artefact-build",JSON.stringify(build));$("msg").textContent="Configurație salvată pe acest dispozitiv."};try{build=JSON.parse(localStorage.getItem("artefact-build")||"{}")}catch(e){}let dp;addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;$("install").hidden=false});$("install").onclick=()=>dp&&dp.prompt();if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("./sw.js"));draw();
