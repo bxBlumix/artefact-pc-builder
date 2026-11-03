@@ -48,7 +48,7 @@ const D=[
 ["COOL","DeepCool AG400","DeepCool",2022,130,"AM4,AM5,LGA1700",150,"Air · 120 mm"],["COOL","Cooler Master Hyper 212 Black","Cooler Master",2020,190,"AM4,AM5,LGA1700",152,"Air · 120 mm"],["COOL","Thermalright Peerless Assassin 120 SE","Thermalright",2022,220,"AM4,AM5,LGA1700",155,"Dual tower · 120 mm"],["COOL","Arctic Liquid Freezer III 240","Arctic",2024,420,"AM4,AM5,LGA1700,LGA1851",0,"AIO · radiator 240 mm"],
 ["FAN","Arctic P12 PWM PST 120 mm","Arctic",2020,35,"",120,"120 mm · PWM"],["FAN","Noctua NF-A14 PWM 140 mm","Noctua",2020,115,"",140,"140 mm · PWM"],["FAN","Corsair AF120 RGB ELITE","Corsair",2022,115,"",120,"120 mm · RGB"],["FAN","Lian Li UNI FAN SL-INF 120","Lian Li",2022,145,"",120,"120 mm · ARGB"],
 ["RAM","HyperX Predator 16GB DDR4-4600 HX446C19PB3K2/16","Hyper X",2020,520,"DDR4",16,"2×8GB · XMP · QVL ASUS ROG/B550M-A"],["RAM","Corsair Vengeance LPX 16GB DDR4-4400 CMK16GX4M2K4400C19","Corsair",2020,420,"DDR4",16,"2×8GB · XMP · SKU ver4.31"],["RAM","G.Skill Trident Z 16GB DDR4-4400 F4-4400C19D-16GTZSW","G.Skill",2020,460,"DDR4",16,"2×8GB · XMP · Samsung IC"],["RAM","Thermaltake TOUGHRAM 16GB DDR4-4400 R017D408GX2-4400C19A","Thermaltake",2021,430,"DDR4",16,"2×8GB · XMP · Ver.2.1.4"],].map(a=>({cat:a[0],name:a[1],brand:a[2],year:a[3],price:a[4],socket:a[5],spec:a[6],desc:a[7]}));
-D.push(...EXTRA);
+// Catalogul de bază este definit explicit mai sus; nu există o listă EXTRA externă.
 D.push(
  {cat:"GPU",name:"ASUS TUF Gaming GeForce RTX 5070 12GB (TUF-RTX5070-12G-GAMING)",brand:"ASUS",year:2025,price:3650,socket:"",spec:250,desc:"12 GB GDDR7 · 329 × 140 × 62.5 mm · 3.125 sloturi · 1×16-pin"},
  {cat:"GPU",name:"Gigabyte GeForce RTX 5070 WINDFORCE OC SFF 12G (GV-N5070WF3OC-12GD)",brand:"Gigabyte",year:2025,price:3450,socket:"",spec:250,desc:"12 GB GDDR7 · 282 × 110 × 50 mm · 16-pin"},
@@ -526,7 +526,7 @@ function showDetails(i){
  $("componentDialog").showModal();
 }
 function makeReport(){
- const keys=Object.keys(build),total=keys.reduce((n,k)=>n+build[k].price,0),raw=check(),missing=stageOrder.filter(k=>!build[k]);
+ const keys=Object.keys(build),total=keys.reduce((n,k)=>n+build[k].price,0),raw=check(),missing=Object.keys(names).filter(k=>!build[k]);
  const counts={ok:raw.filter(x=>x[0]==="ok").length,bad:raw.filter(x=>x[0]==="bad").length,warn:raw.filter(x=>x[0]==="warn").length};
  const plain=html=>{const e=document.createElement("div");e.innerHTML=html;return (e.textContent||e.innerText||"").replace(/\s+/g," ").trim()};
  const entries=raw.map(([level,html])=>{
