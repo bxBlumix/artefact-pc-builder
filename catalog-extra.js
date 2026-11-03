@@ -28,3 +28,13 @@ group("COOL",[
 group("FAN",[
 ["Arctic P12 Slim PWM PST","Arctic",2021,40,"",120,"120 mm · slim PWM"],["Arctic P14 PWM PST","Arctic",2020,50,"",140,"140 mm · PWM"],["Noctua NF-A12x25 PWM","Noctua",2020,145,"",120,"120 mm · premium PWM"],["Noctua NF-S12B redux-1200","Noctua",2020,65,"",120,"120 mm · airflow"],["be quiet! Pure Wings 2 120mm","be quiet!",2020,45,"",120,"120 mm · PWM"],["be quiet! Silent Wings 4 140mm","be quiet!",2022,110,"",140,"140 mm · PWM"],["Cooler Master SickleFlow 120 ARGB","Cooler Master",2020,65,"",120,"120 mm · ARGB"],["Cooler Master Mobius 120","Cooler Master",2022,100,"",120,"120 mm · PWM"],["Corsair iCUE AF120 RGB ELITE","Corsair",2022,130,"",120,"120 mm · RGB"],["Corsair iCUE SP120 RGB Elite","Corsair",2021,100,"",120,"120 mm · RGB"],["Lian Li UNI FAN P28 120","Lian Li",2023,125,"",120,"120 mm · high performance"],["Lian Li UNI FAN TL 120 LCD","Lian Li",2024,230,"",120,"120 mm · LCD"],["Thermalright TL-C12C-S","Thermalright",2022,40,"",120,"120 mm · ARGB"],["Thermaltake Toughfan 12","Thermaltake",2020,100,"",120,"120 mm · PWM"],["Phanteks D30-120 DRGB","Phanteks",2023,150,"",120,"120 mm · D-RGB"]
 ]);
+
+
+group("GPU",[
+ ["PowerColor Hellhound Radeon RX 9070 XT 16GB (RX9070XT 16G-L/OC)","PowerColor",2025,3700,"",null,"16 GB GDDR6 · 340 × 142 × 49 mm cu bracket · 2.5 sloturi · 2×8-pin · sursă recomandată 800 W"]
+]);
+group("RAM",[
+ ["Kingston FURY Beast Black EXPO 32GB (2x16GB) DDR5-6000 CL30 (KF560C30BBEK2-32)","Kingston",2024,430,"DDR5",32,"2×16 GB · 6000 MT/s CL30-36-36 · 1.40 V · EXPO + XMP"],
+ ["Corsair Vengeance 32GB (2x16GB) DDR5-6000 CL30 (CMK32GX5M2B6000Z30)","Corsair",2024,460,"DDR5",32,"2×16 GB · 6000 MT/s CL30 · 1.40 V · EXPO + XMP"],
+ ["G.Skill Trident Z5 Neo 32GB (2x16GB) DDR5-6000 CL30 (F5-6000J3038F16GX2-TZ5N)","G.Skill",2023,520,"DDR5",32,"2×16 GB · 6000 MT/s CL30-38-38-96 · 1.35 V · EXPO + XMP"]
+]);
