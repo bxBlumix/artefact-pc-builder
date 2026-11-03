@@ -6,11 +6,12 @@
 @media(max-width:820px){.layout{grid-template-columns:1fr}}@media(max-width:440px){header{padding:13px 15px}.item{grid-template-columns:46px 1fr}.pic{width:46px;height:46px}.item .action{grid-column:2}.filters{flex-direction:column}}
 </style></head><body>
 <header><div><div class="logo">ARTE<b>FACT</b></div><div class="muted">PC BUILDER · BUILD SMART</div></div><button class="btn" id="install" hidden>Instalează</button></header>
-<main><section class="hero"><h1>Construiește-ți PC-ul<br><span style="color:var(--blue)">cu încredere.</span></h1><p>Alege componente, vezi costul estimativ și verifică regulile principale de compatibilitate. Catalog demonstrativ, extensibil.</p></section>
+<main><section class="hero"><h1>Construiește-ți PC-ul<br><span style="color:var(--blue)">cu încredere.</span></h1><p>Alege componente, vezi costul estimativ și verifică regulile principale de compatibilitate. Catalog extins cu peste 200 de modele reprezentative.</p></section>
 <div class="layout"><section class="box"><h2>① Catalog componente</h2><div class="tabs" id="tabs"></div><div class="filters"><input id="q" placeholder="Caută model sau marcă"><select id="sort"><option value="name">Sortează după nume</option><option value="low">Preț crescător</option><option value="high">Preț descrescător</option></select></div><div class="cards" id="catalog"></div></section>
 <aside><section class="box"><h2>② Configurația mea</h2><div id="build"></div><div class="total" id="total">0 RON</div><div class="muted">Prețuri orientative, nu oferte live.</div><div class="checks" id="checks"></div><div style="display:flex;gap:8px;margin-top:13px"><button class="btn primary" id="save">Salvează</button><button class="btn" id="clear">Resetează</button></div><p class="muted" id="msg"></p></section>
 <section class="box"><h2>③ Prototip vizual</h2><div class="caseview"><div class="tower"><div class="glass"><i class="fan"></i><i class="fan"></i></div><div class="gpu"></div></div></div><p class="notice">Machetă vizuală conceptuală, nu randare 3D exactă a componentelor.</p></section></aside></div></main>
-<footer>Catalog cu modele reprezentative și prețuri statice estimative în RON. Verifică întotdeauna fișele producătorilor, BIOS-ul, dimensiunile și conectorii înainte de cumpărare. Compatibilitatea automată este orientativă.</footer>
+<footer>Catalog extins: peste 200 de modele reprezentative. Prețurile sunt estimări statice în RON, nu oferte live. Verifică întotdeauna fișele producătorilor, BIOS-ul, dimensiunile și conectorii înainte de cumpărare. Compatibilitatea automată este orientativă.</footer>
+<script src="./catalog-extra.js"></script>
 <script>
 const names={CPU:"Procesoare",GPU:"Plăci video",MB:"Plăci de bază",RAM:"Memorii RAM",SSD:"SSD / M.2 / SATA",PSU:"Surse",CASE:"Carcase",COOL:"Coolere",FAN:"Ventilatoare"};
 const ico={CPU:"▤",GPU:"▰",MB:"▦",RAM:"▥",SSD:"▱",PSU:"ϟ",CASE:"▣",COOL:"❄",FAN:"◉"};
@@ -25,6 +26,7 @@ const D=[
 ["COOL","DeepCool AG400","DeepCool",2022,130,"AM4,AM5,LGA1700",150,"Air · 120 mm"],["COOL","Cooler Master Hyper 212 Black","Cooler Master",2020,190,"AM4,AM5,LGA1700",152,"Air · 120 mm"],["COOL","Thermalright Peerless Assassin 120 SE","Thermalright",2022,220,"AM4,AM5,LGA1700",155,"Dual tower · 120 mm"],["COOL","Arctic Liquid Freezer III 240","Arctic",2024,420,"AM4,AM5,LGA1700,LGA1851",0,"AIO · radiator 240 mm"],
 ["FAN","Arctic P12 PWM PST 120 mm","Arctic",2020,35,"",120,"120 mm · PWM"],["FAN","Noctua NF-A14 PWM 140 mm","Noctua",2020,115,"",140,"140 mm · PWM"],["FAN","Corsair AF120 RGB ELITE","Corsair",2022,115,"",120,"120 mm · RGB"],["FAN","Lian Li UNI FAN SL-INF 120","Lian Li",2022,145,"",120,"120 mm · ARGB"]
 ].map(a=>({cat:a[0],name:a[1],brand:a[2],year:a[3],price:a[4],socket:a[5],spec:a[6],desc:a[7]}));
+D.push(...EXTRA);
 let cat="CPU",build={};const $=id=>document.getElementById(id),money=n=>n.toLocaleString("ro-RO")+" RON";
 Object.keys(names).forEach(k=>{let b=document.createElement("button");b.textContent=names[k];b.onclick=()=>{cat=k;draw()};b.dataset.k=k;$("tabs").append(b)});
 function add(i){build[D[i].cat]=D[i];drawBuild()}function del(k){delete build[k];drawBuild()}
