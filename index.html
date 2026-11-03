@@ -234,7 +234,7 @@ function check(){
   const psuW=ph.wattageW??mm(p.spec);
   if(cpuW!==null&&gpuW!==null&&gpuW!==undefined&&psuW!==null){
    const estimate=Math.ceil((cpuW+gpuW+100)*1.35/50)*50;
-   add(psuW>=estimate?"ok":"warn","Putere sursă estimată","CPU "+cpuW+" W + GPU "+gpuW+" W; reper orientativ "+estimate+" W; sursă "+psuW+" W. Nu este o certificare a calității sau a tranzienților.");
+   const recommended=Number(gh.systemPsuRecommendedW||0);const required=Math.max(estimate,recommended);add(psuW>=required?"ok":"warn","Putere sursă estimată","CPU "+cpuW+" W + GPU "+gpuW+" W; estimare cu rezervă "+estimate+" W; recomandarea producătorului GPU "+(recommended||"necunoscută")+" W; reper folosit "+required+" W; sursă "+psuW+" W. Verificare orientativă, nu certifică răspunsul la tranzienți sau calitatea sursei.");
   }else add("warn","Putere sursă","Lipsește consumul TBP/TGP exact al plăcii video sau puterea verificată a sursei; estimarea completă nu poate fi făcută.");
   if(gh.variantExact&&gh.required12VHPWR&&ph.connectors){
    const native=Number(ph.connectors.pcie12plus4||0),eight=Number(ph.connectors.pcie6plus2||0),need=Number(gh.adapterPcie8pin||2);
