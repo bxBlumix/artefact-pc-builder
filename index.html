@@ -896,7 +896,7 @@ function renderStages(){
 }
 Object.keys(names).forEach(k=>{});
 $("stageNav").addEventListener("click",e=>{const b=e.target.closest("[data-stage]");if(b){cat=b.dataset.stage;$("q").value="";draw()}});
-const stages=Object.keys(names);
+// Folosește ordinea stages definită lângă catalog.
 $("prevStage").addEventListener("click",()=>{const i=stages.indexOf(cat);if(i>0){cat=stages[i-1];$("q").value="";draw()}});
 $("nextStage").addEventListener("click",()=>{const i=stages.indexOf(cat);if(i<stages.length-1){cat=stages[i+1];$("q").value="";draw()}});
 
