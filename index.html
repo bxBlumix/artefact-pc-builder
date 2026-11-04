@@ -957,7 +957,7 @@ function powerEstimate(){
  const cpu=part.CPU,gpu=part.GPU,psu=part.PSU,ch=hw(cpu),gh=hw(gpu),ph=hw(psu);
  const cpuW=cpu?num(ch.maxTurboPowerW??ch.tdpW??cpu.spec):null;
  const gpuW=gpu?num(gh.boardPowerW??gpu.spec):null;
- const overheadW=80;
+ const overheadW=100;
  const complete=!!cpu&&!!gpu&&cpuW!==null&&gpuW!==null;
  const totalW=complete?cpuW+gpuW+overheadW:null;
  const psuW=psu?num(ph.wattageW??psu.spec):null;
@@ -985,7 +985,7 @@ function selectedPowerHtml(){
  const total=power.complete?power.totalW+" W":"—";
  const req=power.recommendedW!==null?power.recommendedW+" W":"—";
  const psu=power.psuW!==null?power.psuW+" W":"Necunoscută";
- return '<h3>Componente selectate și consum</h3><p class="power-intro">Tabelul se actualizează automat când schimbi o piesă. Consum estimat pentru CPU + GPU + 80 W rezervă pentru placa de bază, RAM, stocare și ventilatoare.</p><table class="power-table"><thead><tr><th>Componentă</th><th>Model selectat</th><th>Consum / putere</th></tr></thead><tbody>'+(rows||'<tr><td colspan="3">Nu ai selectat încă nicio componentă.</td></tr>')+(power.complete?'<tr><td colspan="2">Restul sistemului — estimare</td><td>'+power.overheadW+' W</td></tr>':'')+'<tr class="power-total-row"><td colspan="2">Consum total estimat</td><td>'+total+'</td></tr></tbody></table><div class="power-stat-grid"><div class="power-stat"><small>Putere recomandată pentru configurație</small><strong>'+req+'</strong></div><div class="power-stat"><small>Sursă selectată</small><strong>'+psu+'</strong></div></div><div class="power-verdict '+power.status+'">'+power.verdict+'</div><p class="power-footnote">Recomandarea include o rezervă de aproximativ 35% și respectă recomandarea producătorului GPU când aceasta este disponibilă. Puterea nominală suficientă nu garantează calitatea sursei, stabilitatea pe linia de 12 V sau conectorii necesari; verifică separat rezultatele de compatibilitate și cablurile pentru SKU-ul exact.</p>';
+ return '<h3>Componente selectate și consum</h3><p class="power-intro">Tabelul se actualizează automat când schimbi o piesă. Consum estimat pentru CPU + GPU + 100 W rezervă pentru placa de bază, RAM, stocare și ventilatoare.</p><table class="power-table"><thead><tr><th>Componentă</th><th>Model selectat</th><th>Consum / putere</th></tr></thead><tbody>'+(rows||'<tr><td colspan="3">Nu ai selectat încă nicio componentă.</td></tr>')+(power.complete?'<tr><td colspan="2">Restul sistemului — estimare</td><td>'+power.overheadW+' W</td></tr>':'')+'<tr class="power-total-row"><td colspan="2">Consum total estimat</td><td>'+total+'</td></tr></tbody></table><div class="power-stat-grid"><div class="power-stat"><small>Putere recomandată pentru configurație</small><strong>'+req+'</strong></div><div class="power-stat"><small>Sursă selectată</small><strong>'+psu+'</strong></div></div><div class="power-verdict '+power.status+'">'+power.verdict+'</div><p class="power-footnote">Recomandarea include o rezervă de aproximativ 35% și respectă recomandarea producătorului GPU când aceasta este disponibilă. Puterea nominală suficientă nu garantează calitatea sursei, stabilitatea pe linia de 12 V sau conectorii necesari; verifică separat rezultatele de compatibilitate și cablurile pentru SKU-ul exact.</p>';
 }
 function drawBuild(){
  let keys=stages.filter(k=>build[k]),count=keys.length;
