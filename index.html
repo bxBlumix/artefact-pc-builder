@@ -482,7 +482,59 @@ const COOL_DETAIL={
  "Arctic Liquid Freezer III 360":{radiatorMm:360,radiator:{lengthMm:398,widthMm:120,thicknessMm:38},tubeLengthMm:450,sockets:["AM5","AM4","LGA1700","LGA1851"],pumpConnector:"4-pin PWM",fan:{sizeMm:120,connector:"4-pin PWM",count:3},source:"https://www.arctic.de/en/Liquid-Freezer-III-360/ACFRE00136A"},
  "NZXT Kraken 240":{radiatorMm:240,radiator:{lengthMm:null,widthMm:null,thicknessMm:null},sockets:["AM5","AM4","LGA1700","LGA1851","LGA1200","LGA115x"],source:"https://nzxt.com/en-int/products/kraken-240",note:"Specificațiile detaliate disponibile în sursa găsită se referă la Kraken Elite 240, nu sunt copiate pe Kraken 240."},
  "Corsair H100x RGB Elite":{radiatorMm:240,radiator:{lengthMm:null,widthMm:null,thicknessMm:null},sockets:["AM5","AM4","LGA1700"],source:"https://www.corsair.com/"},
- "Cooler Master MasterLiquid 360L Core":{radiatorMm:360,radiator:{lengthMm:null,widthMm:null,thicknessMm:null},sockets:["AM5","AM4","LGA1700"],source:"https://www.coolermaster.com/"}
+ "Cooler Master MasterLiquid 360L Core":{radiatorMm:360,radiator:{lengthMm:null,widthMm:null,thicknessMm:null},sockets:["AM5","AM4","LGA1700"],source:"https://www.coolermaster.com/"},
+ "Gigabyte B760M DS3H DDR4":{
+  kind:"motherboard",socket:"LGA1700",chipset:"B760",formFactor:"mATX",memoryType:"DDR4",dimmSlots:4,memoryMaxGB:128,
+  m2Exact:[
+   {slot:"M2A_CPU",source:"CPU",modes:["PCIe 4.0 x4/x2"],sizes:["2280"]},
+   {slot:"M2P_SB",source:"B760 chipset",modes:["PCIe 4.0 x4/x2"],sizes:["2280"]}
+  ],
+  m2Slots:[
+   {count:1,interface:"PCIe 4.0 x4/x2",sizes:["2280"],note:"M2A_CPU"},
+   {count:1,interface:"PCIe 4.0 x4/x2",sizes:["2280"],note:"M2P_SB"}
+  ],
+  sataPorts:4,pcieSlots:[
+   {slot:"PCIEX16",size:"x16",lanes:16,generation:"PCIe 4.0",source:"CPU"},
+   {slot:"PCIEX1_1",size:"x1",lanes:1,generation:"PCIe 3.0",source:"Chipset"},
+   {slot:"PCIEX1_2",size:"x1",lanes:1,generation:"PCIe 3.0",source:"Chipset"}
+  ],
+  fanHeaders:{cpu:1,system:3,pump:0},argbHeaders:1,rgbHeaders:1,
+  cpuSupportUrl:"https://www.gigabyte.com/ro/Motherboard/B760M-DS3H-DDR4-rev-1x/sp",
+  source:"https://www.gigabyte.com/ro/Motherboard/B760M-DS3H-DDR4-rev-1x/sp",
+  verifiedOn:"2026-11-04",revisionNote:"Verificarea este pentru B760M DS3H DDR4 Rev. 1.x; confirmă revizia imprimată pe PCB."
+ },
+ "ASRock Z890 Pro RS":{
+  kind:"motherboard",socket:"LGA1851",chipset:"Z890",formFactor:"ATX",memoryType:"DDR5",dimmSlots:4,memoryMaxGB:256,
+  m2Exact:[
+   {slot:"M2_1",source:"CPU",modes:["PCIe 5.0 x4"],sizes:["2280"]},
+   {slot:"M2_2",source:"CPU",modes:["PCIe 4.0 x4"],sizes:["2280"]},
+   {slot:"M2_3",source:"Chipset",modes:["PCIe 4.0 x4"],sizes:["2280"]},
+   {slot:"M2_4",source:"Chipset",modes:["PCIe 4.0 x4","SATA 6Gb/s"],sizes:["2230","2242","2260","2280"]}
+  ],
+  m2Slots:[
+   {count:1,interface:"PCIe 5.0 x4",sizes:["2280"],note:"M2_1 CPU"},
+   {count:2,interface:"PCIe 4.0 x4",sizes:["2280"],note:"M2_2 CPU și M2_3 chipset"},
+   {count:1,interface:"PCIe 4.0 x4 / SATA",sizes:["2230","2242","2260","2280"],note:"M2_4 chipset"}
+  ],
+  sataPorts:4,pcieSlots:[
+   {slot:"PCIE1",size:"x16",lanes:16,generation:"PCIe 5.0",source:"CPU"},
+   {slot:"PCIE3",size:"x4",lanes:4,generation:"PCIe 4.0",source:"Chipset"},
+   {slot:"PCIE4",size:"x4",lanes:4,generation:"PCIe 4.0",source:"Chipset"},
+   {slot:"PCIE2",size:"x1",lanes:1,generation:"PCIe 4.0",source:"Chipset"}
+  ],
+  fanHeaders:{cpu:2,system:5,pump:1},argbHeaders:3,rgbHeaders:1,
+  cpuSupportUrl:"https://www.asrock.com/mb/Intel/Z890%20Pro%20RS/index.asp",
+  source:"https://www.asrock.com/mb/Intel/Z890%20Pro%20RS/index.asp",
+  verifiedOn:"2026-11-04",note:"CPU_FAN1 suportă 1A; CPU_FAN2, CHA_FAN1-5 și AIO_PUMP suportă până la 3A conform producătorului."
+ },
+ "Lian Li LANCOOL 216":{
+  kind:"case",formFactors:["E-ATX under 280mm","ATX","Micro-ATX","Mini-ITX"],
+  widthMm:235,heightMm:491.7,lengthMm:480.9,gpuMaxLengthMm:392,cpuCoolerMaxHeightMm:180.5,psuMaxLengthMm:220,expansionSlots:7,
+  radiatorSupport:{front:[240,280,360],top:[240,280,360],bottom:[240]},
+  fanSupport:{front:["3x120","2x140","2x160"],top:["3x120","2x140"],rear:["1x120","1x140"],bottom:["2x120","2x140"],pcie:["1x120"]},
+  includedFans:{front:"2x160 PWM",rear:"1x140 PWM"},
+  source:"https://lian-li.com/product/lancool-216/",verifiedOn:"2026-11-04"
+ }
 };
 D.forEach(p=>{
  if(p.cat==="CPU"){
