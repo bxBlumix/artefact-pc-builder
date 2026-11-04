@@ -691,6 +691,64 @@ HW_SPECS["ASUS ROG STRIX B550-F GAMING WIFI II"].qvlMemory.forEach(q=>{
  D.push({cat:"RAM",name,brand:q.vendor,year:2020,price:Math.round(210+(q.speedMTs-3200)*0.12),socket:"DDR4",spec:q.capacityGB,desc:q.moduleCount+" module(s) · "+q.speedMTs+" MT/s XMP · "+q.partNumber});
  HW_SPECS[name]={kind:"ram",sku:q.partNumber,memoryType:"DDR4",capacityGB:q.capacityGB,moduleCount:q.moduleCount,speedMTs:q.speedMTs,runSpeedMTs:q.runSpeedMTs,profiles:[q.profile],timings:q.timings,voltageV:q.voltageV,rank:q.rank,chip:q.chip,qvlBoard:"ASUS ROG STRIX B550-F GAMING WIFI II",source:"https://rog.asus.com/uk/motherboards/rog-strix/rog-strix-b550-f-gaming-wifi-ii-model/helpdesk_qvl_memory/",verifiedOn:"2026-11-04"};
 });
+
+Object.assign(HW_SPECS,{
+ "ASUS TUF Gaming B650-PLUS":{
+  kind:"motherboard",socket:"AM5",chipset:"B650",formFactor:"ATX",memoryType:"DDR5",dimmSlots:4,memoryMaxGB:192,
+  m2Exact:[
+   {slot:"M.2_1",source:"CPU",modes:["PCIe 5.0 x4"],sizes:["2242","2260","2280"],note:"Ryzen 9000/7000; cu Ryzen 8000 suportul este PCIe 4.0"},
+   {slot:"M.2_2",source:"CPU",modes:["PCIe 4.0 x4"],sizes:["2242","2260","2280","22110"]},
+   {slot:"M.2_3",source:"B650 chipset",modes:["PCIe 4.0 x4"],sizes:["2242","2260","2280"],sharesWith:"PCIEX16_2; slotul PCIEX16_2 este dezactivat când M.2_3 este ocupat"}
+  ],
+  m2Slots:[
+   {count:1,interface:"PCIe 5.0 x4 (Ryzen 9000/7000); PCIe 4.0 x4 (Ryzen 8000)",sizes:["2242","2260","2280"],note:"M.2_1; generația depinde de CPU"},
+   {count:1,interface:"PCIe 4.0 x4",sizes:["2242","2260","2280","22110"],note:"M.2_2"},
+   {count:1,interface:"PCIe 4.0 x4",sizes:["2242","2260","2280"],note:"M.2_3; partajează lățimea de bandă cu PCIEX16_2"}
+  ],
+  sataPorts:4,pcieSlots:[
+   {slot:"PCIEX16_1",size:"x16",lanes:16,generation:"PCIe 4.0",source:"CPU"},
+   {slot:"PCIEX16_2",size:"x16",lanes:1,generation:"PCIe 4.0",source:"Chipset",sharesWith:"M.2_3; disabled when M.2_3 is populated"},
+   {slot:"PCIEX1",size:"x1",lanes:1,generation:"PCIe 4.0",source:"Chipset"}
+  ],
+  fanHeaders:{cpu:1,cpuOpt:1,pump:1,system:4},argbHeaders:3,rgbHeaders:1,
+  cpuSupportUrl:"https://www.asus.com/it/motherboards-components/motherboards/tuf-gaming/tuf-gaming-b650-plus/techspec/",
+  source:"https://www.asus.com/it/motherboards-components/motherboards/tuf-gaming/tuf-gaming-b650-plus/techspec/",
+  verifiedOn:"2026-11-04",note:"M.2_3 partajează lățimea de bandă cu PCIEX16_2; PCIEX16_2 se dezactivează când M.2_3 este ocupat. Specificațiile M.2_1 diferă în funcție de seria CPU."
+ },
+ "MSI PRO B760-P WIFI DDR5":{
+  kind:"motherboard",socket:"LGA1700",chipset:"B760",formFactor:"ATX",memoryType:"DDR5",dimmSlots:4,memoryMaxGB:256,
+  m2Exact:[
+   {slot:"M2_1",source:"CPU",modes:["PCIe 4.0 x4"],sizes:["22110","2280","2260","2242"]},
+   {slot:"M2_2",source:"B760 chipset",modes:["PCIe 4.0 x4","SATA 6Gb/s"],sizes:["2280","2260","2242"],disables:"SATA8 când este instalat un SSD M.2 SATA în M2_2"}
+  ],
+  m2Slots:[
+   {count:1,interface:"PCIe 4.0 x4",sizes:["22110","2280","2260","2242"],note:"M2_1 CPU"},
+   {count:1,interface:"PCIe 4.0 x4 / SATA",sizes:["2280","2260","2242"],note:"M2_2 chipset; SSD SATA dezactivează SATA8"}
+  ],
+  sataPorts:4,pcieSlots:[
+   {slot:"PCI_E1",size:"x16",lanes:16,generation:"PCIe 4.0",source:"CPU"},
+   {slot:"PCI_E2",size:"x16",lanes:1,generation:"PCIe 3.0",source:"Chipset"},
+   {slot:"PCI_E3",size:"x16",lanes:4,generation:"PCIe 4.0",source:"Chipset"},
+   {slot:"PCI_E4",size:"x16",lanes:1,generation:"PCIe 3.0",source:"Chipset"},
+   {slot:"PCI_E5",size:"x16",lanes:1,generation:"PCIe 3.0",source:"Chipset"}
+  ],
+  fanHeaders:{cpu:1,pump:1,system:5},argbHeaders:2,rgbHeaders:1,
+  cpuSupportUrl:"https://us.msi.com/Motherboard/PRO-B760-P-WIFI/Specification",
+  source:"https://us.msi.com/Motherboard/PRO-B760-P-WIFI/Specification",
+  verifiedOn:"2026-11-04",note:"Modelul PRO B760-P WIFI DDR5; confirmă că nu este varianta DDR4. M2_2 în mod SATA dezactivează SATA8."
+ },
+ "DeepCool CC560":{
+  kind:"case",modelVariant:"R-CC560-BKGAA4-G-1",
+  formFactors:["Mini-ITX","Micro-ATX","ATX"],widthMm:210,heightMm:477,lengthMm:416,
+  gpuMaxLengthMm:370,cpuCoolerMaxHeightMm:163,psuMaxLengthMm:170,expansionSlots:7,
+  radiatorSupport:{front:[120,140,240,280,360],top:[120,240],rear:[120]},
+  fanSupport:{front:["3x120","2x140"],top:["2x120","2x140"],rear:["1x120"]},
+  includedFans:{front:"3x120mm",rear:"1x120mm"},
+  source:"https://www.deepcool.com/products/Cases/CC560-Mid-Tower-ATX-PC-Case/2021/15216.shtml",
+  verifiedOn:"2026-11-04"
+ }
+});
+
 D.forEach(p=>{if(HW_SPECS[p.name])p.hw=HW_SPECS[p.name]});
 D.forEach(p=>{
  if(p.cat==="RAM"){
