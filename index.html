@@ -749,6 +749,29 @@ Object.assign(HW_SPECS,{
  }
 });
 
+
+Object.assign(HW_SPECS,{
+ "Kingston NV2 250GB M.2 NVMe":{
+  kind:"ssd",sku:"SNV2S/250G",capacityGB:250,formFactor:"2280",m2Key:"M",interface:"PCIe 4.0 x4 NVMe",pcie:"PCIe 4.0 x4",nand:"3D NAND",readMBs:3000,writeMBs:1300,dimensionsMm:[80,22,2.2],
+  source:"https://www.kingston.com/datasheets/snv2s_en.pdf",verifiedOn:"2026-11-04",variantExact:true
+ },
+ "Samsung 870 EVO 500GB SATA":{
+  kind:"ssd",sku:"MZ-77E500B/EU",capacityGB:500,formFactor:"2.5-inch",interface:"SATA 6Gb/s",thicknessMm:6.8,dimensionsMm:[100,69.85,6.8],readMBs:560,writeMBs:530,
+  source:"https://www.samsung.com/ro/memory-storage/sata-ssd/870-evo-500gb-sata-3-2-5-ssd-mz-77e500b-eu/",verifiedOn:"2026-11-04",variantExact:true
+ },
+ "Arctic P12 PWM PST 120 mm":{
+  kind:"fan",fanSizeMm:120,fanThicknessMm:25,fanConnector:"4-pin PWM + 4-pin PST socket",fanCount:1,count:1,fanCurrentA:0.1,voltageV:12,control:"PWM",speedRPM:[200,1800],airflowCFM:56.3,staticPressureMmH2O:2.2,
+  source:"https://www.arctic.de/en/P12-PWM-PST/ACFAN00120A",verifiedOn:"2026-11-04",variantExact:true
+ },
+ "Arctic Liquid Freezer III 240":{
+  kind:"cooler",radiatorMm:240,radiator:{lengthMm:277,widthMm:120,thicknessMm:38},radiatorEnvelope:{overallThicknessMm:66,radiatorThicknessMm:38,fanThicknessMm:25,lengthMm:277,widthMm:120},
+  sockets:["AM5","AM4","LGA1851","LGA1700"],fan:{count:2,connector:"4-pin PWM",includedSplitter:true},fanCount:2,pumpConnector:"4-pin PWM",pumpCurrentA:0.35,
+  source:"https://www.arctic.de/en/Liquid-Freezer-III-240/ACFRE00134A",verifiedOn:"2026-11-04",variantExact:true,
+  note:"Grosime radiator 38 mm; ansamblu radiator + ventilatoare aprox. 66 mm. Producătorul avertizează despre posibile interferențe cu radiatoare M.2 supradimensionate la anumite plăci."
+ }
+});
+D.forEach(p=>{if(HW_SPECS[p.name])p.hw={...(p.hw||{}),...HW_SPECS[p.name]}});
+
 D.forEach(p=>{if(HW_SPECS[p.name])p.hw=HW_SPECS[p.name]});
 D.forEach(p=>{
  if(p.cat==="RAM"){
@@ -1037,7 +1060,11 @@ function check(){
  const numVal=v=>v!==null&&v!==undefined&&v!==""&&Number.isFinite(Number(v))?Number(v):null;
  const genOf=v=>{const z=String(v||"").match(/(?:Gen(?:eration)?\s*|PCIe\s*)([345])(?:\.0)?/i);return z?Number(z[1]):null};
  const m2=hw(a.SSD),board=hw(m),caseHw=hw(cs),gpuHw=hw(g),coolHw=hw(cl),fanHw=hw(fan);
- if(a.SSD&&m){
+ if(a.SSD&&m&&/2\\.5/.test(String(m2.formFactor||""))&&/SATA/i.test(String(m2.interface||""))){
+  const ports=numVal(board.sataPorts);
+  if(ports!==null)add(ports>0?"ok":"bad","SSD SATA — porturi pe placa de bază",ports+" porturi SATA 6 Gb/s declarate; SSD-ul de 2,5 inch folosește cablu SATA de date și alimentare SATA de la sursă.");
+  else add("warn","SSD SATA — porturi pe placa de bază","Numărul porturilor SATA nu este documentat pentru placa selectată.");
+ }else if(a.SSD&&m){
   const exact=Array.isArray(board.m2Exact)&&board.m2Exact.length?board.m2Exact:null;
   const slots=exact||board.m2Slots||[];
   if(slots.length&&m2.formFactor&&m2.interface){
