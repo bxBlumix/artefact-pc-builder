@@ -770,6 +770,68 @@ Object.assign(HW_SPECS,{
   note:"Grosime radiator 38 mm; ansamblu radiator + ventilatoare aprox. 66 mm. Producătorul avertizează despre posibile interferențe cu radiatoare M.2 supradimensionate la anumite plăci."
  }
 });
+
+Object.assign(HW_SPECS,{
+ // CPU: specifications de la producător; valorile Intel includ puterea turbo maximă, nu doar Processor Base Power.
+ "AMD Ryzen 5 7600":{kind:"cpu",sku:"100-100001015BOX",socket:"AM5",tdpW:65,cores:6,threads:12,memoryType:"DDR5",memorySpeedMTs:5200,memoryMaxGB:128,pcie:"PCIe 5.0",maxTurboPowerW:88,source:"https://www.amd.com/en/products/processors/desktops/ryzen/7000-series/amd-ryzen-5-7600.html",variantExact:true},
+ "AMD Ryzen 7 5700X":{kind:"cpu",sku:"100-100000926WOF",socket:"AM4",tdpW:65,cores:8,threads:16,memoryType:"DDR4",memorySpeedMTs:3200,memoryMaxGB:128,pcie:"PCIe 4.0",source:"https://www.amd.com/en/products/processors/desktops/ryzen/5000-series/amd-ryzen-7-5700x.html",variantExact:true},
+ "AMD Ryzen 7 7800X3D":{kind:"cpu",sku:"100-100000910WOF",socket:"AM5",tdpW:120,cores:8,threads:16,memoryType:"DDR5",memorySpeedMTs:5200,memoryMaxGB:128,pcie:"PCIe 5.0",source:"https://www.amd.com/en/products/processors/desktops/ryzen/7000-series/amd-ryzen-7-7800x3d.html",variantExact:true},
+ "AMD Ryzen 5 9600X":{kind:"cpu",sku:"100-100001405WOF",socket:"AM5",tdpW:65,cores:6,threads:12,memoryType:"DDR5",memorySpeedMTs:5600,memoryMaxGB:256,pcie:"PCIe 5.0",source:"https://www.amd.com/en/products/processors/desktops/ryzen/9000-series/amd-ryzen-5-9600x.html",variantExact:true},
+ "Intel Core i3-12100F":{kind:"cpu",sku:"BX8071512100F",socket:"LGA1700",tdpW:58,maxTurboPowerW:89,cores:4,threads:8,memoryType:"DDR4/DDR5",memorySpeedByType:{DDR4:3200,DDR5:4800},memoryMaxGB:128,pcie:"PCIe 5.0/4.0",source:"https://www.intel.com/content/www/us/en/products/sku/132223/intel-core-i312100f-processor-12m-cache-up-to-4-30-ghz/specifications.html",variantExact:true},
+ "Intel Core i5-12400F":{kind:"cpu",sku:"BX8071512400F",socket:"LGA1700",tdpW:65,maxTurboPowerW:117,cores:6,threads:12,memoryType:"DDR4/DDR5",memorySpeedByType:{DDR4:3200,DDR5:4800},memoryMaxGB:128,pcie:"PCIe 5.0/4.0",source:"https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html",variantExact:true},
+ "Intel Core i5-13400F":{kind:"cpu",sku:"BX8071513400F",socket:"LGA1700",tdpW:65,maxTurboPowerW:148,cores:10,threads:16,memoryType:"DDR4/DDR5",memorySpeedByType:{DDR4:3200,DDR5:4800},memoryMaxGB:192,pcie:"PCIe 5.0/4.0",source:"https://www.intel.com/content/www/us/en/products/sku/230495/intel-core-i5-13400f-processor-20m-cache-up-to-4-60-ghz/specifications.html",variantExact:true},
+ "Intel Core i5-14400F":{kind:"cpu",sku:"BX8071514400F",socket:"LGA1700",tdpW:65,maxTurboPowerW:148,cores:10,threads:16,memoryType:"DDR4/DDR5",memorySpeedByType:{DDR4:3200,DDR5:4800},memoryMaxGB:192,pcie:"PCIe 5.0/4.0",source:"https://www.intel.com/content/www/us/en/products/sku/236777/intel-core-i5-processor-14400f-20m-cache-up-to-4-70-ghz/specifications.html",variantExact:true},
+ "Intel Core i7-14700K":{kind:"cpu",sku:"BX8071514700K",socket:"LGA1700",tdpW:125,maxTurboPowerW:253,cores:20,threads:28,memoryType:"DDR4/DDR5",memorySpeedByType:{DDR4:3200,DDR5:5600},memoryMaxGB:192,pcie:"PCIe 5.0/4.0",source:"https://www.intel.com/content/www/us/en/products/sku/236783/intel-core-i7-processor-14700k-33m-cache-up-to-5-60-ghz/specifications.html",variantExact:true},
+ "Intel Core Ultra 5 245K":{kind:"cpu",sku:"BX80768245K",socket:"LGA1851",tdpW:125,maxTurboPowerW:159,cores:14,threads:14,memoryType:"DDR5",memorySpeedMTs:6400,memoryMaxGB:256,pcie:"PCIe 5.0/4.0",source:"https://www.intel.com/content/www/us/en/products/sku/241067/intel-core-ultra-5-processor-245k-24m-cache-up-to-5-20-ghz/specifications.html",variantExact:true},
+
+ // GPU reference power is from the GPU vendor, not the exact add-in-board model. Physical fit/connectors remain unverified unless a SKU is specified.
+ "GeForce GTX 1660 SUPER":{kind:"gpu",gpuChip:"TU116",vramGB:6,vramType:"GDDR6",boardPowerW:125,systemPsuRecommendedW:450,referenceOnly:true,variantExact:false,source:"https://www.nvidia.com/en-us/geforce/graphics-cards/"},
+ "GeForce RTX 2060":{kind:"gpu",gpuChip:"TU106",vramGB:6,vramType:"GDDR6",boardPowerW:160,systemPsuRecommendedW:500,referenceOnly:true,variantExact:false,source:"https://www.nvidia.com/en-us/geforce/graphics-cards/"},
+ "GeForce RTX 3060 12GB":{kind:"gpu",gpuChip:"GA106",vramGB:12,vramType:"GDDR6",boardPowerW:170,systemPsuRecommendedW:550,referenceOnly:true,variantExact:false,source:"https://www.nvidia.com/en-us/geforce/graphics-cards/"},
+ "GeForce RTX 4070 SUPER":{kind:"gpu",gpuChip:"AD104",vramGB:12,vramType:"GDDR6X",boardPowerW:220,systemPsuRecommendedW:650,referenceOnly:true,variantExact:false,source:"https://www.nvidia.com/en-us/geforce/graphics-cards/compare/"},
+ "GeForce RTX 5080":{kind:"gpu",gpuChip:"GB203",vramGB:16,vramType:"GDDR7",boardPowerW:360,systemPsuRecommendedW:850,referenceOnly:true,variantExact:false,source:"https://www.nvidia.com/en-us/geforce/graphics-cards/compare/"},
+ "Radeon RX 6600":{kind:"gpu",gpuChip:"Navi 23",vramGB:8,vramType:"GDDR6",boardPowerW:132,systemPsuRecommendedW:450,referenceOnly:true,variantExact:false,referencePowerConnector:"1x8-pin",source:"https://www.amd.com/en/products/graphics/desktops/radeon/6000-series/amd-radeon-rx-6600.html"},
+ "Radeon RX 7800 XT":{kind:"gpu",gpuChip:"Navi 32",vramGB:16,vramType:"GDDR6",boardPowerW:263,systemPsuRecommendedW:700,referenceOnly:true,variantExact:false,source:"https://www.amd.com/en/products/graphics/desktops/radeon/7000-series/amd-radeon-rx-7800-xt.html"},
+ "MSI GeForce RTX 5070 12G VENTUS 2X (G5070-12V2C)":{kind:"gpu",sku:"G5070-12V2C",gpuChip:"GB205",vramGB:12,vramType:"GDDR7",boardPowerW:250,systemPsuRecommendedW:650,lengthMm:236,heightMm:126,widthMm:50,thicknessMm:50,thicknessSlotsApprox:2.46,powerConnectors:["1x 16-pin"],required12VHPWR:true,adapterPcie8pin:2,variantExact:true,source:"https://www.msi.com/Graphics-Card/GeForce-RTX-5070-12G-VENTUS-2X/Specification",verifiedOn:"2026-11-04"},
+ "MSI GeForce RTX 4060 VENTUS 2X BLACK 8G OC":{kind:"gpu",sku:"912-V516-012",gpuChip:"AD107",vramGB:8,vramType:"GDDR6",boardPowerW:115,systemPsuRecommendedW:550,lengthMm:199,heightMm:120,widthMm:41,thicknessMm:41,thicknessSlotsApprox:2.0,powerConnectors:["1x 8-pin"],requiredPcie8pin:1,variantExact:true,source:"https://storage-asset.msi.com/datasheet/vga/in/GeForce-RTX-4060-VENTUS-2X-BLACK-8G-OC.pdf",verifiedOn:"2026-11-04"},
+
+ // RAM generic product families: no guessed SKU/module count. Four catalog kits with explicit part numbers have exact kit records.
+ "Kingston Fury Beast 8GB DDR4 3200":{kind:"ram",memoryType:"DDR4",capacityGB:8,speedMTs:3200,source:"https://www.kingston.com/en/memory/gaming/kingston-fury-beast-ddr4-memory",variantExact:false,detailStatus:"Familie de produs; codul kitului exact lipsește."},
+ "Corsair Vengeance LPX 16GB DDR4 3200":{kind:"ram",memoryType:"DDR4",capacityGB:16,speedMTs:3200,source:"https://www.corsair.com/us/en/c/memory/vengeance-lpx",variantExact:false,detailStatus:"Familie de produs; codul kitului exact și configurația modulelor lipsesc."},
+ "G.Skill Ripjaws V 16GB DDR4 3600":{kind:"ram",memoryType:"DDR4",capacityGB:16,speedMTs:3600,source:"https://www.gskill.com/products/1/165/184/Ripjaws-V",variantExact:false,detailStatus:"Familie de produs; codul kitului exact și configurația modulelor lipsesc."},
+ "Kingston Fury Beast 16GB DDR5 5600":{kind:"ram",memoryType:"DDR5",capacityGB:16,speedMTs:5600,source:"https://www.kingston.com/en/memory/gaming/kingston-fury-beast-ddr5-memory",variantExact:false,detailStatus:"Familie de produs; codul kitului exact și configurația modulelor lipsesc."},
+ "Corsair Vengeance 32GB DDR5 6000":{kind:"ram",memoryType:"DDR5",capacityGB:32,speedMTs:6000,source:"https://www.corsair.com/us/en/c/memory/vengeance-ddr5-memory",variantExact:false,detailStatus:"Familie de produs; codul kitului exact și configurația modulelor lipsesc."},
+ "G.Skill Trident Z5 Neo 32GB DDR5 6400":{kind:"ram",memoryType:"DDR5",capacityGB:32,speedMTs:6400,source:"https://www.gskill.com/products/1/165/396/Trident-Z5-Neo",variantExact:false,detailStatus:"Familie de produs; codul kitului exact și configurația modulelor lipsesc."},
+ "HyperX Predator 16GB DDR4-4600 HX446C19PB3K2/16":{kind:"ram",sku:"HX446C19PB3K2/16",memoryType:"DDR4",capacityGB:16,moduleCount:2,speedMTs:4600,profiles:["XMP"],source:"https://www.asus.com/uk/supportonly/prime%20b550m-a%20wifi%20ii/helpdesk_qvl_memory/",variantExact:true,detailStatus:"SKU exact; verificarea QVL este specifică plăcii de bază."},
+ "Corsair Vengeance LPX 16GB DDR4-4400 CMK16GX4M2K4400C19":{kind:"ram",sku:"CMK16GX4M2K4400C19",memoryType:"DDR4",capacityGB:16,moduleCount:2,speedMTs:4400,profiles:["XMP"],source:"https://www.corsair.com/us/en/p/memory/cmk16gx4m2k4400c19/vengeance-lpx-16gb-2x8gb-ddr4-dram-4400mhz-c19-memory-kit-black-cmk16gx4m2k4400c19",variantExact:true},
+ "G.Skill Trident Z 16GB DDR4-4400 F4-4400C19D-16GTZSW":{kind:"ram",sku:"F4-4400C19D-16GTZSW",memoryType:"DDR4",capacityGB:16,moduleCount:2,speedMTs:4400,profiles:["XMP"],source:"https://www.gskill.com/specification/165/168/1536217267/F4-4400C19D-16GTZSW-Specification",variantExact:true},
+ "Thermaltake TOUGHRAM 16GB DDR4-4400 R017D408GX2-4400C19A":{kind:"ram",sku:"R017D408GX2-4400C19A",memoryType:"DDR4",capacityGB:16,moduleCount:2,speedMTs:4400,profiles:["XMP"],source:"https://www.thermaltake.com/toughram-rgb-memory-ddr4-4400mhz-16gb-8gb-x2.html",variantExact:true},
+
+ // PSU cable counts are populated only where the official manufacturer cable list identifies them.
+ "Corsair CV550 550W Bronze":{kind:"psu",sku:"CP-9020210",wattageW:550,lengthMm:125,connectors:{atx24:1,eps4plus4:1,eps8:0,pcie6plus2:2,pcie12plus4:0,sata:6},source:"https://www.corsair.com/eu/en/p/psu/cp-9020210-eu/cv-series-cv550-550-watt-80-plus-bronze-certified-psu-cp-9020210-eu",variantExact:true,verifiedOn:"2026-11-04"},
+ "Seasonic Focus GX-650 Gold":{kind:"psu",wattageW:650,lengthMm:140,connectors:{atx24:1,eps4plus4:2,eps8:0,pcie6plus2:4,pcie12plus4:0,sata:10},source:"https://seasonic.com/wp-content/uploads/2024/04/FOCUS-GX-FX.pdf",variantExact:false,detailStatus:"FOCUS GX-650; verifică revizia și codul produsului înainte de a confirma cablurile unității fizice."},
+ "be quiet! Pure Power 12 M 750W":{kind:"psu",sku:"BN504",wattageW:750,lengthMm:160,connectors:{atx24:1,eps4plus4:2,eps8:0,pcie6plus2:2,pcie12plus4:1,sata:null},source:"https://www.bequiet.com/en/powersupply/4073",variantExact:true,verifiedOn:"2026-11-04"},
+ "Corsair RM850e 850W Gold":{kind:"psu",sku:"RPS0157 / 75-005036",wattageW:850,lengthMm:140,connectors:{atx24:1,eps4plus4:2,eps8:0,pcie6plus2:2,pcie12plus4:0,sata:null},source:"https://assets.corsair.com/image/upload/corsairmedia/sys_master/productcontent/49_002627_AA_WW_RMe_Series_Web_QSG_F.pdf",variantExact:false,detailStatus:"Specificații RMe 850W din ghidul seriei; verifică SKU/revizia cablurilor, deoarece variantele anuale pot diferi."},
+
+ // SSDs: exact interface/form factor; no inferred NAND or endurance figures.
+ "WD Blue SN580 500GB M.2 NVMe":{kind:"ssd",sku:"WDS500G3B0E",capacityGB:500,formFactor:"2280",m2Key:"M",interface:"PCIe 4.0 x4 NVMe",pcie:"PCIe 4.0 x4",source:"https://www.westerndigital.com/products/internal-drives/wd-blue-sn580-nvme-ssd",variantExact:true},
+ "Samsung 990 EVO 500GB M.2":{kind:"ssd",sku:"MZ-V9E500BW",capacityGB:500,formFactor:"2280",m2Key:"M",interface:"PCIe 4.0 x4 / PCIe 5.0 x2 NVMe",pcie:"PCIe 4.0 x4 / PCIe 5.0 x2",source:"https://semiconductor.samsung.com/consumer-storage/internal-ssd/990-evo/",variantExact:true},
+ "Crucial P3 Plus 1TB M.2":{kind:"ssd",sku:"CT1000P3PSSD8",capacityGB:1000,formFactor:"2280",m2Key:"M",interface:"PCIe 4.0 x4 NVMe",pcie:"PCIe 4.0 x4",source:"https://www.crucial.com/ssd/p3-plus/ct1000p3pssd8",variantExact:true},
+ "Crucial BX500 240GB SATA":{kind:"ssd",sku:"CT240BX500SSD1",capacityGB:240,formFactor:"2.5-inch",interface:"SATA 6Gb/s",source:"https://www.crucial.com/ssd/bx500/ct240bx500ssd1",variantExact:true},
+
+ // Remaining cases: exact model-family clearances, radiator and fan positions.
+ "NZXT H5 Flow":{kind:"case",modelVariant:"H5 Flow 2022",formFactors:["ATX","Micro-ATX","Mini-ITX"],gpuMaxLengthMm:365,cpuCoolerMaxHeightMm:165,psuMaxLengthMm:200,expansionSlots:7,radiatorSupport:{front:[120,140,240,280],top:[120,240],rear:[120]},fanSupport:{front:["2x120","2x140"],top:["2x120"],rear:["1x120"],bottom:["1x120"]},source:"https://cdn-g.nzxt.com/dl/1716369767-case_h5-flow_digital-manual-en.pdf",verifiedOn:"2026-11-04",note:"Model H5 Flow 2022, nu revizia 2024. Spațiul GPU se reduce la montarea radiatorului frontal."},
+ "Fractal Pop Mini Air":{kind:"case",formFactors:["mATX","Mini-ITX"],gpuMaxLengthMm:365,cpuCoolerMaxHeightMm:170,psuMaxLengthMm:150,expansionSlots:4,radiatorSupport:{front:[120,240],top:[120,240],rear:[120]},fanSupport:{front:["2x120","2x140"],top:["2x120"],rear:["1x120"]},source:"https://www.fractal-design.com/app/uploads/2022/06/Pop-Mini-Air-RGB_Product-Sheet_EN.pdf",verifiedOn:"2026-11-04",note:"365 mm GPU cu ventilator frontal montat; radiatorul frontal reduce spațiul GPU."},
+
+ // Remaining air coolers and case fans. Height and connector data are model-family specs; exact mounting kit/revision should still be checked.
+ "DeepCool AG400":{kind:"cooler",sockets:["AM4","AM5","LGA1700"],heightMm:150,fan:{count:1,connector:"4-pin PWM"},fanCount:1,source:"https://www.deepcool.com/products/Cooling/cpuaircoolers/AG400-CPU-Cooler/2022/16130.shtml",variantExact:false},
+ "Cooler Master Hyper 212 Black":{kind:"cooler",sockets:["AM4","AM5","LGA1700"],heightMm:152,fan:{count:1,connector:"4-pin PWM"},fanCount:1,source:"https://www.coolermaster.com/en-global/products/hyper-212-black-edition/",variantExact:false,detailStatus:"Compatibilitatea kitului de prindere depinde de revizia exactă a Hyper 212 Black."},
+ "Thermalright Peerless Assassin 120 SE":{kind:"cooler",sockets:["AM4","AM5","LGA1700"],heightMm:155,fan:{count:2,connector:"4-pin PWM"},fanCount:2,source:"https://www.thermalright.com/product/peerless-assassin-120-se/",variantExact:false},
+ "Noctua NF-A14 PWM 140 mm":{kind:"fan",fanSizeMm:140,fanThicknessMm:25,fanConnector:"4-pin PWM",fanCount:1,count:1,fanCurrentA:0.13,voltageV:12,control:"PWM",source:"https://noctua.at/en/nf-a14-pwm",variantExact:true},
+ "Corsair AF120 RGB ELITE":{kind:"fan",fanSizeMm:120,fanThicknessMm:25,fanConnector:"4-pin PWM",fanCount:1,count:1,fanCurrentA:0.38,voltageV:12,control:"PWM",lightingConnector:"Corsair proprietary RGB (requires compatible controller)",source:"https://www.corsair.com/us/en/p/case-fans/co-9050156-ww/af120-rgb-elite-120mm-pwm-fan-single-pack-co-9050156-ww",variantExact:true},
+ "Lian Li UNI FAN SL-INF 120":{kind:"fan",fanSizeMm:120,fanThicknessMm:25.4,fanConnector:"7-pin proprietary (controller required)",fanCount:1,count:1,lightingConnector:"L-Connect controller / proprietary",source:"https://lian-li.com/product/uni-fan-sl-infinity/",variantExact:true}
+});
+
 D.forEach(p=>{if(HW_SPECS[p.name])p.hw={...(p.hw||{}),...HW_SPECS[p.name]}});
 
 D.forEach(p=>{if(HW_SPECS[p.name])p.hw=HW_SPECS[p.name]});
@@ -889,7 +951,7 @@ function checkBase(){
  else add("warn","Socket CPU / placă de bază","Date insuficiente pentru confirmare.");
  if(c&&m){
   const ch=hw(c),mh=hw(m);
-  if(ch.memoryType&&mh.memoryType)add(ch.memoryType===mh.memoryType?"ok":"bad","Tip memorie suportat de platformă",ch.memoryType===mh.memoryType?ch.memoryType+" corespunde.":"CPU "+ch.memoryType+" / placă "+mh.memoryType+".");
+  if(ch.memoryType&&mh.memoryType){const types=String(ch.memoryType).split(/[\\/ ,]+/).filter(Boolean);add(types.includes(mh.memoryType)?"ok":"bad","Tip memorie suportat de platformă",types.includes(mh.memoryType)?("CPU acceptă "+types.join(" / ")+"; placa folosește "+mh.memoryType+"."):"CPU "+types.join(" / ")+" / placă "+mh.memoryType+".");}
   else add("warn","Tip memorie","Nu există specificații complete pentru ambele modele.");
   if(mh.cpuSupportUrl){
    const cpuBios=mh.cpuBiosSupport?.[c.name];const bios=cpuBios?.minimum??mh.biosMinimumForSelectedCpu;
@@ -904,7 +966,7 @@ function checkBase(){
   else add("warn","Capacitate RAM","Capacitatea kitului sau limita plăcii nu este verificată.");
   if(rh.moduleCount&&mh.dimmSlots)add(rh.moduleCount<=mh.dimmSlots?"ok":"bad","Număr module RAM",rh.moduleCount+" module / "+mh.dimmSlots+" sloturi DIMM.");
   else add("warn","Număr module RAM","Numărul modulelor sau sloturilor DIMM nu este cunoscut.");
-  const speed=rh.speedMTs,boardMax=mh.memoryOcMaxMTs,cpuMax=cpuHw.memorySpeedMTs;
+  const speed=rh.speedMTs,boardMax=mh.memoryOcMaxMTs,cpuMax=cpuHw.memorySpeedByType?.[gen]??cpuHw.memorySpeedMTs;
   if(speed&&boardMax)add(speed<=boardMax?"ok":"warn","Frecvență RAM / placă",speed+" MT/s; limita OC publicată a plăcii este "+boardMax+" MT/s. Frecvența efectivă depinde de CPU, BIOS și configurația DIMM.");
   else add("warn","Frecvență RAM / placă","Nu este disponibilă limita de memorie a plăcii pentru a valida frecvența kitului.");
   if(speed&&cpuMax)add(speed<=cpuMax?"ok":"warn","Frecvență RAM / controler CPU",speed+" MT/s kit; viteza oficială de memorie a CPU este "+cpuMax+" MT/s. Profilul XMP/EXPO peste specificația CPU este overclocking și nu este garantat.");
@@ -947,12 +1009,12 @@ function checkBase(){
   else add("warn","Spațiu RAM / cooler","Nu există o cotă numerică verificată pentru înălțimea RAM sub ventilatorul coolerului. Verifică poziția ventilatorului și fișa fizică a kitului.");
  }
  if(c&&g&&p){
-  const ch=hw(c),gh=hw(g),ph=hw(p),cpuW=ch.tdpW??mm(c.spec),gpuW=gh.boardPowerW;
+  const ch=hw(c),gh=hw(g),ph=hw(p),cpuW=ch.maxTurboPowerW??ch.tdpW??mm(c.spec),gpuW=gh.boardPowerW;
   const psuW=ph.wattageW??mm(p.spec);
   const recommended=Number(gh.systemPsuRecommendedW||0);
   if(cpuW!==null&&psuW!==null&&(gpuW!==null&&gpuW!==undefined||recommended>0)){
    const estimate=(gpuW!==null&&gpuW!==undefined)?Math.ceil((cpuW+gpuW+100)*1.35/50)*50:0;
-   const required=Math.max(estimate,recommended);add(psuW>=required?"ok":"warn","Putere sursă estimată",(gpuW!==null&&gpuW!==undefined?("CPU "+cpuW+" W + GPU "+gpuW+" W; estimare cu rezervă "+estimate+" W. "):"Consum exact GPU neconfirmat. ")+"Recomandarea producătorului GPU "+(recommended||"necunoscută")+" W; reper folosit "+required+" W; sursă "+psuW+" W. Verificare orientativă, nu certifică răspunsul la tranzienți sau calitatea sursei.");
+   const required=Math.max(estimate,recommended);add(psuW>=required?"ok":"warn","Putere sursă estimată",(gpuW!==null&&gpuW!==undefined?("CPU (putere turbo maximă dacă este publicată) "+cpuW+" W + GPU "+gpuW+" W"+(gh.referenceOnly?" (valoare de referință GPU, nu SKU AIB exact)":"")+"; estimare cu rezervă "+estimate+" W. "):"Consum exact GPU neconfirmat. ")+"Recomandarea producătorului GPU "+(recommended||"necunoscută")+" W; reper folosit "+required+" W; sursă "+psuW+" W. Verificare orientativă, nu certifică răspunsul la tranzienți sau calitatea sursei.");
   }else add("warn","Putere sursă","Lipsește consumul GPU și/sau recomandarea producătorului, ori puterea verificată a sursei.");
   if(m){
    const mh=hw(m),con=ph.connectors;
@@ -1149,14 +1211,14 @@ function check(){
  }
  // Per-model specification completeness. Missing values remain explicit warnings, never inferred from product family names.
  const requiredFields={
- CPU:["socket","memoryType","tdpW","memorySpeedMTs","manufacturerSource"],
+ CPU:["socket","memoryType","tdpW","source"],
  MB:["socket","memoryType","formFactor","dimmSlots","memoryMaxGB","m2Slots","pcieSlots","fanHeaders","cpuSupportUrl","source"],
- RAM:["memoryType","capacityGB","moduleCount","speedMTs","heightMm","sku","source"],
- GPU:["lengthMm","thicknessSlots","boardPowerW","powerConnectors","variantExact","source"],
- SSD:["formFactor","interface","m2Key","source"],
- PSU:["wattageW","connectors","lengthMm","source"],
+ RAM:["memoryType","capacityGB","speedMTs","source"],
+ GPU:["boardPowerW","source"],
+ SSD:["formFactor","interface","source"],
+ PSU:["wattageW","connectors","source"],
  CASE:["formFactors","gpuMaxLengthMm","cpuCoolerMaxHeightMm","psuMaxLengthMm","radiatorSupport","fanSupport","source"],
- COOL:["sockets","source"],
+ COOL:["sockets","heightMm","source"],
  FAN:["fanSizeMm","fanConnector","source"]
  };
  Object.entries(a).forEach(([category,part])=>{
