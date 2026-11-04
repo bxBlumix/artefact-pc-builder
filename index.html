@@ -925,7 +925,7 @@ function check(){
 
  // Detailed platform topology: M.2, PCIe, radiator envelope, case fans and electrical headers.
  const numVal=v=>v!==null&&v!==undefined&&v!==""&&Number.isFinite(Number(v))?Number(v):null;
- const genOf=v=>{const z=String(v||"").match(/(?:Gen(?:eration)?\\s*|PCIe\\s*)([345])(?:\\.0)?/i);return z?Number(z[1]):null};
+ const genOf=v=>{const z=String(v||"").match(/(?:Gen(?:eration)?\s*|PCIe\s*)([345])(?:\.0)?/i);return z?Number(z[1]):null};
  const m2=hw(a.SSD),board=hw(m),caseHw=hw(cs),gpuHw=hw(g),coolHw=hw(cl),fanHw=hw(fan);
  if(a.SSD&&m){
   const exact=Array.isArray(board.m2Exact)&&board.m2Exact.length?board.m2Exact:null;
