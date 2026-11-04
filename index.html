@@ -1015,7 +1015,7 @@ function check(){
  // Additional case-fan / board-header check; never assumes a case's included fans from mounting positions.
  if(fan&&m){
   const fh=hw(fan),mh=hw(m),headers=mh.fanHeaders||{};
-  const count=num(fh.count??fh.fan?.count??fan.spec);
+  const count=num(fh.fanCount??fh.count)??1;
   const systemHeaders=num(headers.system);
   if(count!==null&&systemHeaders!==null)
    add(count<=systemHeaders?"ok":"warn","Headere ventilatoare carcasă",count+" ventilator(e) selectate / "+systemHeaders+" header(e) SYS_FAN. Dacă numărul depășește headerele, verifică necesitatea unui hub alimentat.");
