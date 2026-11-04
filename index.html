@@ -686,15 +686,15 @@ function productCompatibility(x){
  const previous=build[x.cat];build[x.cat]=D[x.i];
  let results=[];try{results=check()}finally{if(previous)build[x.cat]=previous;else delete build[x.cat]}
  const rules={
- CPU:["Platformă","Socket","Tip memorie","BIOS","Frecvență RAM / controler CPU","Cooler / CPU","Putere sursă"],
+ CPU:["Platformă","Socket","Tip memorie","BIOS","Frecvență RAM / controler CPU","Cooler / CPU","Putere sursă","Suport CPU pe lista oficială","Nivel de încredere"],
  MB:["Platformă","Socket","Tip memorie","BIOS","Format placă de bază / carcasă","Conector alimentare CPU","QVL RAM","SSD","Memorie RAM"],
  RAM:["Generație RAM","Capacitate RAM","Număr module RAM","Frecvență RAM","QVL RAM","Profil RAM","Spațiu RAM / cooler"],
- GPU:["Lungime placă video","Grosime GPU","Putere sursă","Conectori alimentare GPU"],
- PSU:["Putere sursă","Conector alimentare CPU","Conectori alimentare GPU","Lungime sursă"],
- COOL:["Prindere cooler","Înălțime cooler","Radiator AIO","Spațiu RAM / cooler","Cooler / CPU"],
- CASE:["Format placă de bază / carcasă","Lungime placă video","Grosime GPU","Înălțime cooler","Radiator AIO","Lungime sursă"],
+ GPU:["Lungime placă video","Grosime GPU","Putere sursă","Conectori alimentare GPU","Verificare mecanică GPU"],
+ PSU:["Putere sursă","Conector alimentare CPU","Conectori alimentare GPU","Lungime sursă","Trasee cabluri PCIe"],
+ COOL:["Prindere cooler","Înălțime cooler","Radiator AIO","Spațiu RAM / cooler","Cooler / CPU","Headere CPU_FAN","Alimentare pompă AIO"],
+ CASE:["Format placă de bază / carcasă","Lungime placă video","Grosime GPU","Înălțime cooler","Radiator AIO","Lungime sursă","Verificare mecanică GPU"],
  SSD:["SSD SATA","SSD M.2 / slot","SSD / sloturi","Identificare SSD"],
- FAN:["Ventilator"]
+ FAN:["Ventilator","Headere ventilatoare","Ventilatoare — conexiuni"]
  };
  const matches=results.filter(r=>{const title=(r[1].split("</b>")[0].split("<b>").pop()||"");return (rules[x.cat]||[]).some(k=>title.toLowerCase().includes(k.toLowerCase()))});
  const bad=matches.filter(r=>r[0]==="bad").length,warn=matches.filter(r=>r[0]==="warn").length;
@@ -721,7 +721,7 @@ function drawBuild(){
  $("compatCounts").innerHTML='<div class="compat-count good"><b>'+counts.ok+'</b><span>Potrivite</span></div><div class="compat-count fail"><b>'+counts.bad+'</b><span>Incompatibile</span></div><div class="compat-count pending"><b>'+counts.warn+'</b><span>De verificat</span></div>';
  $("checks").innerHTML=""
 }
-function check(){
+function checkBase(){
  const a=build,r=[],c=a.CPU,m=a.MB,ram=a.RAM,g=a.GPU,p=a.PSU,cs=a.CASE,cl=a.COOL,ssd=a.SSD;
  const add=(level,title,detail)=>r.push([level,"<b>"+title+"</b><br>"+detail]);
  const hw=x=>x&&x.hw||{};
@@ -737,7 +737,7 @@ function check(){
   else add("warn","Tip memorie","Nu există specificații complete pentru ambele modele.");
   if(mh.cpuSupportUrl){
    const cpuBios=mh.cpuBiosSupport?.[c.name];const bios=cpuBios?.minimum??mh.biosMinimumForSelectedCpu;
-   add(bios?"ok":"warn","BIOS / suport CPU",bios?"Pentru "+c.name+" este necesar BIOS "+bios+" sau o versiune ulterioară. Compară cu versiunea instalată; nu presupune că placa are deja BIOS-ul necesar.":"Placa declară suport pentru familia procesorului, dar versiunea BIOS minimă pentru "+c.name+" nu este încă verificată. "+(mh.biosLatest?"Ultima versiune listată: "+mh.biosLatest.version+" ("+mh.biosLatest.date+"). ":"")+"Consultă lista CPU Support oficială.");
+   add("warn","BIOS / suport CPU",bios?"BIOS minim documentat pentru "+c.name+": "+bios+". Compatibilitatea firmware-ului este plauzibilă, dar trebuie comparată cu versiunea instalată pe placa efectivă; catalogul nu poate confirma BIOS-ul instalat.":"Placa declară suport pentru familia procesorului, dar versiunea BIOS minimă pentru "+c.name+" nu este încă verificată. "+(mh.biosLatest?"Ultima versiune listată: "+mh.biosLatest.version+" ("+mh.biosLatest.date+"). ":"")+"Consultă lista CPU Support oficială.");
   }else add("warn","BIOS / suport CPU","Versiunea minimă BIOS pentru combinația exactă nu este în baza de date.");
  }
  if(ram&&m){
@@ -835,6 +835,76 @@ function check(){
  const known=Object.values(a).filter(x=>x&&x.hw).length;
  add("warn","Acoperire date exacte",known+" componente selectate au fișe tehnice structurate. Pentru celelalte, aplicația marchează datele ca neverificate; nu deduce dimensiuni din numele cipului.");
  return r
+}
+
+
+/* ARTEFACT ADVANCED COMPATIBILITY ENGINE v39 */
+function check(){
+ const results=checkBase();
+ const a=build,c=a.CPU,m=a.MB,ram=a.RAM,g=a.GPU,p=a.PSU,cs=a.CASE,cl=a.COOL,fan=a.FAN;
+ const hw=x=>x&&x.hw||{};
+ const add=(level,title,detail)=>results.push([level,"<b>"+title+"</b><br>"+detail]);
+ const num=v=>v!==null&&v!==undefined&&v!==""&&Number.isFinite(Number(v))?Number(v):null;
+ // CPU exact-model support: distinguish socket fit from confirmed board CPU-list support.
+ if(c&&m){
+  const mh=hw(m),cpuEntry=mh.cpuBiosSupport?.[c.name];
+  if(mh.cpuSupportUrl){
+   if(cpuEntry?.minimum)add("warn","Suport CPU pe lista oficială","Există o intrare de suport pentru modelul exact "+c.name+"; BIOS minim "+cpuEntry.minimum+". Confirmă SKU-ul/revizia plăcii și versiunea BIOS instalată. Socketul comun nu este suficient pentru confirmarea suportului.");
+   else add("warn","Suport CPU pe lista oficială","Nu există o înregistrare locală pentru modelul exact "+c.name+". Verifică lista producătorului pentru CPU exact, chipset și revizia plăcii.");
+  }
+ }
+ // Physical GPU fit: only compare dimensions when both exact SKU and case limits are recorded.
+ if(g&&cs){
+  const gh=hw(g),sh=hw(cs);
+  if(gh.variantExact){
+   if(num(gh.lengthMm)!==null&&num(sh.gpuMaxLengthMm)!==null)
+    add(gh.lengthMm<=sh.gpuMaxLengthMm?"ok":"bad","Verificare mecanică GPU — lungime","SKU "+(gh.sku||g.name)+": "+gh.lengthMm+" mm; carcasă: "+sh.gpuMaxLengthMm+" mm. Rezerva pentru radiator/ventilatoare frontale nu este inclusă dacă producătorul carcasei nu o publică separat.");
+   if(num(gh.heightMm)!==null&&num(sh.gpuMaxHeightMm)!==null)
+    add(gh.heightMm<=sh.gpuMaxHeightMm?"ok":"bad","Verificare mecanică GPU — înălțime","GPU "+gh.heightMm+" mm; limită carcasă "+sh.gpuMaxHeightMm+" mm.");
+   if(num(gh.thicknessSlots)!==null&&num(sh.expansionSlots)!==null)
+    add(gh.thicknessSlots<=sh.expansionSlots?"ok":"bad","Verificare mecanică GPU — sloturi","GPU "+gh.thicknessSlots+" sloturi; carcasă "+sh.expansionSlots+" sloturi disponibile.");
+   else add("warn","Grosime și spațiu GPU","Grosimea exactă în sloturi sau numărul sloturilor libere nu este cunoscut. Nu se deduce grosimea din dimensiunea cipului.");
+  }
+ }
+ // CPU cooler and motherboard fan/pump header allocation.
+ if(cl&&m){
+  const ch=hw(cl),mh=hw(m),headers=mh.fanHeaders||{};
+  const fanCount=num(ch.fan?.count);
+  const cpuHeaders=num(headers.cpu),pumpHeaders=num(headers.pump);
+  if(fanCount!==null&&cpuHeaders!==null)
+   add(fanCount<=cpuHeaders?"ok":"warn","Headere CPU_FAN necesare","Coolerul are "+fanCount+" ventilator(e), placa declară "+cpuHeaders+" header(e) CPU_FAN. Dacă sunt mai multe ventilatoare decât headere, poate fi necesar un splitter sau hub compatibil.");
+  else add("warn","Headere CPU_FAN","Numărul ventilatoarelor coolerului sau al headerelor CPU_FAN nu este documentat.");
+  if(ch.pumpConnector){
+   if(pumpHeaders!==null)add(pumpHeaders>0?"ok":"warn","Alimentare pompă AIO","Coolerul declară conexiune pompă "+ch.pumpConnector+"; placa declară "+pumpHeaders+" header(e) PUMP. Verifică și curentul maxim admis de header în manual.");
+   else add("warn","Alimentare pompă AIO","Tipul conexiunii pompei este cunoscut, dar headerul PUMP și limita sa de curent nu sunt documentate.");
+  }
+ }
+ // Additional case-fan / board-header check; never assumes a case's included fans from mounting positions.
+ if(fan&&m){
+  const fh=hw(fan),mh=hw(m),headers=mh.fanHeaders||{};
+  const count=num(fh.count??fh.fan?.count??fan.spec);
+  const systemHeaders=num(headers.system);
+  if(count!==null&&systemHeaders!==null)
+   add(count<=systemHeaders?"ok":"warn","Headere ventilatoare carcasă",count+" ventilator(e) selectate / "+systemHeaders+" header(e) SYS_FAN. Dacă numărul depășește headerele, verifică necesitatea unui hub alimentat.");
+  else add("warn","Ventilatoare — conexiuni și headere","Ventilatorul selectat sau placa nu are date complete despre numărul de ventilatoare, conector (3-pin/4-pin PWM) și curentul maxim. Compatibilitatea mecanică nu confirmă compatibilitatea electrică.");
+ }else if(fan&&!m)add("warn","Ventilatoare — headere","Selectează placa de bază pentru verificarea headerelor ventilatoarelor.");
+ // Exact PSU cable topology: aggregate connector counts do not prove independent cable runs.
+ if(g&&p){
+  const gh=hw(g),ph=hw(p),cables=Array.isArray(ph.cables)?ph.cables:[];
+  if(gh.requiredPcie8pin>=2&&cables.length){
+   const pcieRuns=cables.filter(x=>/PCIe/i.test(x.type||""));
+   const branches=pcieRuns.reduce((n,x)=>n+Number(x.connectors||x.connectorsPerCable||0),0);
+   if(branches>=gh.requiredPcie8pin)
+    add("warn","Trasee cabluri PCIe","Sursa listează "+branches+" mufe PCIe pe "+pcieRuns.length+" cablu/cabluri. Verifică manualul GPU/PSU dacă sunt recomandate cabluri separate; două mufe pe același cablu daisy-chain nu sunt echivalente cu două trasee independente.");
+   else add("warn","Trasee cabluri PCIe","Numărul de ramuri PCIe descrise în fișa cablurilor nu acoperă clar cerința GPU. Confirmă cablurile incluse pentru SKU-ul exact.");
+  }
+ }
+ // Confidence summary, based on explicit model-level fields rather than simply the presence of an hw object.
+ const selected=Object.entries(a).filter(([,v])=>v);
+ const exact=selected.filter(([k,v])=>{const h=hw(v);return !!(h.sku||h.variantExact)&&!!(h.source||h.manufacturerSource)});
+ const missing=selected.filter(([k,v])=>!hw(v).source&&!hw(v).manufacturerSource).map(([k])=>names[k]||k);
+ if(selected.length)add("warn","Nivel de încredere al configurației",exact.length+" din "+selected.length+" componente au identificator SKU/variantă și sursă tehnică înregistrată. "+(missing.length?"Fără sursă tehnică asociată: "+missing.join(", ")+". ":"")+"O verificare verde confirmă doar regulile pentru care există date; nu certifică stabilitatea, calitatea sau funcționarea efectivă.");
+ return results;
 }
 
 function showDetails(i){
