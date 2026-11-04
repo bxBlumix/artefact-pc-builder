@@ -712,12 +712,12 @@ function productCompatibility(x){
  CPU:["Platformă","Socket","Tip memorie","BIOS","Frecvență RAM / controler CPU","Cooler / CPU","Putere sursă","Suport CPU pe lista oficială","Nivel de încredere"],
  MB:["Platformă","Socket","Tip memorie","BIOS","Format placă de bază / carcasă","Conector alimentare CPU","QVL RAM","SSD","Memorie RAM"],
  RAM:["Generație RAM","Capacitate RAM","Număr module RAM","Frecvență RAM","QVL RAM","Profil RAM","Spațiu RAM / cooler"],
- GPU:["Lungime placă video","Grosime GPU","Putere sursă","Conectori alimentare GPU","Verificare mecanică GPU"],
+ GPU:["Lungime placă video","Grosime GPU","Putere sursă","Conectori alimentare GPU","Verificare mecanică GPU","PCIe — slotul plăcii video"],
  PSU:["Putere sursă","Conector alimentare CPU","Conectori alimentare GPU","Lungime sursă","Trasee cabluri PCIe"],
- COOL:["Prindere cooler","Înălțime cooler","Radiator AIO","Spațiu RAM / cooler","Cooler / CPU","Headere CPU_FAN","Alimentare pompă AIO"],
- CASE:["Format placă de bază / carcasă","Lungime placă video","Grosime GPU","Înălțime cooler","Radiator AIO","Lungime sursă","Verificare mecanică GPU"],
- SSD:["SSD SATA","SSD M.2 / slot","SSD / sloturi","Identificare SSD"],
- FAN:["Ventilator","Headere ventilatoare","Ventilatoare — conexiuni"]
+ COOL:["Prindere cooler","Înălțime cooler","Radiator AIO","Spațiu RAM / cooler","Cooler / CPU","Headere CPU_FAN","Alimentare pompă AIO","Radiator — poziție de montaj","Radiator — grosime totală"],
+ CASE:["Format placă de bază / carcasă","Lungime placă video","Grosime GPU","Înălțime cooler","Radiator AIO","Lungime sursă","Verificare mecanică GPU","Radiator — poziție de montaj","Ventilator — dimensiune și prinderi"],
+ SSD:["SSD SATA","SSD M.2 / slot","SSD / sloturi","Identificare SSD","M.2 — compatibilitate detaliată"],
+ FAN:["Ventilator","Headere ventilatoare","Ventilatoare — conexiuni","Ventilator — dimensiune și prinderi","Ventilator — headere SYS_FAN","Ventilator — control PWM/DC","Iluminare RGB / ARGB"]
  };
  const matches=results.filter(r=>{const title=(r[1].split("</b>")[0].split("<b>").pop()||"");return (rules[x.cat]||[]).some(k=>title.toLowerCase().includes(k.toLowerCase()))});
  const bad=matches.filter(r=>r[0]==="bad").length,warn=matches.filter(r=>r[0]==="warn").length;
@@ -922,6 +922,113 @@ function check(){
    else add("warn","Trasee cabluri PCIe","Numărul de ramuri PCIe descrise în fișa cablurilor nu acoperă clar cerința GPU. Confirmă cablurile incluse pentru SKU-ul exact.");
   }
  }
+
+ // Detailed platform topology: M.2, PCIe, radiator envelope, case fans and electrical headers.
+ const numVal=v=>v!==null&&v!==undefined&&v!==""&&Number.isFinite(Number(v))?Number(v):null;
+ const genOf=v=>{const z=String(v||"").match(/(?:Gen(?:eration)?\\s*|PCIe\\s*)([345])(?:\\.0)?/i);return z?Number(z[1]):null};
+ const m2=hw(a.SSD),board=hw(m),caseHw=hw(cs),gpuHw=hw(g),coolHw=hw(cl),fanHw=hw(fan);
+ if(a.SSD&&m){
+  const exact=Array.isArray(board.m2Exact)&&board.m2Exact.length?board.m2Exact:null;
+  const slots=exact||board.m2Slots||[];
+  if(slots.length&&m2.formFactor&&m2.interface){
+   const candidates=slots.filter(slot=>(slot.sizes||[]).includes(m2.formFactor));
+   const sata=/SATA/i.test(m2.interface),nvme=/NVMe|PCIe/i.test(m2.interface);
+   const compatible=candidates.filter(slot=>{
+    const modes=slot.modes||[slot.interface||""];
+    return modes.some(mode=>sata?/SATA/i.test(mode):nvme?/PCIe/i.test(mode):false);
+   });
+   if(!compatible.length){
+    add("bad","M.2 — format, cheie și protocol","SSD "+m2.formFactor+" ("+m2.interface+") nu are un slot documentat cu aceeași dimensiune și protocol pe "+m.name+".");
+   }else{
+    const slot=compatible[0],modeText=(slot.modes||[slot.interface||"interfață necunoscută"]).join(" / ");
+    const ssdGen=genOf(m2.interface),slotGen=genOf(modeText);
+    const ssdLanes=(String(m2.interface).match(/x([1248])/i)||[])[1],slotLanes=(String(modeText).match(/x([1248])/i)||[])[1];
+    let detail="Slot "+(slot.slot||"M.2")+" acceptă "+m2.formFactor+" și "+modeText+".";
+    let level="ok";
+    if(ssdGen&&slotGen&&ssdGen>slotGen){level="warn";detail+=" SSD-ul Gen"+ssdGen+" va negocia cel mult generația slotului Gen"+slotGen+".";}
+    if(ssdLanes&&slotLanes&&Number(ssdLanes)>Number(slotLanes)){level="warn";detail+=" SSD x"+ssdLanes+" va funcționa cu maximum x"+slotLanes+" lane-uri.";}
+    if(slot.sharesWith||slot.disables||slot.note){level="warn";detail+=" Partajare/dezactivare posibilă: "+(slot.sharesWith||slot.disables||slot.note)+". Consultă tabelul de partajare din manual.";}
+    else {level=level==="ok"?"warn":level;detail+=" Manualul plăcii nu precizează în baza locală toate partajările de lane-uri/porturi SATA; verifică tabelul de sharing.";}
+    add(level,"M.2 — compatibilitate detaliată",detail);
+   }
+  }else add("warn","M.2 — date sloturi","Placa sau SSD-ul nu are date complete despre dimensiune, protocol și sloturile M.2 exacte; compatibilitatea nu poate fi confirmată.");
+ }
+ if(g&&m){
+  const slots=Array.isArray(board.pcieSlots)?board.pcieSlots:[];
+  const x16=slots.filter(slot=>/x16/i.test(String(slot.size||"")));
+  if(x16.length){
+   const gpuGen=genOf(gpuHw.pcie||gpuHw.interface||"");
+   const cpuGen=genOf(hw(c).pcie||"");
+   const slot=x16[0],boardGen=genOf(slot.generation||"");
+   let level="ok",detail="Placa declară slot "+(slot.slot||"PCIe x16")+" ("+(slot.generation||"generație neprecizată")+").";
+   if(gpuGen&&boardGen&&gpuGen>boardGen){level="warn";detail+=" GPU Gen"+gpuGen+" va funcționa la maximum Gen"+boardGen+" pe slotul documentat.";}
+   if(cpuGen&&boardGen&&cpuGen<boardGen){level="warn";detail+=" Procesorul limitează conexiunea la Gen"+cpuGen+".";}
+   if(!gpuGen||!boardGen){level="warn";detail+=" Generația PCIe pentru GPU sau slot nu este complet documentată.";}
+   add(level,"PCIe — slotul plăcii video",detail);
+   if(slot.lanes&&Number(slot.lanes)<16)add("warn","PCIe — lățime conexiune","Slotul fizic x16 este conectat electric la x"+slot.lanes+"; performanța poate diferi de x16.");
+   if(slot.sharesWith||slot.disables)add("warn","PCIe — partajare lane-uri","Slotul "+(slot.slot||"x16")+" partajează resurse cu "+(slot.sharesWith||slot.disables)+". Verifică manualul pentru efectul asupra sloturilor M.2/SATA.");
+   else add("warn","PCIe — partajare lane-uri","Baza de date nu conține diagrama completă de lane-sharing pentru placa selectată. Verifică manualul producătorului.");
+  }else add("warn","PCIe — slot GPU","Nu există o listă documentată a sloturilor PCIe pentru modelul exact al plăcii de bază.");
+ }
+ if(cl&&cs&&coolHw.radiatorMm){
+  const support=caseHw.radiatorSupport;
+  if(support&&typeof support==="object"){
+   const positions=Object.entries(support).filter(([,sizes])=>Array.isArray(sizes)&&sizes.includes(Number(coolHw.radiatorMm))).map(([position])=>position);
+   if(positions.length){
+    let detail="Radiator "+coolHw.radiatorMm+" mm acceptat în poziția/pozițiile: "+positions.join(", ")+".";
+    const env=coolHw.radiatorEnvelope||coolHw.radiator||{};
+    const thickness=numVal(env.overallThicknessMm??env.thicknessWithFansMm);
+    const limits=caseHw.radiatorMaxThicknessMm||{};
+    const constrained=positions.filter(pos=>numVal(limits[pos])!==null);
+    if(thickness!==null&&constrained.length){
+     const badPos=constrained.filter(pos=>thickness>Number(limits[pos]));
+     if(badPos.length)add("bad","Radiator — grosime totală",thickness+" mm cu ventilatoare depășește limita carcasei în poziția "+badPos.join(", ")+".");
+     else add("ok","Radiator — grosime totală",thickness+" mm cu ventilatoare se încadrează în limita documentată.");
+    }else add("warn","Radiator — grosime și spațiu","Dimensiunea radiatorului este acceptată, dar spațiul combinat radiator + ventilatoare și interferențele cu RAM/VRM nu sunt documentate numeric.");
+    add("ok","Radiator — poziție de montaj",detail);
+   }else add("bad","Radiator — poziție de montaj","Carcasa nu declară o poziție compatibilă pentru radiatorul de "+coolHw.radiatorMm+" mm.");
+  }else add("warn","Radiator — poziție de montaj","Nu există tabel de suport radiatoare pentru modelul exact al carcasei.");
+ }
+ if(fan&&cs){
+  const size=numVal(fanHw.fanSizeMm??fan.spec),mounts=caseHw.fanSupport;
+  if(size!==null&&mounts&&typeof mounts==="object"){
+   const fits=Object.entries(mounts).filter(([,items])=>Array.isArray(items)&&items.some(item=>new RegExp("(^|[^0-9])"+size+"([^0-9]|$)").test(String(item))));
+   if(fits.length)add("ok","Ventilator — dimensiune și prinderi",size+" mm este acceptat în poziția/pozițiile "+fits.map(([pos])=>pos).join(", ")+" ale carcasei.");
+   else add("bad","Ventilator — dimensiune și prinderi","Nu a fost găsită o poziție documentată pentru ventilatorul de "+size+" mm în carcasa selectată.");
+  }else add("warn","Ventilator — dimensiune și prinderi","Dimensiunea ventilatorului sau pozițiile acceptate de carcasă nu sunt documentate suficient.");
+  const headers=board.fanHeaders||{},sys=numVal(headers.system),fanCount=numVal(fanHw.fanCount??fanHw.count)??1;
+  if(m&&sys!==null)add(fanCount<=sys?"ok":"warn","Ventilator — headere SYS_FAN",fanCount+" ventilator(e) selectat(e) / "+sys+" header(e) SYS_FAN. Dacă sunt necesare splittere/hub-uri, respectă limita de curent din manual.");
+  else add("warn","Ventilator — headere SYS_FAN","Numărul headerelor SYS_FAN ale plăcii nu este documentat; verifică numărul și curentul maxim admis.");
+  if(fanHw.fanConnector){
+   const connector=String(fanHw.fanConnector);
+   add("warn","Ventilator — control PWM/DC","Ventilatorul declară "+connector+". Tipul headerului și modul PWM/DC al plăcii nu sunt confirmate pentru acest model; verifică manualul înainte de conectare.");
+  }else add("warn","Ventilator — conector electric","Tipul conectorului ventilatorului (3-pin DC sau 4-pin PWM) nu este înregistrat.");
+  if(fanHw.lightingConnector){
+   const light=String(fanHw.lightingConnector),is5=/5.?V|3.?pin|ARGB/i.test(light),is12=/12.?V|4.?pin|RGB/i.test(light);
+   const boardLight=is5?board.argbHeaders:board.rgbHeaders;
+   if(boardLight!==undefined)add(Number(boardLight)>0?"ok":"bad","Iluminare RGB / ARGB",light+"; headere compatibile documentate: "+boardLight+". Nu conecta ARGB 5V la RGB 12V.");
+   else add("warn","Iluminare RGB / ARGB",light+"; placa nu are înregistrat numărul headerelor corespunzătoare. Verifică tensiunea și pinout-ul; 5V ARGB și 12V RGB nu sunt interschimbabile.");
+  }
+ }
+ // Per-model specification completeness. Missing values remain explicit warnings, never inferred from product family names.
+ const requiredFields={
+ CPU:["socket","memoryType","tdpW","memorySpeedMTs","manufacturerSource"],
+ MB:["socket","memoryType","formFactor","dimmSlots","memoryMaxGB","m2Slots","pcieSlots","fanHeaders","cpuSupportUrl","source"],
+ RAM:["memoryType","capacityGB","moduleCount","speedMTs","heightMm","sku","source"],
+ GPU:["lengthMm","thicknessSlots","boardPowerW","powerConnectors","variantExact","source"],
+ SSD:["formFactor","interface","m2Key","source"],
+ PSU:["wattageW","connectors","lengthMm","source"],
+ CASE:["formFactors","gpuMaxLengthMm","cpuCoolerMaxHeightMm","psuMaxLengthMm","radiatorSupport","fanSupport","source"],
+ COOL:["sockets","source"],
+ FAN:["fanSizeMm","fanConnector","source"]
+ };
+ Object.entries(a).forEach(([category,part])=>{
+  if(!part)return;
+  const h=hw(part),fields=requiredFields[category]||[],missing=fields.filter(key=>h[key]===undefined||h[key]===null||h[key]===""||(Array.isArray(h[key])&&!h[key].length));
+  const known=fields.length-missing.length;
+  add(missing.length?"warn":"ok","Fișă tehnică — "+names[category],known+"/"+fields.length+" câmpuri de verificare prezente."+(missing.length?" Lipsesc: "+missing.join(", ")+".":" Toate câmpurile minime ale categoriei sunt înregistrate."));
+ });
+
  // Confidence summary, based on explicit model-level fields rather than simply the presence of an hw object.
  const selected=Object.entries(a).filter(([,v])=>v);
  const exact=selected.filter(([k,v])=>{const h=hw(v);return !!(h.sku||h.variantExact)&&!!(h.source||h.manufacturerSource)});
